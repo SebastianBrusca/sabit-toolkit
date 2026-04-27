@@ -39,7 +39,7 @@ function Menu-Principal {
             Menu-Principal
         }
         '2' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/navegador.ps1"
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/naveg_predeterminado.ps1"
             try {
                 Invoke-Expression (Invoke-RestMethod $url)
             } catch {
