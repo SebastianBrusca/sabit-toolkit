@@ -28,7 +28,7 @@ function Menu-Principal {
 
     switch ($key) {
         '1' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/informacion_sistema.ps1"
+            $url = "https://github.com/SebastianBrusca/sabit-toolkit/blob/main/modulos/informacion_sistema.ps1"
             try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
             Menu-Principal
         }
