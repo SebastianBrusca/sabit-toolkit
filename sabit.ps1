@@ -28,7 +28,7 @@ function Menu-Principal {
 
     switch ($key) {
         '1' {
-            # URL RAW correcta
+            # Módulo remoto desde RAW GitHub
             $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/informacion_sistema.ps1"
             try { Invoke-Expression (Invoke-RestMethod $url) } 
             catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
@@ -51,5 +51,5 @@ function Menu-Principal {
     }
 }
 
-# Ejecutar el menú
+# ================= EJECUTAR MENU =================
 Menu-Principal
