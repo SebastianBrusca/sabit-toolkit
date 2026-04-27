@@ -49,7 +49,7 @@ function Menu-Principal {
             Menu-Principal
         }
         '3' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/internet_explorer_viejo.ps1"
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/internet_explorer_viejo.ps1"
             try {
                 Invoke-Expression (Invoke-RestMethod $url)
             } catch {
