@@ -27,16 +27,31 @@ function Menu-Principal {
 
     switch ($key) {
         '1' { 
-            $scriptPath = Join-Path $PSScriptRoot "modulos\informacion_sistema.ps1"
-            if (Test-Path $scriptPath) { . $scriptPath } else { Write-Host "Archivo no encontrado: $scriptPath" -ForegroundColor Red; Pause }
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/informacion_sistema.ps1"
+            try {
+                Invoke-Expression (Invoke-RestMethod $url)
+            } catch {
+                Write-Host "Error al cargar módulo: $url" -ForegroundColor Red
+                Pause
+            }
         }
         '2' {
-            $scriptPath = Join-Path $PSScriptRoot "modulos\naveg_predeterminado.ps1"
-            if (Test-Path $scriptPath) { . $scriptPath } else { Write-Host "Archivo no encontrado: $scriptPath" -ForegroundColor Red; Pause }
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/naveg_predeterminado.ps1"
+            try {
+                Invoke-Expression (Invoke-RestMethod $url)
+            } catch {
+                Write-Host "Error al cargar módulo: $url" -ForegroundColor Red
+                Pause
+            }
         }
         '3' {
-            $scriptPath = Join-Path $PSScriptRoot "modulos\internet_explorer_viejo.ps1"
-            if (Test-Path $scriptPath) { . $scriptPath } else { Write-Host "Archivo no encontrado: $scriptPath" -ForegroundColor Red; Pause }
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/internet_explorer_viejo.ps1"
+            try {
+                Invoke-Expression (Invoke-RestMethod $url)
+            } catch {
+                Write-Host "Error al cargar módulo: $url" -ForegroundColor Red
+                Pause
+            }
         }
         '0' { 
             Stop-Process -Id $PID  # Cierra la terminal completa
