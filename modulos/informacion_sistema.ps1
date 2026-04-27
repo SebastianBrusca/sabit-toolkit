@@ -79,6 +79,5 @@ if ($adapters) {
 # Esperar Enter y volver al menu
 # -----------------------
 Write-Host ""
-Write-Host "Presione Enter para volver al menú..."
-$null = $Host.UI.RawUI.ReadKey("IncludeKeyDown")
-. "$PSScriptRoot\..\sabit.ps1"
+Read-Host "Presione Enter para volver al menú..."
+# NO llamar a Menu-Principal aquí; el menú lo llama desde sabit.ps1
