@@ -1,4 +1,4 @@
-# Módulo: Internet Explorer Viejo
+# ================= INTERNET EXPLORER VIEJO REMOTO =================
 Clear-Host
 Write-Host "=== INTERNET EXPLORER VIEJO ===" -ForegroundColor Cyan
 
@@ -23,14 +23,28 @@ $desktop = [Environment]::GetFolderPath("Desktop")
 # Ruta del acceso directo
 $shortcutPath = Join-Path $desktop "Internet Explorer.lnk"
 
-# Ruta del icono en el pendrive
-$iconPath = Join-Path $PSScriptRoot "..\recursos\ie_icon.ico"
+# Icono remoto en GitHub
+$iconUrl = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/recursos/ie_icon.ico"
+$iconLocal = Join-Path $env:TEMP "ie_icon.ico"
+
+# Descargar icono si no existe
+if (-not (Test-Path $iconLocal)) {
+    try {
+        Invoke-RestMethod -Uri $iconUrl -OutFile $iconLocal
+        Write-Host "Icono descargado a: $iconLocal" -ForegroundColor Green
+    } catch {
+        Write-Host "No se pudo descargar el icono remoto. El acceso directo se creará sin icono." -ForegroundColor Yellow
+        $iconLocal = ""
+    }
+}
 
 # Crear o actualizar acceso directo
 $WshShell = New-Object -ComObject WScript.Shell
 $shortcut = $WshShell.CreateShortcut($shortcutPath)
 $shortcut.TargetPath = $vbsPath
-$shortcut.IconLocation = $iconPath
+if ($iconLocal -ne "") {
+    $shortcut.IconLocation = $iconLocal
+}
 $shortcut.Save()
 Write-Host "Acceso directo creado/actualizado en el escritorio: $shortcutPath" -ForegroundColor Green
 
@@ -53,8 +67,9 @@ foreach ($site in $trustedSites) {
 Start-Process $shortcutPath
 Write-Host "Internet Explorer Viejo se ha ejecutado." -ForegroundColor Green
 
-# Esperar Enter y volver al menu
+# Esperar Enter y volver al menu remoto
 Write-Host ""
-Write-Host "Presione Enter para volver al menu..."
-$null = $Host.UI.RawUI.ReadKey("IncludeKeyDown")
-. "$PSScriptRoot\..\sabit.ps1"
+Read-Host "Presione Enter para volver al menu..."
+# Ejecutar de nuevo el menú principal remoto desde GitHub
+$menuUrl = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/sabit.ps1"
+Invoke-Expression (Invoke-RestMethod $menuUrl)
