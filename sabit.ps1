@@ -28,18 +28,22 @@ function Menu-Principal {
 
     switch ($key) {
         '1' {
-            $url = "https://github.com/SebastianBrusca/sabit-toolkit/blob/main/modulos/informacion_sistema.ps1"
-            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
+            # URL RAW correcta
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/informacion_sistema.ps1"
+            try { Invoke-Expression (Invoke-RestMethod $url) } 
+            catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
             Menu-Principal
         }
         '2' {
             $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/naveg_predeterminado.ps1"
-            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
+            try { Invoke-Expression (Invoke-RestMethod $url) } 
+            catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
             Menu-Principal
         }
         '3' {
             $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/internet_explorer_viejo.ps1"
-            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
+            try { Invoke-Expression (Invoke-RestMethod $url) } 
+            catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
             Menu-Principal
         }
         '0' { Stop-Process -Id $PID }
