@@ -29,7 +29,7 @@ function Menu-Principal {
     switch ($key) {
     '1' {
         # Cambié "informacion_sistema.ps1" por "informacion.ps1" que es como está en tu repo
-        $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/informacion.ps1"
+        $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/informacion_sistema.ps1"
         try { Invoke-Expression (Invoke-RestMethod $url) } 
         catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
         Menu-Principal
