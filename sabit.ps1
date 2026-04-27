@@ -47,5 +47,5 @@ function Menu-Principal {
     }
 }
 
-# ================= EJECUTAR MENU =================
+# Ejecutar el menú
 Menu-Principal
