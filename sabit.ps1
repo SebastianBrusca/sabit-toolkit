@@ -27,22 +27,43 @@ function Menu-Principal {
     $key = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").Character
 
     switch ($key) {
-    '1' {
-        # Cambié "informacion_sistema.ps1" por "informacion.ps1" que es como está en tu repo
-        $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/informacion_sistema.ps1"
-        try { Invoke-Expression (Invoke-RestMethod $url) } 
-        catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
-        Menu-Principal
-    }
-    '2' {
-        # Asegúrate de que este archivo exista en la carpeta modulos de GitHub
-        $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/navegador.ps1"
-        try { Invoke-Expression (Invoke-RestMethod $url) } 
-        catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
-        Menu-Principal
-    }
-        '0' { Stop-Process -Id $PID }
-        default { Menu-Principal }
+        '1' {
+            # Ejecutar módulo remoto directamente desde GitHub RAW
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/informacion_sistema.ps1"
+            try {
+                Invoke-Expression (Invoke-RestMethod $url)
+            } catch {
+                Write-Host "Error al cargar módulo: $url" -ForegroundColor Red
+                Pause
+            }
+            Menu-Principal
+        }
+        '2' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/navegador.ps1"
+            try {
+                Invoke-Expression (Invoke-RestMethod $url)
+            } catch {
+                Write-Host "Error al cargar módulo: $url" -ForegroundColor Red
+                Pause
+            }
+            Menu-Principal
+        }
+        '3' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/internet_explorer_viejo.ps1"
+            try {
+                Invoke-Expression (Invoke-RestMethod $url)
+            } catch {
+                Write-Host "Error al cargar módulo: $url" -ForegroundColor Red
+                Pause
+            }
+            Menu-Principal
+        }
+        '0' {
+            Stop-Process -Id $PID
+        }
+        default {
+            Menu-Principal
+        }
     }
 }
 
