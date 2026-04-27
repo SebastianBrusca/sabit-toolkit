@@ -79,5 +79,9 @@ if ($adapters) {
 # Esperar Enter y volver al menu
 # -----------------------
 Write-Host ""
+Write-Host "SISTEMA OPERATIVO" -ForegroundColor Cyan
+Write-Host "Nombre     : $(Get-CimInstance Win32_OperatingSystem).Caption"
+Write-Host "Arquitectura: $([Environment]::Is64BitOperatingSystem ? '64 bits' : '32 bits')"
+Write-Host "Versión    : $([Environment]::OSVersion.Version)"
+Write-Host ""
 Read-Host "Presione Enter para volver al menú..."
-# NO llamar a Menu-Principal aquí; el menú lo llama desde sabit.ps1
