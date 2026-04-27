@@ -1,6 +1,31 @@
+# ================= CONFIG =================
+$Host.UI.RawUI.WindowTitle = "SABIT Toolkit"
+
+# ================= FUNCIONES =================
+
+function Es-Admin {
+    $currentUser = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
+    return $currentUser.IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
+}
+
 function Pause {
     Write-Host ""
     Read-Host "Presioná ENTER para continuar"
+}
+
+function Banner {
+    Clear-Host
+    Write-Host "=====================================" -ForegroundColor Cyan
+    Write-Host "        SABIT TOOLKIT v1.0" -ForegroundColor Green
+    Write-Host "=====================================" -ForegroundColor Cyan
+
+    if (Es-Admin) {
+        Write-Host "Modo: ADMIN" -ForegroundColor Green
+    } else {
+        Write-Host "Modo: USUARIO (algunas funciones pueden fallar)" -ForegroundColor Yellow
+    }
+
+    Write-Host ""
 }
 
 function Crear-IEViejo {
@@ -8,12 +33,11 @@ function Crear-IEViejo {
 
     if (!(Test-Path $ruta)) {
         'CreateObject("InternetExplorer.Application").Visible=true' | Out-File $ruta -Encoding ASCII
-        Write-Host "Archivo creado en Documentos"
+        Write-Host "Archivo creado" -ForegroundColor Green
     } else {
-        Write-Host "El archivo ya existe"
+        Write-Host "El archivo ya existe" -ForegroundColor Yellow
     }
 
-    # Crear acceso directo
     $desktop = [Environment]::GetFolderPath("Desktop")
     $acceso = "$desktop\Internet Explorer.lnk"
 
@@ -21,17 +45,11 @@ function Crear-IEViejo {
         $ws = New-Object -ComObject WScript.Shell
         $shortcut = $ws.CreateShortcut($acceso)
         $shortcut.TargetPath = $ruta
-
-        # 👉 Cambiá esta ruta según donde tengas el icono en el pendrive
         $shortcut.IconLocation = "D:\icono.ico"
-
         $shortcut.Save()
-        Write-Host "Acceso directo creado en el escritorio"
-    } else {
-        Write-Host "El acceso directo ya existe"
+        Write-Host "Acceso directo creado" -ForegroundColor Green
     }
 
-    # Ejecutar
     Start-Process $ruta
 }
 
@@ -41,54 +59,34 @@ function Abrir-Navegador {
 
 function Agregar-Sitios-Confianza {
     $sites = @(
-        "https://webformsext.afip.gob.ar",
-        "https://www.arca.gob.ar"
+        "webformsext.afip.gob.ar",
+        "arca.gob.ar"
     )
 
     foreach ($site in $sites) {
-        Write-Host "Agregando $site a sitios de confianza..."
-        
-        # Zona 2 = Trusted Sites
-        New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains" -Name ($site -replace "https://","") -Force | Out-Null
+        New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains" -Name $site -Force | Out-Null
+        Write-Host "$site agregado" -ForegroundColor Green
     }
-
-    Write-Host "Sitios agregados (puede requerir ajustes adicionales)"
 }
 
 # ================= MENU =================
 
 while ($true) {
-    Clear-Host
-    Write-Host "==============================="
-    Write-Host "      SABIT TOOLKIT"
-    Write-Host "==============================="
-    Write-Host "1. Internet Explorer Viejo"
-    Write-Host "2. Abrir Navegador"
-    Write-Host "3. Agregar sitios AFIP/ARCA"
-    Write-Host "0. Salir"
+    Banner
+
+    Write-Host "1. Internet Explorer Viejo" -ForegroundColor White
+    Write-Host "2. Abrir Navegador" -ForegroundColor White
+    Write-Host "3. Agregar sitios AFIP/ARCA" -ForegroundColor White
+    Write-Host "0. Salir" -ForegroundColor Red
     Write-Host ""
 
     $op = Read-Host "Elegí una opción"
 
     switch ($op) {
-        "1" {
-            Crear-IEViejo
-            Pause
-        }
-        "2" {
-            Abrir-Navegador
-            Pause
-        }
-        "3" {
-            Agregar-Sitios-Confianza
-            Pause
-        }
-        "0" {
-            break
-        }
-        default {
-            Write-Host "Opción inválida"
-            Pause
-        }
+        "1" { Crear-IEViejo; Pause }
+        "2" { Abrir-Navegador; Pause }
+        "3" { Agregar-Sitios-Confianza; Pause }
+        "0" { break }
+        default { Write-Host "Opción inválida" -ForegroundColor Red; Pause }
     }
 }
