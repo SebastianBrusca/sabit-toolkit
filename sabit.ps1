@@ -29,6 +29,10 @@ function Menu-Principal {
     Write-Host ""
     Write-Host "[6] Reinicio de servicios" -ForegroundColor Yellow
     Write-Host ""
+    Write-Host "[7] Limpieza avanzada de navegadores" -ForegroundColor White
+    Write-Host ""
+    Write-Host "[8] Software instalado" -ForegroundColor Yellow
+    Write-Host ""
     Write-Host "[0] Salir" -ForegroundColor Red
     Write-Host ""
     Write-Host "Selecciona una opcion: " -NoNewline
@@ -89,6 +93,26 @@ function Menu-Principal {
         }
         '6' {
             $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/reinicio_servicios.ps1"
+            try {
+                Invoke-Expression (Invoke-RestMethod $url)
+            } catch {
+                Write-Host "Error al cargar módulo: $url" -ForegroundColor Red
+                Pause
+            }
+            Menu-Principal
+        }
+        '7' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/limpieza_navegadores.ps1"
+            try {
+                Invoke-Expression (Invoke-RestMethod $url)
+            } catch {
+                Write-Host "Error al cargar módulo: $url" -ForegroundColor Red
+                Pause
+            }
+            Menu-Principal
+        }
+        '8' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/software_instalado.ps1"
             try {
                 Invoke-Expression (Invoke-RestMethod $url)
             } catch {
