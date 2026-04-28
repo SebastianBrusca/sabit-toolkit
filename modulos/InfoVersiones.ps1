@@ -29,3 +29,5 @@ function InfoVersiones {
 
     Write-Host "================================" -ForegroundColor Cyan
 }
+# ================= EJECUTAR AUTOMÁTICAMENTE =================
+InfoVersiones
