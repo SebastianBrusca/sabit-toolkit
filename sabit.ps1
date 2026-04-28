@@ -1,15 +1,15 @@
 # ================= BANNER =================
 function Mostrar-Banner {
     Clear-Host
-    Write-Host "===============================================" -ForegroundColor Cyan
+    Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host "	  ____      _      ____     _   _____ " -ForegroundColor Cyan
     Write-Host "	 / ___|    / \    | __ \   | | |_   _|" -ForegroundColor Cyan
     Write-Host "	 \___ \   / _ \   |___ /   | |   | |  " -ForegroundColor Cyan
     Write-Host "	  ___) | / ___ \  | __ \   | |   | |  " -ForegroundColor Cyan
     Write-Host "	 \____/ /_/   \_\ |____/   |_|   |_|  " -ForegroundColor Cyan
     Write-Host ""
-    Write-Host "         SABIT - SOPTEC TECNICO" -ForegroundColor Cyan
-    Write-Host "===============================================" -ForegroundColor Cyan
+    Write-Host "         SABIT - SOPORTE TECNICO" -ForegroundColor Green
+    Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
 }
 
