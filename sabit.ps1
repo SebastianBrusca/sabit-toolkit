@@ -81,6 +81,11 @@ function Menu-Principal {
     Write-Host "   [8] Software instalado" -ForegroundColor Yellow
     Write-Host ""  # línea en blanco
 
+    # Cuarta línea: opciones 7 y 8
+    Write-Host "[9] Version de Windows y Java" -ForegroundColor White -NoNewline
+    Write-Host "   [A] Estado de seguridad" -ForegroundColor Yellow
+    Write-Host ""  # línea en blanco
+
     # Salir
     Write-Host "[0] Salir" -ForegroundColor Red
     Write-Host ""  # línea en blanco
@@ -162,6 +167,28 @@ function Menu-Principal {
         }
         '8' {
             $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/software_instalado.ps1"
+            try {
+                Invoke-Expression (Invoke-RestMethod $url)
+            } catch {
+                Write-Host "Error al cargar módulo: $url" -ForegroundColor Red
+                Pause
+            }
+            Menu-Principal
+        }
+         }
+        '9' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/InfoVersiones.ps1"
+            try {
+                Invoke-Expression (Invoke-RestMethod $url)
+            } catch {
+                Write-Host "Error al cargar módulo: $url" -ForegroundColor Red
+                Pause
+            }
+            Menu-Principal
+        }
+         }
+        'A' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/EstadoSeguridad.ps1"
             try {
                 Invoke-Expression (Invoke-RestMethod $url)
             } catch {
