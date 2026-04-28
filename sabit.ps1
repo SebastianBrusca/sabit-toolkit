@@ -15,8 +15,7 @@ if (-NOT $esAdmin) {
     Write-Host ""
     Write-Host "Selecciona una opción: " -NoNewline
     
-    # CORRECCIÓN: Eliminé la línea duplicada de ReadKey que causaba el doble input
-    $opcion = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").Character
+    $key = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").Character
 
     if ($opcion -eq '1') {
         $urlRepo = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/sabit.ps1"
@@ -88,7 +87,7 @@ function Menu-Principal {
     Write-Host ""
     Write-Host "Selecciona una opcion: " -NoNewline
 
-    $key = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").Character.ToUpper()
+    $key = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").Character
 
     switch ($key) {
         '1' {
