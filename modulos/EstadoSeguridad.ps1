@@ -33,3 +33,5 @@ function EstadoSeguridad {
 
     Write-Host "================================" -ForegroundColor Cyan
 }
+# ================= EJECUTAR AUTOMÁTICAMENTE =================
+EstadoSeguridad
