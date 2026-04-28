@@ -1,3 +1,46 @@
+# =============================================
+# Gestión de permisos de administrador (Compatible con IEX / Web)
+
+$esAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
+
+if (-NOT $esAdmin) {
+    Clear-Host
+    Write-Host "==========================================================" -ForegroundColor Red
+    Write-Host "  ADVERTENCIA: NO SE ESTÁ EJECUTANDO COMO ADMINISTRADOR" -ForegroundColor Red
+    Write-Host "==========================================================" -ForegroundColor Red
+    Write-Host ""
+    Write-Host "[1] Reintentar como Administrador (Nueva ventana)" -ForegroundColor White
+    Write-Host "[2] Continuar con funciones limitadas" -ForegroundColor Yellow
+    Write-Host "[0] Salir" -ForegroundColor Red
+    Write-Host ""
+    Write-Host "Selecciona una opción: " -NoNewline
+    $key = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").Character.ToUpper()
+
+
+    # Captura de tecla instantánea
+    $opcion = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").Character
+
+    if ($opcion -eq '1') {
+        # Como no hay archivo físico, le pedimos a la nueva ventana que haga el irm | iex
+        $urlRepo = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/sabit.ps1"
+        $comando = "iex (irm $urlRepo)"
+        
+        try {
+            Start-Process powershell.exe -ArgumentList "-NoExit", "-Command", $comando -Verb RunAs
+            exit
+        } catch {
+            Write-Host "`nError: No se pudo elevar privilegios o abrir la ventana." -ForegroundColor Orange
+            Start-Sleep -Seconds 2
+        }
+    } 
+    elseif ($opcion -eq '0') {
+        exit
+    }
+    elseif ($opcion -eq '2') {
+        Write-Host " Cargando modo limitado..." -ForegroundColor Gray
+        Start-Sleep -Seconds 1
+    }
+}
 # ================= BANNER =================
 function Mostrar-Banner {
     Clear-Host
