@@ -175,7 +175,6 @@ function Menu-Principal {
             }
             Menu-Principal
         }
-         }
         '9' {
             $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/InfoVersiones.ps1"
             try {
@@ -186,7 +185,6 @@ function Menu-Principal {
             }
             Menu-Principal
         }
-         }
         'A' {
             $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/EstadoSeguridad.ps1"
             try {
