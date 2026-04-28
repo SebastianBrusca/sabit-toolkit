@@ -10,7 +10,10 @@ $vbsPath = Join-Path $docs "Internet Explorer.vbs"
 
 # Crear el archivo VBS solo si no existe
 if (-not (Test-Path $vbsPath)) {
-    $vbsContent = 'CreateObject("InternetExplorer.Application").Visible=true'
+    # Contenido del VBS: abrir IE y navegar a ARCA
+    $vbsContent = 'Set ie = CreateObject("InternetExplorer.Application")' + "`r`n" +
+                  'ie.Visible = True' + "`r`n" +
+                  'ie.Navigate "https://www.arca.gob.ar"'
     Set-Content -Path $vbsPath -Value $vbsContent -Encoding ASCII
     Write-Host "Archivo VBS creado en: $vbsPath" -ForegroundColor Green
 } else {
@@ -65,7 +68,7 @@ foreach ($site in $trustedSites) {
 
 # Ejecutar el acceso directo
 Start-Process $shortcutPath
-Write-Host "Internet Explorer Viejo se ha ejecutado." -ForegroundColor Green
+Write-Host "Internet Explorer Viejo se ha ejecutado y abrió www.arca.gob.ar." -ForegroundColor Green
 
 # Esperar Enter y volver al menu remoto
 Write-Host ""
