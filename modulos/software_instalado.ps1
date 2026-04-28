@@ -39,9 +39,10 @@ try {
 # Opción de exportar a TXT
 # -----------------------
 Write-Host ""
-$export = Read-Host "Desea exportar la lista a un archivo de texto? (S/N)"
+$export = Read-Host "Desea exportar la lista a un archivo de texto en el Escritorio? (S/N)"
 if ($export -match "^[Ss]") {
-    $exportPath = Join-Path $env:TEMP "Software_Instalado.txt"
+    $desktopPath = [Environment]::GetFolderPath("Desktop")
+    $exportPath = Join-Path $desktopPath "Software_Instalado.txt"
     $programs | Out-File -FilePath $exportPath -Encoding UTF8
     Write-Host "Lista exportada a: $exportPath" -ForegroundColor Green
 }
