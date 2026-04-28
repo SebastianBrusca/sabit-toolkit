@@ -22,16 +22,17 @@ function Menu-Principal {
     Write-Host ""
     
     # Segunda línea: opciones 3 y 4
+    Write-Host ""
     Write-Host "[3] Internet Explorer Viejo" -ForegroundColor White -NoNewline
     Write-Host "   [4] Información de red avanzada" -ForegroundColor Yellow
-    Write-Host ""
     
     # Tercera línea: opciones 5 y 6
+    Write-Host ""
     Write-Host "[5] Borrar Archivos Temporales" -ForegroundColor White -NoNewline
     Write-Host "   [6] Reinicio de servicios" -ForegroundColor Yellow
-    Write-Host ""
 
     # Cuarta línea: opciones 7 y 8
+    Write-Host ""
     Write-Host "[7] Limpieza avanzada de navegadores" -ForegroundColor White -NoNewline
     Write-Host "   [8] Software instalado" -ForegroundColor Yellow
 
