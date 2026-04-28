@@ -14,6 +14,7 @@ if (-NOT $esAdmin) {
     Write-Host "[0] Salir" -ForegroundColor Red
     Write-Host ""
     Write-Host "Selecciona una opción: " -NoNewline
+    $key = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").Character
 
     # Captura de tecla instantánea corregida
     $opcion = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").Character
