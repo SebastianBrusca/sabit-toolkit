@@ -21,6 +21,8 @@ function Menu-Principal {
     Write-Host "[2] Navegador Predeterminado" -ForegroundColor Yellow
     Write-Host "[3] Internet Explorer Viejo" -ForegroundColor White
     Write-Host "[4] Información de red avanzada" -ForegroundColor Yellow
+    Write-Host "[5] Borrar Archivos Temporales" -ForegroundColor Yellow
+    Write-Host "[6] -----" -ForegroundColor Yellow
     Write-Host "[0] Salir" -ForegroundColor Red
     Write-Host ""
     Write-Host "Selecciona una opcion: " -NoNewline
@@ -60,6 +62,26 @@ function Menu-Principal {
             Menu-Principal
         }
         '4' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/informacion_red.ps1"
+            try {
+                Invoke-Expression (Invoke-RestMethod $url)
+            } catch {
+                Write-Host "Error al cargar módulo: $url" -ForegroundColor Red
+                Pause
+            }
+            Menu-Principal
+        }
+        '5' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/limpieza_temporales.ps1"
+            try {
+                Invoke-Expression (Invoke-RestMethod $url)
+            } catch {
+                Write-Host "Error al cargar módulo: $url" -ForegroundColor Red
+                Pause
+            }
+            Menu-Principal
+        }
+        '6' {
             $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/informacion_red.ps1"
             try {
                 Invoke-Expression (Invoke-RestMethod $url)
