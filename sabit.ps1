@@ -65,15 +65,36 @@ function Mostrar-Banner {
 function Menu-Principal {
     Mostrar-Banner
 
-    # Mostrar opciones
-    Write-Host "[1] Información del sistema    [2] Navegador Predeterminado" -ForegroundColor White
-    Write-Host "[3] Internet Explorer Viejo    [4] Información de red avanzada" -ForegroundColor White
-    Write-Host "[5] Borrar Archivos Temporales  [6] Reinicio de servicios" -ForegroundColor White
-    Write-Host "[7] Limpieza avanzada navegadores [8] Software instalado" -ForegroundColor White
-    Write-Host "[9] Version de Windows y Java      [10] Estado de seguridad" -ForegroundColor White
+    # Primera línea: opciones 1 y 2
+    Write-Host "[1] Información del sistema" -ForegroundColor White -NoNewline
+    Write-Host "   [2] Navegador Predeterminado" -ForegroundColor Yellow
+    Write-Host ""  # línea en blanco
+
+    # Segunda línea: opciones 3 y 4
+    Write-Host "[3] Internet Explorer Viejo" -ForegroundColor White -NoNewline
+    Write-Host "   [4] Información de red avanzada" -ForegroundColor Yellow
+    Write-Host ""  # línea en blanco
+
+    # Tercera línea: opciones 5 y 6
+    Write-Host "[5] Borrar Archivos Temporales" -ForegroundColor White -NoNewline
+    Write-Host "   [6] Reinicio de servicios" -ForegroundColor Yellow
+    Write-Host ""  # línea en blanco
+
+    # Cuarta línea: opciones 7 y 8
+    Write-Host "[7] Limpieza avanzada de navegadores" -ForegroundColor White -NoNewline
+    Write-Host "   [8] Software instalado" -ForegroundColor Yellow
+    Write-Host ""  # línea en blanco
+
+    # Cuarta línea: opciones 7 y 8
+    Write-Host "[9] Version de Windows y Java" -ForegroundColor White -NoNewline
+    Write-Host "   [A] Estado de seguridad" -ForegroundColor Yellow
+    Write-Host ""  # línea en blanco
+
+    # Salir
     Write-Host "[0] Salir" -ForegroundColor Red
-    Write-Host ""
-    Write-Host "Selecciona una opción y presiona Enter: " -NoNewline
+    Write-Host ""  # línea en blanco
+    Write-Host "Selecciona una opcion y presiona Enter: " -NoNewline
+
 
     $key = Read-Host
 
