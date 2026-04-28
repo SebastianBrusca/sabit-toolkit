@@ -79,7 +79,7 @@ function Menu-Principal {
 
     # Quinta línea (Corregido el comentario y alineación)
     Write-Host "[9] Version de Windows y Java" -ForegroundColor White -NoNewline
-    Write-Host "       [A] Estado de seguridad" -ForegroundColor Yellow
+    Write-Host "       [10] Estado de seguridad" -ForegroundColor Yellow
     Write-Host ""
 
     # Salir
@@ -87,7 +87,6 @@ function Menu-Principal {
     Write-Host ""
     Write-Host "Selecciona una opcion: " -NoNewline
 
-    $key = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").Character
 
     switch ($key) {
         '1' {
@@ -135,7 +134,7 @@ function Menu-Principal {
             try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error" -ForegroundColor Red; Pause }
             Menu-Principal
         }
-        'A' {
+        '10' {
             $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/EstadoSeguridad.ps1"
             try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error" -ForegroundColor Red; Pause }
             Menu-Principal
