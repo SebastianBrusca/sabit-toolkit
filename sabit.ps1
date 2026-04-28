@@ -4,24 +4,42 @@
 $esAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
 
 if (-NOT $esAdmin) {
+    Clear-Host
     Write-Host "==========================================================" -ForegroundColor Red
     Write-Host "  ADVERTENCIA: NO SE ESTÁ EJECUTANDO COMO ADMINISTRADOR" -ForegroundColor Red
     Write-Host "==========================================================" -ForegroundColor Red
-    Write-Host "1. Reintentar como Administrador (abre nueva ventana)"
-    Write-Host "2. Continuar con funciones limitadas (en esta ventana)"
-    Write-Host "0. Salir"
     Write-Host ""
-    
-    $opcionAdmin = Read-Host "Selecciona una opción"
+    Write-Host "[1] Reintentar como Administrador (Nueva ventana)" -ForegroundColor White
+    Write-Host "[2] Continuar con funciones limitadas" -ForegroundColor Yellow
+    Write-Host "[0] Salir" -ForegroundColor Red
+    Write-Host ""
+    Write-Host "Selecciona una opción: " -NoNewline
 
-    if ($opcionAdmin -eq "1") {
-        Start-Process powershell.exe -ArgumentList "-NoExit", "-File `"$PSCommandPath`"" -Verb RunAs
-        exit # Cerramos la ventana sin permisos porque abrimos la nueva
-    } elseif ($opcionAdmin -eq "0") {
-        exit
+    # Captura de tecla sin Enter
+    $opcion = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").Character
+
+    switch ($opcion) {
+        '1' {
+            # Comando robusto para re-lanzar como admin
+            Start-Process powershell.exe -ArgumentList "-NoExit -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
+            exit
+        }
+        '0' {
+            exit
+        }
+        '2' {
+            # Solo continúa al menú
+            Write-Host " Cargando modo limitado..." -ForegroundColor Gray
+            Start-Sleep -Seconds 1
+        }
+        default {
+            # Si toca cualquier otra cosa, vuelve a preguntar (recursivo corto)
+            & $PSCommandPath
+            exit
+        }
     }
-    # Si elige 2, el script simplemente sigue bajando hacia el Menú
 }
+
 # ================= BANNER =================
 function Mostrar-Banner {
     Clear-Host
