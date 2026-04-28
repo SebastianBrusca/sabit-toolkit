@@ -17,17 +17,21 @@ function Mostrar-Banner {
 function Menu-Principal {
     Mostrar-Banner
 
-    Write-Host "[1] Informacion del sistema" -ForegroundColor  White
-               "[2] Navegador Predeterminado" -ForegroundColor Yellow
-    Write-Host ""
-    Write-Host "[3] Internet Explorer Viejo" -ForegroundColor  White
-               "[4] Información de red avanzada" -ForegroundColor Yellow
-    Write-Host ""
-    Write-Host "[5] Borrar Archivos Temporales" -ForegroundColor White
-               "[6] Reinicio de servicios" -ForegroundColor Yellow
-    Write-Host ""
-    Write-Host "[7] Limpieza avanzada de navegadores" -ForegroundColor White
-               "[8] Software instalado" -ForegroundColor Yellow
+    Write-Host "[1] Información del sistema" -ForegroundColor White -NoNewline
+    Write-Host "   [2] Navegador Predeterminado" -ForegroundColor Yellow
+
+    # Segunda línea: opciones 3 y 4
+    Write-Host "[3] Internet Explorer Viejo" -ForegroundColor White -NoNewline
+    Write-Host "   [4] Información de red avanzada" -ForegroundColor Yellow
+
+    # Tercera línea: opciones 5 y 6
+    Write-Host "[5] Borrar Archivos Temporales" -ForegroundColor White -NoNewline
+    Write-Host "   [6] Reinicio de servicios" -ForegroundColor Yellow
+
+    # Cuarta línea: opciones 7 y 8
+    Write-Host "[7] Limpieza avanzada de navegadores" -ForegroundColor White -NoNewline
+    Write-Host "   [8] Software instalado" -ForegroundColor Yellow
+
     Write-Host ""
     Write-Host "[0] Salir" -ForegroundColor Red
     Write-Host ""
