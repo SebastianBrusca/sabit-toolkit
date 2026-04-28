@@ -15,28 +15,29 @@ if (-NOT $esAdmin) {
     Write-Host ""
     Write-Host "Selecciona una opción: " -NoNewline
 
-    # Captura de tecla sin Enter
+    # Captura de tecla instantánea corregida
     $opcion = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").Character
 
-    switch ($opcion) {
-        '1' {
-            # Comando robusto para re-lanzar como admin
-            Start-Process powershell.exe -ArgumentList "-NoExit -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
+    if ($opcion -eq '1') {
+        # Usamos un comando más compatible para relanzar
+        $psi = New-Object System.Diagnostics.ProcessStartInfo
+        $psi.FileName = "powershell.exe"
+        $psi.Arguments = "-NoExit -ExecutionPolicy Bypass -File `"$PSCommandPath`""
+        $psi.Verb = "runas"
+        try {
+            [System.Diagnostics.Process]::Start($psi)
             exit
+        } catch {
+            Write-Host "`nError: No se aceptaron los permisos de UAC." -ForegroundColor Orange
+            Start-Sleep -Seconds 2
         }
-        '0' {
-            exit
-        }
-        '2' {
-            # Solo continúa al menú
-            Write-Host " Cargando modo limitado..." -ForegroundColor Gray
-            Start-Sleep -Seconds 1
-        }
-        default {
-            # Si toca cualquier otra cosa, vuelve a preguntar (recursivo corto)
-            & $PSCommandPath
-            exit
-        }
+    } 
+    elseif ($opcion -eq '0') {
+        exit
+    }
+    elseif ($opcion -eq '2') {
+        Write-Host " Cargando modo limitado..." -ForegroundColor Gray
+        Start-Sleep -Seconds 1
     }
 }
 
