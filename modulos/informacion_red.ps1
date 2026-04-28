@@ -8,20 +8,33 @@ try {
 
     if ($adapters) {
         foreach ($adapter in $adapters) {
-            $nic = Get-NetAdapter | Where-Object {$_.InterfaceIndex -eq $adapter.InterfaceIndex} | Select-Object -First 1
-            $type = if ($nic.PhysicalMediaType -eq "802.3") {"Ethernet"} else {"Wi-Fi"}
+            try {
+                $nic = Get-NetAdapter | Where-Object {$_.InterfaceIndex -eq $adapter.InterfaceIndex} | Select-Object -First 1
+                $type = if ($nic.PhysicalMediaType -eq "802.3") {"Ethernet"} else {"Wi-Fi"}
 
-            # Obtener gateway y DNS
-            $gateway = (Get-NetRoute -InterfaceIndex $adapter.InterfaceIndex -DestinationPrefix "0.0.0.0/0").NextHop
-            $dns = (Get-DnsClientServerAddress -InterfaceIndex $adapter.InterfaceIndex -AddressFamily IPv4).ServerAddresses -join ", "
+                # Gateway con manejo de error si no existe
+                try {
+                    $route = Get-NetRoute -InterfaceIndex $adapter.InterfaceIndex -DestinationPrefix "0.0.0.0/0" -ErrorAction Stop
+                    $gateway = if ($route) { $route.NextHop } else { "" }
+                } catch {
+                    $gateway = ""
+                }
 
-            Write-Host ""
-            Write-Host "Interfaz : $($nic.Name)" -ForegroundColor Cyan
-            Write-Host "Tipo     : $type"
-            Write-Host "IP       : $($adapter.IPAddress)"
-            Write-Host "Mascara  : $($adapter.PrefixLength)"
-            Write-Host "Gateway  : $gateway"
-            Write-Host "DNS      : $dns"
+                # Obtener DNS
+                $dns = (Get-DnsClientServerAddress -InterfaceIndex $adapter.InterfaceIndex -AddressFamily IPv4).ServerAddresses -join ", "
+
+                # Mostrar info
+                Write-Host ""
+                Write-Host "Interfaz : $($nic.Name)" -ForegroundColor Cyan
+                Write-Host "Tipo     : $type"
+                Write-Host "IP       : $($adapter.IPAddress)"
+                Write-Host "Mascara  : $($adapter.PrefixLength)"
+                Write-Host "Gateway  : $gateway"
+                Write-Host "DNS      : $dns"
+
+            } catch {
+                Write-Host "No se pudo obtener información para la interfaz $($adapter.InterfaceIndex)" -ForegroundColor Yellow
+            }
         }
 
         # Test de conectividad rápida
@@ -43,6 +56,6 @@ try {
     Write-Host "Error al obtener información de red: $($_.Exception.Message)" -ForegroundColor Red
 }
 
-# Esperar Enter para volver al menú
+# Esperar Enter para volver al menú remoto
 Write-Host ""
 Read-Host "Presione Enter para volver al menú..."
