@@ -87,7 +87,7 @@ function Menu-Principal {
 
     # Cuarta línea: opciones 7 y 8
     Write-Host "[9] Version de Windows y Java" -ForegroundColor White -NoNewline
-    Write-Host "   [A] Estado de seguridad" -ForegroundColor Yellow
+    Write-Host "   [10] Estado de seguridad" -ForegroundColor Yellow
     Write-Host ""  # línea en blanco
 
     # Salir
