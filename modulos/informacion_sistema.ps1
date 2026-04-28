@@ -1,4 +1,4 @@
-# Módulo: Información del sistema compatible remoto
+# ================= INFORMACION DEL SISTEMA =================
 Clear-Host
 Write-Host "=== INFORMACION DEL SISTEMA ===" -ForegroundColor Cyan
 
@@ -60,40 +60,48 @@ try {
 # -----------------------
 try {
     $disks = Get-CimInstance Win32_LogicalDisk | Where-Object { $_.DriveType -eq 3 }
-    $totalDisk = [math]::round(($disks | Measure-Object -Property Size -Sum).Sum / 1GB,2)
-    $diskNames = ($disks | Select-Object -ExpandProperty DeviceID) -join ", "
-
     Write-Host ""
     Write-Host "DISCOS" -ForegroundColor Cyan
-    Write-Host "Memoria Total: $totalDisk GB"
-    Write-Host "Nombres      : $diskNames"
+    foreach ($disk in $disks) {
+        # Obtener información de tipo físico (HDD o SSD)
+        $phys = Get-PhysicalDisk | Where-Object { $_.FriendlyName -like "*$($disk.DeviceID)*" } | Select-Object -First 1
+        $mediaType = if ($phys) { $phys.MediaType } else { "Desconocido" }
+
+        $totalGB = [math]::round($disk.Size / 1GB,2)
+        $freeGB  = [math]::round($disk.FreeSpace / 1GB,2)
+        $usedGB  = [math]::round($totalGB - $freeGB,2)
+
+        Write-Host "Disco $($disk.DeviceID) - Tipo: $mediaType"
+        Write-Host "Total : $totalGB GB | Libre: $freeGB GB | Ocupado: $usedGB GB"
+        Write-Host ""
+    }
 } catch {
     Write-Host "No se pudo obtener información de los discos." -ForegroundColor Red
 }
 
 # -----------------------
-# RED (IP y MAC)
+# RED (Ethernet y Wi-Fi reales)
 # -----------------------
 try {
     Write-Host ""
     Write-Host "IPCONFIG" -ForegroundColor Cyan
 
-    $adapters = Get-NetIPAddress -AddressFamily IPv4 -ErrorAction Stop | Where-Object { $_.IPAddress -ne "127.0.0.1" }
-
-    if ($adapters) {
-        foreach ($adapter in $adapters) {
-            try {
-                $nic = Get-NetAdapter | Where-Object {$_.InterfaceIndex -eq $adapter.InterfaceIndex} | Select-Object -First 1
-                $type = if ($nic.PhysicalMediaType -eq "802.3") {"Ethernet"} else {"Wi-Fi"}
-                Write-Host "$type IP : $($adapter.IPAddress)"
-                Write-Host "$type MAC: $($nic.MacAddress)"
-            } catch {
-                Write-Host "No se pudo obtener MAC para la interfaz $($adapter.InterfaceIndex)." -ForegroundColor Yellow
-            }
-        }
-    } else {
-        Write-Host "No se encontraron interfaces activas."
+    # Ethernet real
+    $ethernet = Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.InterfaceAlias -match "Ethernet" -and $_.IPAddress -notlike "169.254*" } | Select-Object -First 1
+    if ($ethernet) {
+        $nic = Get-NetAdapter -InterfaceIndex $ethernet.InterfaceIndex
+        Write-Host "Ethernet IP : $($ethernet.IPAddress)"
+        Write-Host "Ethernet MAC: $($nic.MacAddress)"
     }
+
+    # Wi-Fi real
+    $wifi = Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.InterfaceAlias -match "Wi-Fi" -and $_.IPAddress -notlike "169.254*" } | Select-Object -First 1
+    if ($wifi) {
+        $nic = Get-NetAdapter -InterfaceIndex $wifi.InterfaceIndex
+        Write-Host "Wi-Fi IP : $($wifi.IPAddress)"
+        Write-Host "Wi-Fi MAC: $($nic.MacAddress)"
+    }
+
 } catch {
     Write-Host "No se pudo obtener información de red." -ForegroundColor Red
 }
