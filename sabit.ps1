@@ -15,26 +15,34 @@ if (-NOT $esAdmin) {
     Write-Host ""
     Write-Host "Selecciona una opción: " -NoNewline
     
-    $key = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").Character
+    $opcion = Read-Host
 
-    if ($opcion -eq '1') {
-        $urlRepo = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/sabit.ps1"
-        $comando = "iex (irm $urlRepo)"
-        
-        try {
-            Start-Process powershell.exe -ArgumentList "-NoExit", "-Command", $comando -Verb RunAs
-            exit
-        } catch {
-            Write-Host "`nError: No se pudo elevar privilegios o abrir la ventana." -ForegroundColor Orange
-            Start-Sleep -Seconds 2
+    switch ($opcion) {
+        '1' {
+            $urlRepo = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/sabit.ps1"
+            $comando = "iex (irm $urlRepo)"
+            
+            try {
+                Start-Process powershell.exe -ArgumentList "-NoExit", "-Command", $comando -Verb RunAs
+                exit
+            } catch {
+                Write-Host "`nError: No se pudo elevar privilegios o abrir la ventana." -ForegroundColor Orange
+                Start-Sleep -Seconds 2
+            }
+        } 
+        '2' {
+            Write-Host " Cargando modo limitado..." -ForegroundColor Gray
+            Start-Sleep -Seconds 1
         }
-    } 
-    elseif ($opcion -eq '0') {
-        exit
-    }
-    elseif ($opcion -eq '2') {
-        Write-Host " Cargando modo limitado..." -ForegroundColor Gray
-        Start-Sleep -Seconds 1
+        '0' {
+            exit
+        }
+        default {
+            Write-Host "Opción no válida." -ForegroundColor Red
+            Start-Sleep -Seconds 1
+            & $MyInvocation.MyCommand.Definition
+            exit
+        }
     }
 }
 
@@ -57,95 +65,34 @@ function Mostrar-Banner {
 function Menu-Principal {
     Mostrar-Banner
 
-    # Primera línea
-    Write-Host "[1] Información del sistema" -ForegroundColor White -NoNewline
-    Write-Host "    [2] Navegador Predeterminado" -ForegroundColor Yellow
-    Write-Host ""
-
-    # Segunda línea
-    Write-Host "[3] Internet Explorer Viejo" -ForegroundColor White -NoNewline
-    Write-Host "    [4] Información de red avanzada" -ForegroundColor Yellow
-    Write-Host ""
-
-    # Tercera línea
-    Write-Host "[5] Borrar Archivos Temporales" -ForegroundColor White -NoNewline
-    Write-Host "    [6] Reinicio de servicios" -ForegroundColor Yellow
-    Write-Host ""
-
-    # Cuarta línea
-    Write-Host "[7] Limpieza avanzada de navegadores" -ForegroundColor White -NoNewline
-    Write-Host "    [8] Software instalado" -ForegroundColor Yellow
-    Write-Host ""
-
-    # Quinta línea (Corregido el comentario y alineación)
-    Write-Host "[9] Version de Windows y Java" -ForegroundColor White -NoNewline
-    Write-Host "       [10] Estado de seguridad" -ForegroundColor Yellow
-    Write-Host ""
-
-    # Salir
+    # Mostrar opciones
+    Write-Host "[1] Información del sistema    [2] Navegador Predeterminado" -ForegroundColor White
+    Write-Host "[3] Internet Explorer Viejo    [4] Información de red avanzada" -ForegroundColor White
+    Write-Host "[5] Borrar Archivos Temporales  [6] Reinicio de servicios" -ForegroundColor White
+    Write-Host "[7] Limpieza avanzada navegadores [8] Software instalado" -ForegroundColor White
+    Write-Host "[9] Version de Windows y Java      [10] Estado de seguridad" -ForegroundColor White
     Write-Host "[0] Salir" -ForegroundColor Red
     Write-Host ""
-    Write-Host "Selecciona una opcion: " -NoNewline
+    Write-Host "Selecciona una opción y presiona Enter: " -NoNewline
 
+    $key = Read-Host
 
     switch ($key) {
-        '1' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/informacion_sistema.ps1"
-            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error" -ForegroundColor Red; Pause }
-            Menu-Principal
-        }
-        '2' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/naveg_predeterminado.ps1"
-            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error" -ForegroundColor Red; Pause }
-            Menu-Principal
-        }
-        '3' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/internet_explorer_viejo.ps1"
-            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error" -ForegroundColor Red; Pause }
-            Menu-Principal
-        }
-        '4' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/informacion_red.ps1"
-            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error" -ForegroundColor Red; Pause }
-            Menu-Principal
-        }
-        '5' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/limpieza_temporales.ps1"
-            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error" -ForegroundColor Red; Pause }
-            Menu-Principal
-        }
-        '6' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/reinicio_servicios.ps1"
-            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error" -ForegroundColor Red; Pause }
-            Menu-Principal
-        }
-        '7' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/limpieza_navegadores.ps1"
-            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error" -ForegroundColor Red; Pause }
-            Menu-Principal
-        }
-        '8' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/software_instalado.ps1"
-            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error" -ForegroundColor Red; Pause }
-            Menu-Principal
-        }
-        '9' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/InfoVersiones.ps1"
-            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error" -ForegroundColor Red; Pause }
-            Menu-Principal
-        }
-        '10' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/EstadoSeguridad.ps1"
-            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error" -ForegroundColor Red; Pause }
-            Menu-Principal
-        }
-        '0' {
-            Stop-Process -Id $PID
-        }
-        default {
-            Menu-Principal
-        }
+        '1' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/informacion_sistema.ps1") }
+        '2' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/naveg_predeterminado.ps1") }
+        '3' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/internet_explorer_viejo.ps1") }
+        '4' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/informacion_red.ps1") }
+        '5' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/limpieza_temporales.ps1") }
+        '6' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/reinicio_servicios.ps1") }
+        '7' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/limpieza_navegadores.ps1") }
+        '8' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/software_instalado.ps1") }
+        '9' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/InfoVersiones.ps1") }
+        '10'{ Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/EstadoSeguridad.ps1") }
+        '0' { Stop-Process -Id $PID }
+        default { Write-Host "Opción no válida." -ForegroundColor Red; Start-Sleep 1 }
     }
+
+    Menu-Principal
 }
 
 # ================= EJECUTAR MENU =================
