@@ -1,5 +1,5 @@
 # =============================================
-# Gestión de permisos de administrador
+# Gestión de permisos de administrador (Compatible con IEX / Web)
 
 $esAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
 
@@ -16,20 +16,20 @@ if (-NOT $esAdmin) {
     Write-Host "Selecciona una opción: " -NoNewline
     $key = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").Character
 
-    # Captura de tecla instantánea corregida
+
+    # Captura de tecla instantánea
     $opcion = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").Character
 
     if ($opcion -eq '1') {
-        # Usamos un comando más compatible para relanzar
-        $psi = New-Object System.Diagnostics.ProcessStartInfo
-        $psi.FileName = "powershell.exe"
-        $psi.Arguments = "-NoExit -ExecutionPolicy Bypass -File `"$PSCommandPath`""
-        $psi.Verb = "runas"
+        # Como no hay archivo físico, le pedimos a la nueva ventana que haga el irm | iex
+        $urlRepo = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/sabit.ps1"
+        $comando = "iex (irm $urlRepo)"
+        
         try {
-            [System.Diagnostics.Process]::Start($psi)
+            Start-Process powershell.exe -ArgumentList "-NoExit", "-Command", $comando -Verb RunAs
             exit
         } catch {
-            Write-Host "`nError: No se aceptaron los permisos de UAC." -ForegroundColor Orange
+            Write-Host "`nError: No se pudo elevar privilegios o abrir la ventana." -ForegroundColor Orange
             Start-Sleep -Seconds 2
         }
     } 
