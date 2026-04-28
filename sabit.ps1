@@ -20,6 +20,7 @@ function Menu-Principal {
     Write-Host "[1] Informacion del sistema" -ForegroundColor White
     Write-Host "[2] Navegador Predeterminado" -ForegroundColor Yellow
     Write-Host "[3] Internet Explorer Viejo" -ForegroundColor White
+    Write-Host "[4] Información de red avanzada" -ForegroundColor Yellow
     Write-Host "[0] Salir" -ForegroundColor Red
     Write-Host ""
     Write-Host "Selecciona una opcion: " -NoNewline
