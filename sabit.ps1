@@ -1,10 +1,13 @@
 # =============================================
 # Verificar permisos de administrador
 
-if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
-    Write-Warning "⚠ Debes ejecutar este script como Administrador para que funcione correctamente."
-    exit
+$esAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
+
+if (-NOT $esAdmin) {
+    Write-Warning "⚠ No estás ejecutando este script como Administrador."
+    Write-Host "   Algunas funciones pueden no funcionar correctamente." -ForegroundColor Yellow
 }
+
 
 # ================= BANNER =================
 function Mostrar-Banner {
