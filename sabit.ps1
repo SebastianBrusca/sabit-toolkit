@@ -1,6 +1,5 @@
 # =============================================
 # Gestión de permisos de administrador (Compatible con IEX / Web)
-
 $esAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
 
 if (-NOT $esAdmin) {
@@ -16,31 +15,24 @@ if (-NOT $esAdmin) {
     Write-Host "Selecciona una opción: " -NoNewline
     $key = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").Character.ToUpper()
 
-
-    # Captura de tecla instantánea
-    $opcion = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown").Character
-
-    if ($opcion -eq '1') {
-        # Como no hay archivo físico, le pedimos a la nueva ventana que haga el irm | iex
+    if ($key -eq '1') {
         $urlRepo = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/sabit.ps1"
         $comando = "iex (irm $urlRepo)"
-        
         try {
             Start-Process powershell.exe -ArgumentList "-NoExit", "-Command", $comando -Verb RunAs
             exit
         } catch {
-            Write-Host "`nError: No se pudo elevar privilegios o abrir la ventana." -ForegroundColor Orange
+            Write-Host "`nError: No se pudo elevar privilegios o abrir la ventana." -ForegroundColor Yellow
             Start-Sleep -Seconds 2
         }
-    } 
-    elseif ($opcion -eq '0') {
+    } elseif ($key -eq '0') {
         exit
-    }
-    elseif ($opcion -eq '2') {
+    } elseif ($key -eq '2') {
         Write-Host " Cargando modo limitado..." -ForegroundColor Gray
         Start-Sleep -Seconds 1
     }
 }
+
 # ================= BANNER =================
 function Mostrar-Banner {
     Clear-Host
@@ -84,42 +76,42 @@ function Menu-Principal {
     switch ($key) {
         '1' {
             $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/informacion_sistema.ps1"
-            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo" -ForegroundColor Red; Pause }
+            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
             Menu-Principal
         }
         '2' {
             $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/naveg_predeterminado.ps1"
-            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo" -ForegroundColor Red; Pause }
+            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
             Menu-Principal
         }
         '3' {
             $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/internet_explorer_viejo.ps1"
-            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo" -ForegroundColor Red; Pause }
+            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
             Menu-Principal
         }
         '4' {
             $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/informacion_red.ps1"
-            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo" -ForegroundColor Red; Pause }
+            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
             Menu-Principal
         }
         '5' {
             $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/limpieza_temporales.ps1"
-            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo" -ForegroundColor Red; Pause }
+            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
             Menu-Principal
         }
         '6' {
             $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/reinicio_servicios.ps1"
-            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo" -ForegroundColor Red; Pause }
+            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
             Menu-Principal
         }
         '7' {
             $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/limpieza_navegadores.ps1"
-            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo" -ForegroundColor Red; Pause }
+            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
             Menu-Principal
         }
         '8' {
             $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/software_instalado.ps1"
-            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo" -ForegroundColor Red; Pause }
+            try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
             Menu-Principal
         }
         '9' {
@@ -127,7 +119,7 @@ function Menu-Principal {
             try {
                 Invoke-Expression (Invoke-RestMethod $url)
                 InfoVersiones
-            } catch { Write-Host "Error al cargar módulo" -ForegroundColor Red; Pause }
+            } catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
             Menu-Principal
         }
         'A' {
@@ -135,7 +127,7 @@ function Menu-Principal {
             try {
                 Invoke-Expression (Invoke-RestMethod $url)
                 EstadoSeguridad
-            } catch { Write-Host "Error al cargar módulo" -ForegroundColor Red; Pause }
+            } catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
             Menu-Principal
         }
         '0' { Stop-Process -Id $PID }
