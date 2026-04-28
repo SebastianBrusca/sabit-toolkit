@@ -1,11 +1,24 @@
 # =============================================
 # Verificar permisos de administrador
 
-$esAdmin = ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
+if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+    Start-Process powershell.exe -ArgumentList "-NoExit", "-File `"$PSCommandPath`"" -Verb RunAs
+    exit
+}
 
-if (-NOT $esAdmin) {
-    Write-Warning "⚠ No estás ejecutando este script como Administrador."
-    Write-Host "   Algunas funciones pueden no funcionar correctamente." -ForegroundColor Yellow
+# Verificar si se ejecuta como Administrador
+if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+    Write-Host "==========================================================" -ForegroundColor Red
+    Write-Host "  ADVERTENCIA: NO SE ESTÁ EJECUTANDO COMO ADMINISTRADOR" -ForegroundColor Red
+    Write-Host "==========================================================" -ForegroundColor Red
+    Write-Host "Algunas funciones de SABIT (como limpieza de archivos,"
+    Write-Host "reinicio de servicios o configuración de red) no"
+    Write-Host "funcionarán correctamente sin permisos elevados."
+    Write-Host ""
+    Write-Host "Por favor, cierra esta ventana y ejecuta PowerShell"
+    Write-Host "como Administrador para un funcionamiento completo."
+    Write-Host ""
+    Read-Host "Presiona Enter para continuar con funcionalidades limitadas..."
 }
 
 
