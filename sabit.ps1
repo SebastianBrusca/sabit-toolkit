@@ -58,6 +58,16 @@ function Menu-Principal {
             }
             Menu-Principal
         }
+        '4' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/informacion_red.ps1"
+            try {
+                Invoke-Expression (Invoke-RestMethod $url)
+            } catch {
+                Write-Host "Error al cargar módulo: $url" -ForegroundColor Red
+                Pause
+            }
+            Menu-Principal
+        }
         '0' {
             Stop-Process -Id $PID
         }
