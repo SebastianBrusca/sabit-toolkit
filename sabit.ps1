@@ -1,3 +1,11 @@
+# =============================================
+# Verificar permisos de administrador
+
+if (-NOT ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+    Write-Warning "⚠ Debes ejecutar este script como Administrador para que funcione correctamente."
+    exit
+}
+
 # ================= BANNER =================
 function Mostrar-Banner {
     Clear-Host
