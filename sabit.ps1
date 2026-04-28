@@ -18,11 +18,17 @@ function Menu-Principal {
     Mostrar-Banner
 
     Write-Host "[1] Informacion del sistema" -ForegroundColor White
+    Write-Host ""
     Write-Host "[2] Navegador Predeterminado" -ForegroundColor Yellow
+    Write-Host ""
     Write-Host "[3] Internet Explorer Viejo" -ForegroundColor White
+    Write-Host ""
     Write-Host "[4] Información de red avanzada" -ForegroundColor Yellow
+    Write-Host ""
     Write-Host "[5] Borrar Archivos Temporales" -ForegroundColor White
+    Write-Host ""
     Write-Host "[6] Reinicio de servicios" -ForegroundColor Yellow
+    Write-Host ""
     Write-Host "[0] Salir" -ForegroundColor Red
     Write-Host ""
     Write-Host "Selecciona una opcion: " -NoNewline
