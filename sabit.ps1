@@ -1,27 +1,27 @@
 # =============================================
-# Verificar permisos de administrador
+# Gestión de permisos de administrador
 
-if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
-    Start-Process powershell.exe -ArgumentList "-NoExit", "-File `"$PSCommandPath`"" -Verb RunAs
-    exit
-}
+$esAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
 
-# Verificar si se ejecuta como Administrador
-if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+if (-NOT $esAdmin) {
     Write-Host "==========================================================" -ForegroundColor Red
     Write-Host "  ADVERTENCIA: NO SE ESTÁ EJECUTANDO COMO ADMINISTRADOR" -ForegroundColor Red
     Write-Host "==========================================================" -ForegroundColor Red
-    Write-Host "Algunas funciones de SABIT (como limpieza de archivos,"
-    Write-Host "reinicio de servicios o configuración de red) no"
-    Write-Host "funcionarán correctamente sin permisos elevados."
+    Write-Host "1. Reintentar como Administrador (abre nueva ventana)"
+    Write-Host "2. Continuar con funciones limitadas (en esta ventana)"
+    Write-Host "0. Salir"
     Write-Host ""
-    Write-Host "Por favor, cierra esta ventana y ejecuta PowerShell"
-    Write-Host "como Administrador para un funcionamiento completo."
-    Write-Host ""
-    Read-Host "Presiona Enter para continuar con funcionalidades limitadas..."
+    
+    $opcionAdmin = Read-Host "Selecciona una opción"
+
+    if ($opcionAdmin -eq "1") {
+        Start-Process powershell.exe -ArgumentList "-NoExit", "-File `"$PSCommandPath`"" -Verb RunAs
+        exit # Cerramos la ventana sin permisos porque abrimos la nueva
+    } elseif ($opcionAdmin -eq "0") {
+        exit
+    }
+    # Si elige 2, el script simplemente sigue bajando hacia el Menú
 }
-
-
 # ================= BANNER =================
 function Mostrar-Banner {
     Clear-Host
