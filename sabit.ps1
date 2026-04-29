@@ -1,6 +1,8 @@
 # =============================================
 # Gestión de permisos de administrador (Compatible con IEX / Web)
-
+# ================= DEFINIR RAMA =================
+$branch = "SABIT-0.1"  # Cambiás a "main" cuando quieras publicar
+# =============================================
 $esAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
 
 if (-NOT $esAdmin) {
@@ -19,7 +21,7 @@ if (-NOT $esAdmin) {
 
     switch ($opcion) {
         '1' {
-            $urlRepo = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/sabit.ps1"
+            $urlRepo = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/$branch/sabit.ps1"
             $comando = "iex (irm $urlRepo)"
             
             try {
@@ -64,7 +66,7 @@ function Mostrar-Banner {
 # ================= MENU PRINCIPAL =================
 function Menu-Principal {
     Mostrar-Banner
-
+    
     # Primera línea: opciones 1 y 2
     Write-Host "[1] Información del sistema" -ForegroundColor White -NoNewline
     Write-Host "   [2] Navegador Predeterminado" -ForegroundColor Yellow
@@ -99,16 +101,16 @@ function Menu-Principal {
     $key = Read-Host
 
     switch ($key) {
-        '1' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/informacion_sistema.ps1") }
-        '2' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/naveg_predeterminado.ps1") }
-        '3' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/internet_explorer_viejo.ps1") }
-        '4' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/informacion_red.ps1") }
-        '5' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/limpieza_temporales.ps1") }
-        '6' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/reinicio_servicios.ps1") }
-        '7' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/limpieza_navegadores.ps1") }
-        '8' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/software_instalado.ps1") }
-        '9' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/InfoVersiones.ps1") }
-        '10'{ Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/EstadoSeguridad.ps1") }
+        '1' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/$branch/modulos/informacion_sistema.ps1") }
+        '2' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/naveg_predeterminado.ps1") }
+        '3' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/internet_explorer_viejo.ps1") }
+        '4' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/informacion_red.ps1") }
+        '5' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/limpieza_temporales.ps1") }
+        '6' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/reinicio_servicios.ps1") }
+        '7' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/limpieza_navegadores.ps1") }
+        '8' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/software_instalado.ps1") }
+        '9' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/InfoVersiones.ps1") }
+        '10'{ Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/EstadoSeguridad.ps1") }
         '0' { Stop-Process -Id $PID }
         default { Write-Host "Opción no válida." -ForegroundColor Red; Start-Sleep 1 }
     }
