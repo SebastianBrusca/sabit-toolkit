@@ -183,16 +183,16 @@ function Menu-Principal {
             Menu-Principal
         }
         '9' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/InfoVersiones.ps1"
-            Invoke-Expression (Invoke-RestMethod $url)
-            Start-Process powershell.exe -ArgumentList "-NoExit", "-Command", "InfoVersiones"
+            $scriptUrl = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/InfoVersiones.ps1"
+            $scriptContent = Invoke-RestMethod $scriptUrl
+            # Abrir nueva ventana y ejecutar el script completo
+            Start-Process powershell.exe -ArgumentList "-NoExit", "-Command `$script = @'$scriptContent'@; Invoke-Expression `$script"
         }
             Menu-Principal
-        }
         '10' {
-             $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/EstadoSeguridad.ps1"
-             Invoke-Expression (Invoke-RestMethod $url)
-             Start-Process powershell.exe -ArgumentList "-NoExit", "-Command", "EstadoSeguridad"
+             $scriptUrl = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/EstadoSeguridad.ps1"
+             $scriptContent = Invoke-RestMethod $scriptUrl
+             Start-Process powershell.exe -ArgumentList "-NoExit", "-Command `$script = @'$scriptContent'@; Invoke-Expression `$script"
         }
             Menu-Principal
         }
