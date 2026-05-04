@@ -65,142 +65,55 @@ function Mostrar-Banner {
 
 # ================= MENU PRINCIPAL =================
 function Menu-Principal {
-    Mostrar-Banner
-    
-    # Primera línea: opciones 1 y 2
-    Write-Host "[1] Información del sistema" -ForegroundColor White -NoNewline
-    Write-Host "   [2] Navegador Predeterminado" -ForegroundColor Yellow
-    Write-Host ""
+    $salir = $false
+    while (-not $salir) {
+        Clear-Host
+        Mostrar-Banner
+        
+        Write-Host "[1] Info Sistema      [2] Nav. Predeterminado" -ForegroundColor Yellow
+        Write-Host "[3] IE Viejo          [4] Red Avanzada" -ForegroundColor Yellow
+        Write-Host "[5] Borrar Temporales [6] Reinicio Servicios" -ForegroundColor Yellow
+        Write-Host "[7] Limpieza Nav.     [8] Software Instalado" -ForegroundColor Yellow
+        Write-Host "[9] Win y Java        [10] Seguridad" -ForegroundColor Yellow
+        Write-Host "[0] Salir" -ForegroundColor Red
+        Write-Host ""
+        $key = Read-Host "Selecciona una opción"
 
-    # Segunda línea: opciones 3 y 4
-    Write-Host "[3] Internet Explorer Viejo" -ForegroundColor White -NoNewline
-    Write-Host "   [4] Información de red avanzada" -ForegroundColor Yellow
-    Write-Host ""
-
-    # Tercera línea: opciones 5 y 6
-    Write-Host "[5] Borrar Archivos Temporales" -ForegroundColor White -NoNewline
-    Write-Host "   [6] Reinicio de servicios" -ForegroundColor Yellow
-    Write-Host ""
-
-    # Cuarta línea: opciones 7 y 8
-    Write-Host "[7] Limpieza avanzada de navegadores" -ForegroundColor White -NoNewline
-    Write-Host "   [8] Software instalado" -ForegroundColor Yellow
-    Write-Host ""
-
-    # Quinta línea: opciones 9 y 10
-    Write-Host "[9] Version de Windows y Java" -ForegroundColor White -NoNewline
-    Write-Host "   [10] Estado de seguridad" -ForegroundColor Yellow
-    Write-Host ""
-
-    # Salir
-    Write-Host "[0] Salir" -ForegroundColor Red
-    Write-Host ""
-    Write-Host "Selecciona una opcion y presiona Enter: " -NoNewline
-
-    $key = Read-Host
-
-    switch ($key) {
-        '1' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/informacion_sistema.ps1"
-            $script = Invoke-RestMethod $url
-            Clear-Host
-            Invoke-Expression $script
-            Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
-            Read-Host
-            Menu-Principal
-        }
-        '2' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/naveg_predeterminado.ps1"
-            $script = Invoke-RestMethod $url
-            Clear-Host
-            Invoke-Expression $script
-            Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
-            Read-Host
-            Menu-Principal
-        }
-        '3' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/internet_explorer_viejo.ps1"
-            $script = Invoke-RestMethod $url
-            Clear-Host
-            Invoke-Expression $script
-            Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
-            Read-Host
-            Menu-Principal
-        }
-        '4' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/informacion_red.ps1"
-            $script = Invoke-RestMethod $url
-            Clear-Host
-            Invoke-Expression $script
-            Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
-            Read-Host
-            Menu-Principal
-        }
-        '5' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/limpieza_temporales.ps1"
-            $script = Invoke-RestMethod $url
-            Clear-Host
-            Invoke-Expression $script
-            Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
-            Read-Host
-            Menu-Principal
-        }
-        '6' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/reinicio_servicios.ps1"
-            $script = Invoke-RestMethod $url
-            Clear-Host
-            Invoke-Expression $script
-            Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
-            Read-Host
-            Menu-Principal
-        }
-        '7' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/limpieza_navegadores.ps1"
-            $script = Invoke-RestMethod $url
-            Clear-Host
-            Invoke-Expression $script
-            Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
-            Read-Host
-            Menu-Principal
-        }
-        '8' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/software_instalado.ps1"
-            $script = Invoke-RestMethod $url
-            Clear-Host
-            Invoke-Expression $script
-            Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
-            Read-Host
-            Menu-Principal
-        }
-        '9' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/InfoVersiones.ps1"
-            $script = Invoke-RestMethod $url
-            Clear-Host
-            Invoke-Expression $script
-            Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
-            Read-Host
-            Menu-Principal
-        }
-        '10' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/EstadoSeguridad.ps1"
-            $script = Invoke-RestMethod $url
-            Clear-Host
-            Invoke-Expression $script
-            Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
-            Read-Host
-            Menu-Principal
-        } # <--- ESTA LLAVE ES CRUCIAL. Si falta, la opción '0' falla.
-
-        '0' {
-            Stop-Process -Id $PID
+        if ($key -eq '0') { 
+            $salir = $true
+            break 
         }
 
-        default {
+        # Diccionario de URLs para mantener el switch limpio
+        $urls = @{
+            '1' = "informacion_sistema.ps1"
+            '2' = "naveg_predeterminado.ps1"
+            '3' = "internet_explorer_viejo.ps1"
+            '4' = "informacion_red.ps1"
+            '5' = "limpieza_temporales.ps1"
+            '6' = "reinicio_servicios.ps1"
+            '7' = "limpieza_navegadores.ps1"
+            '8' = "software_instalado.ps1"
+            '9' = "InfoVersiones.ps1"
+            '10'= "EstadoSeguridad.ps1"
+        }
+
+        if ($urls.ContainsKey($key)) {
+            $fullUrl = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/$($urls[$key])"
+            try {
+                $scriptContent = Invoke-RestMethod -Uri $fullUrl -UseBasicParsing
+                Clear-Host
+                # Forzamos la ejecución en un ámbito limpio
+                & ([scriptblock]::Create($scriptContent))
+            } catch {
+                Write-Host "Error al cargar el módulo: $_" -ForegroundColor Red
+            }
+            Write-Host "`nPresiona Enter para volver..." -ForegroundColor Cyan
+            Read-Host
+        } else {
             Write-Host "Opción no válida" -ForegroundColor Red
             Start-Sleep 1
-            Menu-Principal
         }
-    } # Cierra el switch
-} # Cierra la función Menu-Principal
-# Ejecutar la función al final del script para que el menú aparezca
+    }
+}
 Menu-Principal
