@@ -100,7 +100,7 @@ function Menu-Principal {
 
     $key = Read-Host
 
-    switch ($key) {
+        switch ($key) {
      '1' {
          $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/informacion_sistema.ps1"
          Invoke-Expression (Invoke-RestMethod $url)
@@ -144,7 +144,6 @@ function Menu-Principal {
      '9' {
          $scriptUrl = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/InfoVersiones.ps1"
          $scriptContent = Invoke-RestMethod $scriptUrl
-         # Abrir nueva ventana y ejecutar todo el script
          Start-Process powershell.exe -ArgumentList "-NoExit", "-Command `$script = @'$scriptContent'@; Invoke-Expression `$script"
          Menu-Principal
      }
@@ -162,7 +161,8 @@ function Menu-Principal {
          Start-Sleep 1
          Menu-Principal
      }
- }
-}
+    }
+
+}  # 👈 ESTA LLAVE FALTABA (cierra la función)
 # ================= EJECUTAR MENU =================
 Menu-Principal
