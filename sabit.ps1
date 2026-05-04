@@ -100,104 +100,105 @@ function Menu-Principal {
 
     $key = Read-Host
 
-        switch ($key) {
-    '1' {
-        $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/informacion_sistema.ps1"
-        Invoke-Expression (Invoke-RestMethod $url)
-        Clear-Host
-        informacion_sistema
-        Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
-        Read-Host
-        Menu-Principal
-    }
-    '2' {
-        $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/naveg_predeterminado.ps1"
-        Invoke-Expression (Invoke-RestMethod $url)
-        Clear-Host
-        naveg_predeterminado
-        Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
-        Read-Host
-        Menu-Principal
-    }
-    '3' {
-        $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/internet_explorer_viejo.ps1"
-        Invoke-Expression (Invoke-RestMethod $url)
-        Clear-Host
-        internet_explorer_viejo
-        Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
-        Read-Host
-        Menu-Principal
-    }
-    '4' {
-        $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/informacion_red.ps1"
-        Invoke-Expression (Invoke-RestMethod $url)
-        Clear-Host
-        informacion_red
-        Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
-        Read-Host
-        Menu-Principal
-    }
-    '5' {
-        $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/limpieza_temporales.ps1"
-        Invoke-Expression (Invoke-RestMethod $url)
-        Clear-Host
-        limpieza_temporales
-        Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
-        Read-Host
-        Menu-Principal
-    }
-    '6' {
-        $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/reinicio_servicios.ps1"
-        Invoke-Expression (Invoke-RestMethod $url)
-        Clear-Host
-        reinicio_servicios
-        Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
-        Read-Host
-        Menu-Principal
-    }
-    '7' {
-        $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/limpieza_navegadores.ps1"
-        Invoke-Expression (Invoke-RestMethod $url)
-        Clear-Host
-        limpieza_navegadores
-        Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
-        Read-Host
-        Menu-Principal
-    }
-    '8' {
-        $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/software_instalado.ps1"
-        Invoke-Expression (Invoke-RestMethod $url)
-        Clear-Host
-        software_instalado
-        Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
-        Read-Host
-        Menu-Principal
-    }
-    '9' {
-        $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/InfoVersiones.ps1"
-        Invoke-Expression (Invoke-RestMethod $url)
-        Clear-Host
-        InfoVersiones
-        Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
-        Read-Host
-        Menu-Principal
-    }
-    '10' {
-        $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/EstadoSeguridad.ps1"
-        Invoke-Expression (Invoke-RestMethod $url)
-        Clear-Host
-        EstadoSeguridad
-        Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
-        Read-Host
-        Menu-Principal
-    }
-    '0' {
-        Stop-Process -Id $PID
-    }
-    default {
-        Write-Host "Opción no válida" -ForegroundColor Red
-        Start-Sleep 1
-        Menu-Principal
+   switch ($key) {
+        '1' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/informacion_sistema.ps1"
+            Invoke-Expression (Invoke-RestMethod $url)
+            Clear-Host
+            informacion_sistema
+            Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
+            Read-Host
+            Menu-Principal
+        }
+        '2' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/naveg_predeterminado.ps1"
+            Invoke-Expression (Invoke-RestMethod $url)
+            Clear-Host
+            naveg_predeterminado
+            Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
+            Read-Host
+            Menu-Principal
+        }
+        '3' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/internet_explorer_viejo.ps1"
+            Invoke-Expression (Invoke-RestMethod $url)
+            Clear-Host
+            internet_explorer_viejo
+            Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
+            Read-Host
+            Menu-Principal
+        }
+        '4' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/informacion_red.ps1"
+            Invoke-Expression (Invoke-RestMethod $url)
+            Clear-Host
+            informacion_red
+            Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
+            Read-Host
+            Menu-Principal
+        }
+        '5' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/limpieza_temporales.ps1"
+            Invoke-Expression (Invoke-RestMethod $url)
+            Clear-Host
+            limpieza_temporales
+            Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
+            Read-Host
+            Menu-Principal
+        }
+        '6' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/reinicio_servicios.ps1"
+            Invoke-Expression (Invoke-RestMethod $url)
+            Clear-Host
+            reinicio_servicios
+            Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
+            Read-Host
+            Menu-Principal
+        }
+        '7' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/limpieza_navegadores.ps1"
+            Invoke-Expression (Invoke-RestMethod $url)
+            Clear-Host
+            limpieza_navegadores
+            Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
+            Read-Host
+            Menu-Principal
+        }
+        '8' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/software_instalado.ps1"
+            Invoke-Expression (Invoke-RestMethod $url)
+            Clear-Host
+            software_instalado
+            Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
+            Read-Host
+            Menu-Principal
+        }
+        '9' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/InfoVersiones.ps1"
+            Invoke-Expression (Invoke-RestMethod $url)
+            Clear-Host
+            InfoVersiones
+            Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
+            Read-Host
+            Menu-Principal
+        }
+        '10' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/EstadoSeguridad.ps1"
+            Invoke-Expression (Invoke-RestMethod $url)
+            Clear-Host
+            EstadoSeguridad
+            Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
+            Read-Host
+            Menu-Principal
+        }
+        '0' {
+            Stop-Process -Id $PID
+        }
+        default {
+            Write-Host "Opción no válida" -ForegroundColor Red
+            Start-Sleep 1
+            Menu-Principal
+        }
     }
 }
 # ================= EJECUTAR MENU =================
