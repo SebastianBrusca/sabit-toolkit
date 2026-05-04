@@ -1,6 +1,8 @@
 # =============================================
 # Gestión de permisos de administrador (Compatible con IEX / Web)
-
+# ================= DEFINIR RAMA =================
+$branch = "SABIT-0.1"  # Cambiás a "main" cuando quieras publicar
+# =============================================
 $esAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
 
 if (-NOT $esAdmin) {
@@ -19,7 +21,7 @@ if (-NOT $esAdmin) {
 
     switch ($opcion) {
         '1' {
-            $urlRepo = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/sabit.ps1"
+            $urlRepo = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/$branch/sabit.ps1"
             $comando = "iex (irm $urlRepo)"
             
             try {
@@ -63,58 +65,55 @@ function Mostrar-Banner {
 
 # ================= MENU PRINCIPAL =================
 function Menu-Principal {
-    Mostrar-Banner
+    $salir = $false
+    while (-not $salir) {
+        Clear-Host
+        Mostrar-Banner
+        
+        Write-Host "[1] Info Sistema      [2] Nav. Predeterminado" -ForegroundColor Yellow
+        Write-Host "[3] IE Viejo          [4] Red Avanzada" -ForegroundColor Yellow
+        Write-Host "[5] Borrar Temporales [6] Reinicio Servicios" -ForegroundColor Yellow
+        Write-Host "[7] Limpieza Nav.     [8] Software Instalado" -ForegroundColor Yellow
+        Write-Host "[9] Win y Java        [10] Seguridad" -ForegroundColor Yellow
+        Write-Host "[0] Salir" -ForegroundColor Red
+        Write-Host ""
+        $key = Read-Host "Selecciona una opción"
 
-    # Primera línea: opciones 1 y 2
-    Write-Host "[1] Información del sistema" -ForegroundColor White -NoNewline
-    Write-Host "   [2] Navegador Predeterminado" -ForegroundColor Yellow
-    Write-Host ""  # línea en blanco
+        if ($key -eq '0') { 
+            $salir = $true
+            break 
+        }
 
-    # Segunda línea: opciones 3 y 4
-    Write-Host "[3] Internet Explorer Viejo" -ForegroundColor White -NoNewline
-    Write-Host "   [4] Información de red avanzada" -ForegroundColor Yellow
-    Write-Host ""  # línea en blanco
+        # Diccionario de URLs para mantener el switch limpio
+        $urls = @{
+            '1' = "informacion_sistema.ps1"
+            '2' = "naveg_predeterminado.ps1"
+            '3' = "internet_explorer_viejo.ps1"
+            '4' = "informacion_red.ps1"
+            '5' = "limpieza_temporales.ps1"
+            '6' = "reinicio_servicios.ps1"
+            '7' = "limpieza_navegadores.ps1"
+            '8' = "software_instalado.ps1"
+            '9' = "InfoVersiones.ps1"
+            '10'= "EstadoSeguridad.ps1"
+        }
 
-    # Tercera línea: opciones 5 y 6
-    Write-Host "[5] Borrar Archivos Temporales" -ForegroundColor White -NoNewline
-    Write-Host "   [6] Reinicio de servicios" -ForegroundColor Yellow
-    Write-Host ""  # línea en blanco
-
-    # Cuarta línea: opciones 7 y 8
-    Write-Host "[7] Limpieza avanzada de navegadores" -ForegroundColor White -NoNewline
-    Write-Host "   [8] Software instalado" -ForegroundColor Yellow
-    Write-Host ""  # línea en blanco
-
-    # Cuarta línea: opciones 7 y 8
-    Write-Host "[9] Version de Windows y Java" -ForegroundColor White -NoNewline
-    Write-Host "   [10] Estado de seguridad" -ForegroundColor Yellow
-    Write-Host ""  # línea en blanco
-
-    # Salir
-    Write-Host "[0] Salir" -ForegroundColor Red
-    Write-Host ""  # línea en blanco
-    Write-Host "Selecciona una opcion y presiona Enter: " -NoNewline
-
-
-    $key = Read-Host
-
-    switch ($key) {
-        '1' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/informacion_sistema.ps1") }
-        '2' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/naveg_predeterminado.ps1") }
-        '3' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/internet_explorer_viejo.ps1") }
-        '4' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/informacion_red.ps1") }
-        '5' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/limpieza_temporales.ps1") }
-        '6' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/reinicio_servicios.ps1") }
-        '7' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/limpieza_navegadores.ps1") }
-        '8' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/software_instalado.ps1") }
-        '9' { Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/InfoVersiones.ps1") }
-        '10'{ Invoke-Expression (Invoke-RestMethod "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/EstadoSeguridad.ps1") }
-        '0' { Stop-Process -Id $PID }
-        default { Write-Host "Opción no válida." -ForegroundColor Red; Start-Sleep 1 }
+        if ($urls.ContainsKey($key)) {
+            $fullUrl = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/$($urls[$key])"
+            try {
+                $scriptContent = Invoke-RestMethod -Uri $fullUrl -UseBasicParsing
+                Clear-Host
+                # Forzamos la ejecución en un ámbito limpio
+                & ([scriptblock]::Create($scriptContent))
+            } catch {
+                Write-Host "Error al cargar el módulo: $_" -ForegroundColor Red
+            }
+            Write-Host "`nPresiona Enter para volver..." -ForegroundColor Cyan
+            Read-Host
+        } else {
+            Write-Host "Opción no válida" -ForegroundColor Red
+            Start-Sleep 1
+        }
     }
-
-    Menu-Principal
 }
-
-# ================= EJECUTAR MENU =================
 Menu-Principal

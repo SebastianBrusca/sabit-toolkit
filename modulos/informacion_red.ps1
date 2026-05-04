@@ -1,33 +1,61 @@
-function InfoVersiones {
-    Write-Host "===== Versiones del Sistema =====" -ForegroundColor Cyan
+# ================= INFORMACION DE RED =================
+Clear-Host
+Write-Host "=== INFORMACION DE RED ===" -ForegroundColor Cyan
 
-    # Versión de Windows
-    try {
-        $win = Get-ComputerInfo -Property WindowsProductName, WindowsVersion
-        Write-Host "Windows:" $win.WindowsProductName "Version:" $win.WindowsVersion
-    } catch {
-        Write-Host "No se pudo obtener la versión de Windows" -ForegroundColor Yellow
-    }
+try {
+    # Obtener todas las interfaces activas IPv4
+    $adapters = Get-NetIPAddress -AddressFamily IPv4 | Where-Object { $_.IPAddress -ne "127.0.0.1" }
 
-    # Versión de Java
-    try {
-        $javaPath = Get-Command java -ErrorAction SilentlyContinue
-        if ($javaPath) {
-            $javaVersion = & java -version 2>&1
-            Write-Host "`nJava instalada:" -ForegroundColor Green
-            Write-Host $javaVersion
-        } else {
-            Write-Host "`nJava no está instalada o no está en el PATH" -ForegroundColor Red
+    if ($adapters) {
+        foreach ($adapter in $adapters) {
+            try {
+                $nic = Get-NetAdapter | Where-Object {$_.InterfaceIndex -eq $adapter.InterfaceIndex} | Select-Object -First 1
+                $type = if ($nic.PhysicalMediaType -eq "802.3") {"Ethernet"} else {"Wi-Fi"}
+
+                # Gateway con manejo de error si no existe
+                try {
+                    $route = Get-NetRoute -InterfaceIndex $adapter.InterfaceIndex -DestinationPrefix "0.0.0.0/0" -ErrorAction Stop
+                    $gateway = if ($route) { $route.NextHop } else { "" }
+                } catch {
+                    $gateway = ""
+                }
+
+                # Obtener DNS
+                $dns = (Get-DnsClientServerAddress -InterfaceIndex $adapter.InterfaceIndex -AddressFamily IPv4).ServerAddresses -join ", "
+
+                # Mostrar info
+                Write-Host ""
+                Write-Host "Interfaz : $($nic.Name)" -ForegroundColor Cyan
+                Write-Host "Tipo     : $type"
+                Write-Host "IP       : $($adapter.IPAddress)"
+                Write-Host "Mascara  : $($adapter.PrefixLength)"
+                Write-Host "Gateway  : $gateway"
+                Write-Host "DNS      : $dns"
+
+            } catch {
+                Write-Host "No se pudo obtener información para la interfaz $($adapter.InterfaceIndex)" -ForegroundColor Yellow
+            }
         }
-    } catch {
-        Write-Host "`nError al verificar Java" -ForegroundColor Red
+
+        # Test de conectividad rápida
+        Write-Host ""
+        Write-Host "Test de ping a 8.8.8.8..." -ForegroundColor Yellow
+        try {
+            Test-Connection 8.8.8.8 -Count 2 -ErrorAction Stop | ForEach-Object {
+                Write-Host "Ping: $($_.Address) - $($_.ResponseTime) ms"
+            }
+        } catch {
+            Write-Host "No se pudo realizar ping." -ForegroundColor Red
+        }
+
+    } else {
+        Write-Host "No se encontraron interfaces activas." -ForegroundColor Red
     }
 
-    Write-Host "================================" -ForegroundColor Cyan
-    Write-Host ""
-    Write-Host "Presiona cualquier tecla para volver al menú..." -ForegroundColor Cyan
-    Pause
+} catch {
+    Write-Host "Error al obtener información de red: $($_.Exception.Message)" -ForegroundColor Red
 }
 
-# Ejecutar automáticamente
-InfoVersiones
+# Esperar Enter para volver al menú remoto
+Write-Host ""
+Read-Host "Presione Enter para volver al menú..."
