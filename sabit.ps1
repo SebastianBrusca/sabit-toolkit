@@ -183,23 +183,17 @@ function Menu-Principal {
             Menu-Principal
         }
         '9' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/InfoVersiones.ps1"
-            try {
-                Invoke-Expression (Invoke-RestMethod $url)
-            } catch {
-                Write-Host "Error al cargar módulo: $url" -ForegroundColor Red
-                Pause
-            }
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/InfoVersiones.ps1"
+            Invoke-Expression (Invoke-RestMethod $url)
+            Start-Process powershell.exe -ArgumentList "-NoExit", "-Command", "InfoVersiones"
+        }
             Menu-Principal
         }
-        'A' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/EstadoSeguridad.ps1"
-            try {
-                Invoke-Expression (Invoke-RestMethod $url)
-            } catch {
-                Write-Host "Error al cargar módulo: $url" -ForegroundColor Red
-                Pause
-            }
+        '10' {
+             $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/EstadoSeguridad.ps1"
+             Invoke-Expression (Invoke-RestMethod $url)
+             Start-Process powershell.exe -ArgumentList "-NoExit", "-Command", "EstadoSeguridad"
+        }
             Menu-Principal
         }
         '0' {
