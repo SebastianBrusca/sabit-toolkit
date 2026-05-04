@@ -175,21 +175,23 @@ function Menu-Principal {
         }
         '9' {
             $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/InfoVersiones.ps1"
-            Invoke-Expression (Invoke-RestMethod $url)
+            $script = Invoke-RestMethod $url
             Clear-Host
-            InfoVersiones
+            Invoke-Command -ScriptBlock { Invoke-Expression $using:script }
             Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
-            Read-Host
-            Menu-Principal
+           Read-Host
+           Menu-Principal
         }
+
         '10' {
-            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/EstadoSeguridad.ps1"
-            Invoke-Expression (Invoke-RestMethod $url)
-            Clear-Host
-            EstadoSeguridad
-            Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
-            Read-Host
-            Menu-Principal
+             $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/EstadoSeguridad.ps1"
+             $script = Invoke-RestMethod $url
+             Clear-Host
+             Invoke-Command -ScriptBlock { Invoke-Expression $using:script }
+             Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
+             Read-Host
+             Menu-Principal
+        }
         }
         '0' {
             Stop-Process -Id $PID
