@@ -172,6 +172,15 @@ function Menu-Principal {
             Read-Host
             Menu-Principal
         }
+        '9' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/InfoVersiones.ps1"
+            $script = Invoke-RestMethod $url
+            Clear-Host
+            Invoke-Expression $script
+            Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
+            Read-Host
+            Menu-Principal
+        }
         '10' {
             $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/EstadoSeguridad.ps1"
             $script = Invoke-RestMethod $url
@@ -180,17 +189,18 @@ function Menu-Principal {
             Write-Host "`nPresiona Enter para volver al menú..." -ForegroundColor Cyan
             Read-Host
             Menu-Principal
-        }
+        } # <--- ESTA LLAVE ES CRUCIAL. Si falta, la opción '0' falla.
+
         '0' {
-            Exit
+            Stop-Process -Id $PID
         }
+
         default {
             Write-Host "Opción no válida" -ForegroundColor Red
-            Start-Sleep -Seconds 1
+            Start-Sleep 1
             Menu-Principal
         }
-    }
-}
-
+    } # Cierra el switch
+} # Cierra la función Menu-Principal
 # Ejecutar la función al final del script para que el menú aparezca
 Menu-Principal
