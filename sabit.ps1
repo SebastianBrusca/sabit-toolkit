@@ -1,7 +1,7 @@
 # =============================================
 # Gestión de permisos de administrador (Compatible con IEX / Web)
 # ================= DEFINIR RAMA =================
-$branch = "SABIT-0.1"  # Cambiás a "main" cuando quieras publicar
+$branch = "main"  # Cambiás a "main" cuando quieras publicar
 # =============================================
 $esAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
 
