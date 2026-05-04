@@ -187,15 +187,13 @@ function Menu-Principal {
             Invoke-Expression (Invoke-RestMethod $url)
             Start-Process powershell.exe -ArgumentList "-NoExit", "-Command", "InfoVersiones"
         }
-            Menu-Principal
-        }
+        
         '10' {
              $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/EstadoSeguridad.ps1"
              Invoke-Expression (Invoke-RestMethod $url)
              Start-Process powershell.exe -ArgumentList "-NoExit", "-Command", "EstadoSeguridad"
         }
-            Menu-Principal
-        }
+       
         '0' {
             Stop-Process -Id $PID
         }
