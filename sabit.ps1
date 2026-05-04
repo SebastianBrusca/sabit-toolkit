@@ -101,67 +101,69 @@ function Menu-Principal {
     $key = Read-Host
 
     switch ($key) {
-    '1' {
-        $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/$branch/modulos/informacion_sistema.ps1"
-        try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
-        Menu-Principal
-    }
-    '2' {
-        $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/$branch/modulos/naveg_predeterminado.ps1"
-        try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
-        Menu-Principal
-    }
-    '3' {
-        $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/$branch/modulos/internet_explorer_viejo.ps1"
-        try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
-        Menu-Principal
-    }
-    '4' {
-        $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/$branch/modulos/informacion_red.ps1"
-        try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
-        Menu-Principal
-    }
-    '5' {
-        $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/$branch/modulos/limpieza_temporales.ps1"
-        try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
-        Menu-Principal
-    }
-    '6' {
-        $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/$branch/modulos/reinicio_servicios.ps1"
-        try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
-        Menu-Principal
-    }
-    '7' {
-        $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/$branch/modulos/limpieza_navegadores.ps1"
-        try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
-        Menu-Principal
-    }
-    '8' {
-        $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/$branch/modulos/software_instalado.ps1"
-        try { Invoke-Expression (Invoke-RestMethod $url) } catch { Write-Host "Error al cargar módulo: $url" -ForegroundColor Red; Pause }
-        Menu-Principal
-    }
-    '9' {
-        $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/InfoVersiones.ps1"
-        Invoke-Expression (Invoke-RestMethod $url)
-        Start-Process powershell.exe -ArgumentList "-NoExit", "-Command", "InfoVersiones"
-        Menu-Principal
-    }
-    '10' {
-        $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/main/modulos/EstadoSeguridad.ps1"
-        Invoke-Expression (Invoke-RestMethod $url)
-        Start-Process powershell.exe -ArgumentList "-NoExit", "-Command", "EstadoSeguridad"
-        Menu-Principal
-    }
-    '0' {
-        Stop-Process -Id $PID
-    }
-    default {
-        Write-Host "Opción no válida." -ForegroundColor Red
-        Start-Sleep -Seconds 1
-        Menu-Principal
+        '1' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/informacion_sistema.ps1"
+            Invoke-Expression (Invoke-RestMethod $url)
+            Menu-Principal
+        }
+        '2' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/naveg_predeterminado.ps1"
+            Invoke-Expression (Invoke-RestMethod $url)
+            Menu-Principal
+        }
+        '3' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/internet_explorer_viejo.ps1"
+            Invoke-Expression (Invoke-RestMethod $url)
+            Menu-Principal
+        }
+        '4' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/informacion_red.ps1"
+            Invoke-Expression (Invoke-RestMethod $url)
+            Menu-Principal
+        }
+        '5' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/limpieza_temporales.ps1"
+            Invoke-Expression (Invoke-RestMethod $url)
+            Menu-Principal
+        }
+        '6' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/reinicio_servicios.ps1"
+            Invoke-Expression (Invoke-RestMethod $url)
+            Menu-Principal
+        }
+        '7' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/limpieza_navegadores.ps1"
+            Invoke-Expression (Invoke-RestMethod $url)
+            Menu-Principal
+        }
+        '8' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/software_instalado.ps1"
+            Invoke-Expression (Invoke-RestMethod $url)
+            Menu-Principal
+        }
+        '9' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/InfoVersiones.ps1"
+            Invoke-Expression (Invoke-RestMethod $url)
+            Start-Process powershell.exe -ArgumentList "-NoExit", "-Command", "InfoVersiones"
+            Menu-Principal
+        }
+        '10' {
+            $url = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/modulos/EstadoSeguridad.ps1"
+            Invoke-Expression (Invoke-RestMethod $url)
+            Start-Process powershell.exe -ArgumentList "-NoExit", "-Command", "EstadoSeguridad"
+            Menu-Principal
+        }
+        '0' {
+            Stop-Process -Id $PID
+        }
+        default {
+            Write-Host "Opción no válida" -ForegroundColor Red
+            Start-Sleep 1
+            Menu-Principal
+        }
     }
 }
+
 
 # ================= EJECUTAR MENU =================
 Menu-Principal
