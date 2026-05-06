@@ -2,14 +2,25 @@
 Clear-Host
 Write-Host "=== DESCARGA BALANZAWMS ===" -ForegroundColor Cyan
 
+# Carpeta destino en el disco donde está Windows
+$extractPath = Join-Path $env:SystemDrive "BalanzaWMS"
+
+# Verificar si la carpeta ya existe
+if (Test-Path $extractPath) {
+    Write-Host "==========================================================" -ForegroundColor Red
+    Write-Host "  ADVERTENCIA: La carpeta BalanzaWMS ya existe en el disco $($env:SystemDrive)" -ForegroundColor Red
+    Write-Host "==========================================================" -ForegroundColor Red
+    Read-Host "Presione Enter para volver al menú..."
+    return
+}
+
 # URL raw de GitHub
 $zipUrl = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/SABIT-0.1/recursos/BalanzaWMS.zip"
 
 # Ruta temporal donde guardar el ZIP
 $tempZip = Join-Path $env:TEMP "BalanzaWMS.zip"
 
-# Carpeta destino en el disco donde está Windows
-$extractPath = Join-Path $env:SystemDrive "BalanzaWMS"
+
 
 # Descargar usando Invoke-WebRequest (binario seguro)
 Write-Host "Descargando BalanzaWMS..." -ForegroundColor Cyan
