@@ -1,28 +1,18 @@
-# Limpia pantalla
 Clear-Host
 Write-Host "=== VERIFICAR CARPETA E INSTALAR BALANZAWMS ===" -ForegroundColor Cyan
-
 $extractPath = Join-Path $env:SystemDrive "BalanzaWMS"
 $zipUrl = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/SABIT-0.1/recursos/BalanzaWMS.zip"
 $tempZip = Join-Path $env:TEMP "BalanzaWMS.zip"
 
 if (Test-Path $extractPath) {
     Write-Host "==========================================================" -ForegroundColor Red
-    Write-Host "  ADVERTENCIA: La carpeta BalanzaWMS ya existe en el disco $($env:SystemDrive)" -ForegroundColor Red
+    Write-Host "  ADVERTENCIA: La carpeta BalanzaWMS ya existe en $($env:SystemDrive)" -ForegroundColor Red
     Write-Host "==========================================================" -ForegroundColor Red
     Read-Host "Presione Enter para continuar..."
 } else {
     New-Item -ItemType Directory -Path $extractPath | Out-Null
     Write-Host "Descargando BalanzaWMS..." -ForegroundColor Cyan
-    try {
-        Invoke-WebRequest -Uri $zipUrl -OutFile $tempZip -UseBasicParsing
-        Write-Host "Descarga completada." -ForegroundColor Green
-    } catch {
-        Write-Host "Error al descargar BalanzaWMS: $_" -ForegroundColor Red
-        Read-Host "Presione Enter para volver..."
-        return
-    }
-
+    Invoke-WebRequest -Uri $zipUrl -OutFile $tempZip -UseBasicParsing
     Write-Host "Descomprimiendo..." -ForegroundColor Cyan
     Add-Type -AssemblyName System.IO.Compression.FileSystem
     $zip = [System.IO.Compression.ZipFile]::OpenRead($tempZip)
@@ -37,7 +27,6 @@ if (Test-Path $extractPath) {
     }
     $zip.Dispose()
     Remove-Item $tempZip -Force
-
     Write-Host "BalanzaWMS listo en $extractPath" -ForegroundColor Green
     Read-Host "Presione Enter para continuar..."
 }
