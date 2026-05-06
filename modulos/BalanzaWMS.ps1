@@ -25,9 +25,8 @@ function Menu-Submodulos11 {
 
         if ($urls.ContainsKey($opcion)) {
             try {
-                # Descargar y ejecutar el script directamente desde GitHub
-                $scriptContent = Invoke-RestMethod -Uri $urls[$opcion] -UseBasicParsing
-                & ([scriptblock]::Create($scriptContent))
+                # Ejecutar el script directamente en una nueva ventana de PowerShell
+                Start-Process powershell.exe -ArgumentList "-NoExit", "-Command `"iex (irm $($urls[$opcion]))`""
             } catch {
                 Write-Host "Error al cargar el módulo: $_" -ForegroundColor Red
             }
