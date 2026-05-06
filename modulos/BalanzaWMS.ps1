@@ -91,8 +91,9 @@ $configuredBaud = if ($baudLine -match 'value="([^"]+)"') { $matches[1] } else {
 $pcCOMs = Get-WmiObject Win32_SerialPort | Select-Object -ExpandProperty DeviceID
 
 Write-Host "`nPuertos COM detectados en la PC: $($pcCOMs -join ', ')"
-Write-Host "COM configurado en el archivo : $configuredCOM"
-Write-Host "BaudRate configurado          : $configuredBaud"
+Write-Host ""
+Write-Host "COM configurado en PuenteComWeb.exe.config      : $configuredCOM"
+Write-Host "BaudRate configurado en PuenteComWeb.exe.config : $configuredBaud"
 
 # Comparar COM
 if ($configuredCOM -and $pcCOMs -contains $configuredCOM) {
