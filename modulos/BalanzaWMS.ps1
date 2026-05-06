@@ -20,8 +20,6 @@ $zipUrl = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/SABIT
 # Ruta temporal donde guardar el ZIP
 $tempZip = Join-Path $env:TEMP "BalanzaWMS.zip"
 
-
-
 # Descargar usando Invoke-WebRequest (binario seguro)
 Write-Host "Descargando BalanzaWMS..." -ForegroundColor Cyan
 try {
@@ -33,8 +31,8 @@ try {
     return
 }
 
-# Crear carpeta de destino si no existe
-if (-Not (Test-Path $extractPath)) { New-Item -ItemType Directory -Path $extractPath | Out-Null }
+# Crear carpeta de destino
+New-Item -ItemType Directory -Path $extractPath | Out-Null
 
 # Descomprimir ZIP de forma compatible
 Write-Host "Descomprimiendo en $extractPath..." -ForegroundColor Cyan
