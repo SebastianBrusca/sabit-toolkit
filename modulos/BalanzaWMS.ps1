@@ -1,5 +1,5 @@
 # ================= DEFINIR RAMA =================
-$branch = "SABIT-0.1"  # Cambiás a "main" cuando quieras publicar
+$branch = "Main"  # Cambiás a "main" cuando quieras publicar
 
 function Menu-Submodulos11 {
     $salir = $false
