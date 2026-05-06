@@ -1,5 +1,5 @@
 # ================= DEFINIR RAMA =================
-$branch = "Main"  # Cambiás a "main" cuando quieras publicar
+$branch = "main"  # Cambiás a "main" cuando quieras publicar
 
 function Menu-Submodulos11 {
     $salir = $false
@@ -8,10 +8,15 @@ function Menu-Submodulos11 {
         Write-Host "================ BalanzaWMS =================" -ForegroundColor Cyan
         Write-Host ""
         Write-Host "[1] Verificar carpeta e instalar BalanzaWMS" -ForegroundColor White
+        Write-Host ""
         Write-Host "[2] Verificar IP" -ForegroundColor White
+        Write-Host ""
         Write-Host "[3] Verificar COM y BaudRate" -ForegroundColor White
+        Write-Host ""
         Write-Host "[4] Ejecutar PuenteComWeb.exe como administrador" -ForegroundColor White 
+        Write-Host ""
         Write-Host "[5] Abrir Putty" -ForegroundColor White
+        Write-Host ""
         Write-Host "[0] Volver al menú principal" -ForegroundColor Red
         Write-Host ""
 
