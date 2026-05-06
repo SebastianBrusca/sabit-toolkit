@@ -25,10 +25,29 @@ try {
 # Crear carpeta de destino si no existe
 if (-Not (Test-Path $extractPath)) { New-Item -ItemType Directory -Path $extractPath | Out-Null }
 
-# Descomprimir ZIP
+# Descomprimir ZIP sin crear subcarpeta extra
 Write-Host "Descomprimiendo en $extractPath..." -ForegroundColor Cyan
 Add-Type -AssemblyName System.IO.Compression.FileSystem
-[System.IO.Compression.ZipFile]::ExtractToDirectory($tempZip, $extractPath)
+
+# Abrir ZIP
+$zip = [System.IO.Compression.ZipFile]::OpenRead($tempZip)
+
+foreach ($entry in $zip.Entries) {
+    # Ignorar entradas vacías
+    if ([string]::IsNullOrEmpty($entry.Name)) { continue }
+
+    # Ruta destino final para el archivo
+    $destFile = Join-Path $extractPath $entry.Name
+
+    # Crear carpeta si no existe
+    $destDir = Split-Path $destFile
+    if (-Not (Test-Path $destDir)) { New-Item -ItemType Directory -Path $destDir | Out-Null }
+
+    # Extraer el archivo
+    $entry.ExtractToFile($destFile, $true)
+}
+
+$zip.Dispose()
 
 # Limpiar archivo temporal
 Remove-Item $tempZip -Force
