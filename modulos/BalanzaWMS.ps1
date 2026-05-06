@@ -46,7 +46,7 @@ if (Test-Path $extractPath) {
 }
 
 # ================= VERIFICACIÓN DE WEB SERVICE IP =================
-Clear-Host
+
 Write-Host "=== VERIFICACIÓN DE WEB SERVICE IP ===" -ForegroundColor Cyan
 $configFile = Join-Path $extractPath "PuenteComWeb.exe.config"
 if (-Not (Test-Path $configFile)) {
@@ -78,7 +78,7 @@ if ($configuredIP -eq $localIP) {
 Read-Host "Presione Enter para continuar..."
 
 # ================= VERIFICACIÓN PUERTOS COM Y BAUDRATE =================
-Clear-Host
+
 Write-Host "=== VERIFICACIÓN DE PUERTOS COM Y BAUDRATE ===" -ForegroundColor Cyan
 
 $configContent = Get-Content $configFile
@@ -106,4 +106,35 @@ if ($configuredCOM -and $pcCOMs -contains $configuredCOM) {
     Write-Host "==========================================================" -ForegroundColor Red
 }
 
+
+# ================= DESCARGA Y EJECUCIÓN DE PUTTY =================
+
+Write-Host "=== DESCARGA Y EJECUCIÓN DE PUTTY ===" -ForegroundColor Cyan
+
+# Carpeta Descargas del usuario
+$downloadsPath = [Environment]::GetFolderPath("UserProfile") + "\Downloads"
+$puttyPath = Join-Path $downloadsPath "putty.exe"
+
+# Descargar Putty si no existe
+if (-Not (Test-Path $puttyPath)) {
+    Write-Host "Descargando Putty en $downloadsPath..." -ForegroundColor Cyan
+    $puttyUrl = "https://the.earth.li/~sgtatham/putty/latest/w64/putty.exe"
+    try {
+        Invoke-WebRequest -Uri $puttyUrl -OutFile $puttyPath -UseBasicParsing
+        Write-Host "Putty descargado en $puttyPath" -ForegroundColor Green
+    } catch {
+        Write-Host "Error al descargar Putty: $_" -ForegroundColor Red
+        Read-Host "Presione Enter para volver al menú..."
+        return
+    }
+} else {
+    Write-Host "Putty ya existe en $puttyPath" -ForegroundColor Yellow
+}
+
+# Ejecutar Putty con COM y Baud del archivo config
+$sercfg = "$configuredBaud,8,n,1,N"
+Write-Host "`nAbriendo Putty con COM: $configuredCOM y BaudRate: $configuredBaud..." -ForegroundColor Cyan
+Start-Process -FilePath $puttyPath -ArgumentList "-serial $configuredCOM -sercfg $sercfg"
+
+Write-Host "`n✅ Putty abierto. Verifique la consola para ver los datos de la balanza." -ForegroundColor Green
 Read-Host "Presione Enter para volver al menú..."
