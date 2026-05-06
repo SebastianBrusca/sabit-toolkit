@@ -1,3 +1,6 @@
+# ================= DEFINIR RAMA =================
+$branch = "SABIT-0.1"  # Cambiás a "main" cuando quieras publicar
+
 function Menu-Submodulos11 {
     $salir = $false
     while (-not $salir) {
@@ -16,11 +19,11 @@ function Menu-Submodulos11 {
 
         # URLs directos de los submódulos en GitHub
         $urls = @{
-            '1' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/SABIT-0.1/modulos/submodulo11/DescargarBalanzaWMS.ps1"
-            '2' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/SABIT-0.1/modulos/submodulo11/VerificarIP.ps1"
-            '3' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/SABIT-0.1/modulos/submodulo11/VerificarCOM.ps1"
-            '4' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/SABIT-0.1/modulos/submodulo11/EjecutarPuenteComWeb.ps1"
-            '5' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/SABIT-0.1/modulos/submodulo11/AbrirPutty.ps1"
+            '1' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/submodulo11/DescargarBalanzaWMS.ps1"
+            '2' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/submodulo11/VerificarIP.ps1"
+            '3' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/submodulo11/VerificarCOM.ps1"
+            '4' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/submodulo11/EjecutarPuenteComWeb.ps1"
+            '5' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/submodulo11/AbrirPutty.ps1"
         }
 
         if ($urls.ContainsKey($opcion)) {
