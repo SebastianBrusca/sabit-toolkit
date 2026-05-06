@@ -105,7 +105,7 @@ if ($configuredCOM -and $pcCOMs -contains $configuredCOM) {
     Write-Host "  Puertos COM disponibles       : $($pcCOMs -join ', ')" -ForegroundColor Red
     Write-Host "==========================================================" -ForegroundColor Red
 }
-
+Read-Host "Presione Enter para continuar..."
 
 # ================= DESCARGA Y EJECUCIÓN DE PUTTY =================
 
