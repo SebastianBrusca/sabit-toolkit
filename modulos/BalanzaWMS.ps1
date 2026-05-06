@@ -2,7 +2,7 @@
 # Módulo para descargar y descomprimir BalanzaWMS en la PC local
 
 # URL del ZIP en tu repositorio (modifica según corresponda)
-$zipUrl = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/recursos/BalanzaWMS.zip"
+$zipUrl = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/SABIT-0.1/recursos/BalanzaWMS.zip"
 
 # Carpeta temporal para descargar el ZIP
 $tempZip = Join-Path $env:TEMP "BalanzaWMS.zip"
