@@ -58,7 +58,7 @@ function Mostrar-Banner {
     Write-Host "         ___) | / ___ \  | __ \   | |   | |  " -ForegroundColor Cyan
     Write-Host "        \____/ /_/   \_\ |____/   |_|   |_|  " -ForegroundColor Cyan
     Write-Host ""
-    Write-Host "          SABIT - SOPORTE TECNICO    V-Sabit0.4 " -ForegroundColor Green
+    Write-Host "          SABIT - SOPORTE TECNICO    V-Sabit0.5 " -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
 }
