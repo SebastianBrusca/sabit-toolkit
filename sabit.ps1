@@ -70,17 +70,17 @@ function Menu-Principal {
         Clear-Host
         Mostrar-Banner
         
-        Write-Host "[1] Info Sistema      [2] Nav. Predeterminado" -ForegroundColor Green
+        Write-Host "[1] Info Sistema      [2] Nav. Predeterminado" -ForegroundColor White
         Write-Host ""
-        Write-Host "[3] IE Viejo          [4] Red Avanzada" -ForegroundColor Green
+        Write-Host "[3] IE Viejo          [4] Red Avanzada" -ForegroundColor White
         Write-Host ""
-        Write-Host "[5] Borrar Temporales [6] Reinicio Servicios" -ForegroundColor Green
+        Write-Host "[5] Borrar Temporales [6] Reinicio Servicios" -ForegroundColor White
         Write-Host ""
-        Write-Host "[7] Limpieza Nav.     [8] Software Instalado" -ForegroundColor Green
+        Write-Host "[7] Limpieza Nav.     [8] Software Instalado" -ForegroundColor White
         Write-Host ""
-        Write-Host "[9] Win y Java        [10] Seguridad" -ForegroundColor Green
+        Write-Host "[9] Win y Java        [10] Seguridad" -ForegroundColor White
         Write-Host ""
-        Write-Host "[11] BalanzaWMS" -ForegroundColor Green
+        Write-Host "[11] BalanzaWMS" -ForegroundColor White
         Write-Host ""
         Write-Host "[0] Salir" -ForegroundColor Red
         Write-Host ""
