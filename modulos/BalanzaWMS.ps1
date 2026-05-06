@@ -70,7 +70,6 @@ Write-Host "BalanzaWMS listo en $extractPath" -ForegroundColor Green
 Read-Host "Presione Enter para volver al menú..."
 
 # ================= VERIFICACIÓN DE PUENTECOMWEB.EXE.CONFIG =================
-Clear-Host
 Write-Host "=== VERIFICACIÓN DE PUENTECOMWEB.EXE.CONFIG ===" -ForegroundColor Cyan
 
 # Ruta del archivo config
