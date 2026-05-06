@@ -25,8 +25,10 @@ function Menu-Submodulos11 {
 
         if ($urls.ContainsKey($opcion)) {
             try {
-                # Ejecutar directamente el script en una nueva ventana
-                Start-Process powershell.exe -ArgumentList "-NoExit", "-Command `"iex (irm '$($urls[$opcion])')`""
+                # Descargar y ejecutar el script en la misma ventana
+                $scriptContent = Invoke-RestMethod -Uri $urls[$opcion] -UseBasicParsing
+                $scriptBlock = [scriptblock]::Create($scriptContent)
+                Invoke-Command -ScriptBlock $scriptBlock
             } catch {
                 Write-Host "Error al cargar el módulo: $_" -ForegroundColor Red
                 Read-Host "Presione Enter para continuar..."
