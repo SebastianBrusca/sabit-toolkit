@@ -58,7 +58,9 @@ function Mostrar-Banner {
     Write-Host "         ___) | / ___ \  | __ \   | |   | |  " -ForegroundColor Cyan
     Write-Host "        \____/ /_/   \_\ |____/   |_|   |_|  " -ForegroundColor Cyan
     Write-Host ""
-    Write-Host "        SABIT - SOPORTE TECNICO    V-Sabit0.14 "   -ForegroundColor Green
+    Write-Host "              SABIT - SOPORTE TECNICO "   -ForegroundColor Green
+    Write-Host "====================================================" -ForegroundColor Cyan
+    Write-Host "                    Version 0.16 " -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
 }
@@ -80,7 +82,7 @@ function Menu-Principal {
         Write-Host ""
         Write-Host "[9] Win y Java        [10] Seguridad" -ForegroundColor White
         Write-Host ""
-        Write-Host "[11] BalanzaWMS" -ForegroundColor White
+        Write-Host "[11] BalanzaWMS       [12] Anydesk" -ForegroundColor White
         Write-Host ""
         Write-Host "[0] Salir" -ForegroundColor Red
         Write-Host ""
@@ -103,7 +105,8 @@ function Menu-Principal {
             '8' = "software_instalado.ps1"
             '9' = "InfoVersiones.ps1"
             '10'= "EstadoSeguridad.ps1"
-            '11'= "BalanzaWMS.ps1"
+            '11'= "BalanzaWMS.ps1
+            '12'= "Anydesk.ps1"
         }
 
         if ($urls.ContainsKey($key)) {
