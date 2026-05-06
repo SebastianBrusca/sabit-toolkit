@@ -70,11 +70,18 @@ function Menu-Principal {
         Clear-Host
         Mostrar-Banner
         
-        Write-Host "[1] Info Sistema      [2] Nav. Predeterminado" -ForegroundColor Yellow
-        Write-Host "[3] IE Viejo          [4] Red Avanzada" -ForegroundColor Yellow
-        Write-Host "[5] Borrar Temporales [6] Reinicio Servicios" -ForegroundColor Yellow
-        Write-Host "[7] Limpieza Nav.     [8] Software Instalado" -ForegroundColor Yellow
-        Write-Host "[9] Win y Java        [10] Seguridad" -ForegroundColor Yellow
+        Write-Host "[1] Info Sistema      [2] Nav. Predeterminado" -ForegroundColor Blue
+        Write-Host ""
+        Write-Host "[3] IE Viejo          [4] Red Avanzada" -ForegroundColor Blue
+        Write-Host ""
+        Write-Host "[5] Borrar Temporales [6] Reinicio Servicios" -ForegroundColor Blue
+        Write-Host ""
+        Write-Host "[7] Limpieza Nav.     [8] Software Instalado" -ForegroundColor Blue
+        Write-Host ""
+        Write-Host "[9] Win y Java        [10] Seguridad" -ForegroundColor Blue
+        Write-Host ""
+        Write-Host "[11] BalanzaWMS" -ForegroundColor Blue
+        Write-Host ""
         Write-Host "[0] Salir" -ForegroundColor Red
         Write-Host ""
         $key = Read-Host "Selecciona una opción"
@@ -96,6 +103,7 @@ function Menu-Principal {
             '8' = "software_instalado.ps1"
             '9' = "InfoVersiones.ps1"
             '10'= "EstadoSeguridad.ps1"
+            '11'= "BalanzaWMS.ps1"
         }
 
         if ($urls.ContainsKey($key)) {
