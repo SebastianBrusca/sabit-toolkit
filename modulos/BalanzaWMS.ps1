@@ -5,15 +5,10 @@ function Menu-Submodulos11 {
         Write-Host "================ BalanzaWMS =================" -ForegroundColor Cyan
         Write-Host ""
         Write-Host "[1] Verificar carpeta e instalar BalanzaWMS" -ForegroundColor White
-        Write-Host ""
         Write-Host "[2] Verificar IP" -ForegroundColor White
-        Write-Host ""
         Write-Host "[3] Verificar COM y BaudRate" -ForegroundColor White
-        Write-Host ""
         Write-Host "[4] Ejecutar PuenteComWeb.exe como administrador" -ForegroundColor White 
-        Write-Host ""
         Write-Host "[5] Abrir Putty" -ForegroundColor White
-        Write-Host ""
         Write-Host "[0] Volver al menú principal" -ForegroundColor Red
         Write-Host ""
 
@@ -30,10 +25,11 @@ function Menu-Submodulos11 {
 
         if ($urls.ContainsKey($opcion)) {
             try {
-                # Ejecutar el script directamente desde GitHub en nueva ventana de PowerShell
+                # Ejecutar directamente el script en una nueva ventana
                 Start-Process powershell.exe -ArgumentList "-NoExit", "-Command `"iex (irm '$($urls[$opcion])')`""
             } catch {
                 Write-Host "Error al cargar el módulo: $_" -ForegroundColor Red
+                Read-Host "Presione Enter para continuar..."
             }
         } elseif ($opcion -eq '0') {
             $salir = $true
