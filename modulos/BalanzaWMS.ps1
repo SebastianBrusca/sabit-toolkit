@@ -1,7 +1,10 @@
 # ================= BalanzaWMS.ps1 =================
 # Módulo para descargar y descomprimir BalanzaWMS en la PC local
 
-# URL del ZIP en tu repositorio (modifica según corresponda)
+Clear-Host
+Write-Host "=== DESCARGA Y DESCOMPRIME BALANZAWMS ===" -ForegroundColor Cyan
+
+# URL raw del ZIP en GitHub (modificar si cambia)
 $zipUrl = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/SABIT-0.1/recursos/BalanzaWMS.zip"
 
 # Carpeta temporal para descargar el ZIP
@@ -11,11 +14,14 @@ $tempZip = Join-Path $env:TEMP "BalanzaWMS.zip"
 $windowsDrive = $env:SystemDrive  # Normalmente C:
 $extractPath = Join-Path $windowsDrive "BalanzaWMS"
 
-Write-Host "Descargando BalanzaWMS desde el repositorio..." -ForegroundColor Cyan
+# Descargar el ZIP
+Write-Host "`nDescargando BalanzaWMS..." -ForegroundColor Cyan
 try {
     Invoke-WebRequest -Uri $zipUrl -OutFile $tempZip -UseBasicParsing
+    Write-Host "Descarga completada." -ForegroundColor Green
 } catch {
     Write-Host "Error al descargar BalanzaWMS: $_" -ForegroundColor Red
+    Read-Host "Presione Enter para volver al menú..."
     return
 }
 
@@ -25,7 +31,7 @@ if (-Not (Test-Path $extractPath)) {
 }
 
 # Extraer el ZIP
-Write-Host "Descomprimiendo en $extractPath ..." -ForegroundColor Cyan
+Write-Host "`nDescomprimiendo en $extractPath ..." -ForegroundColor Cyan
 try {
     Add-Type -AssemblyName System.IO.Compression.FileSystem
     [System.IO.Compression.ZipFile]::ExtractToDirectory($tempZip, $extractPath)
@@ -36,3 +42,7 @@ try {
 
 # Limpiar archivo temporal
 Remove-Item $tempZip -Force
+
+# Esperar Enter antes de volver al menú
+Write-Host ""
+Read-Host "Presione Enter para volver al menú..."
