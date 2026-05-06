@@ -5,7 +5,7 @@ Clear-Host
 Write-Host "=== DESCARGA Y DESCOMPRIME BALANZAWMS ===" -ForegroundColor Cyan
 
 # URL raw del ZIP en GitHub (modificar si cambia)
-$zipUrl = "https://github.com/SebastianBrusca/sabit-toolkit/raw/SABIT-0.1/recursos/BalanzaWMS.zip"
+$zipUrl = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/SABIT-0.1/recursos/BalanzaWMS.zip"
 
 # Carpeta temporal para descargar el ZIP
 $tempZip = Join-Path $env:TEMP "BalanzaWMS.zip"
