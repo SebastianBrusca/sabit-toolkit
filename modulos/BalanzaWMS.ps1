@@ -126,3 +126,49 @@ if ($configuredIP -eq $localIP) {
 }
 
 Read-Host "Presione Enter para volver al menú..."
+
+
+# ================= VERIFICACIÓN PUERTOS COM Y BAUDRATE =================
+Clear-Host
+Write-Host "=== VERIFICACIÓN DE PUERTOS COM Y BAUDRATE ===" -ForegroundColor Cyan
+
+# Archivo config
+$configFile = "C:\BalanzaWMS\PuenteComWeb.exe.config"
+
+if (-Not (Test-Path $configFile)) {
+    Write-Host "==========================================================" -ForegroundColor Red
+    Write-Host "  ERROR: No se encontró el archivo PuenteComWeb.exe.config en C:\BalanzaWMS" -ForegroundColor Red
+    Write-Host "==========================================================" -ForegroundColor Red
+    Read-Host "Presione Enter para volver al menú..."
+    return
+}
+
+$configContent = Get-Content $configFile
+
+# ----------------------- SerialPortName -----------------------
+$comLine = $configContent | Where-Object { $_ -match '<add key="SerialPortName"' }
+if ($comLine -match 'value="([^"]+)"') { $configuredCOM = $matches[1] } else { $configuredCOM = $null }
+
+# ----------------------- SerialPortBaudRate -----------------------
+$baudLine = $configContent | Where-Object { $_ -match '<add key="SerialPortBaudRate"' }
+if ($baudLine -match 'value="([^"]+)"') { $configuredBaud = $matches[1] } else { $configuredBaud = $null }
+
+# Obtener puertos COM de la PC
+$pcCOMs = Get-WmiObject Win32_SerialPort | Select-Object -ExpandProperty DeviceID
+
+Write-Host "`nPuertos COM detectados en la PC: $($pcCOMs -join ', ')"
+Write-Host "COM configurado en el archivo : $configuredCOM"
+Write-Host "BaudRate configurado          : $configuredBaud"
+
+# Comparar COM
+if ($configuredCOM -and $pcCOMs -contains $configuredCOM) {
+    Write-Host "`n✅ El puerto COM configurado existe en la PC." -ForegroundColor Green
+} else {
+    Write-Host "==========================================================" -ForegroundColor Red
+    Write-Host "⚠️  ADVERTENCIA: El puerto COM configurado NO coincide con los de la PC" -ForegroundColor Red
+    Write-Host "  COM configurado en el archivo: $configuredCOM" -ForegroundColor Red
+    Write-Host "  Puertos COM disponibles       : $($pcCOMs -join ', ')" -ForegroundColor Red
+    Write-Host "==========================================================" -ForegroundColor Red
+}
+
+Read-Host "Presione Enter para volver al menú..."
