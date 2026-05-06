@@ -5,13 +5,47 @@ Write-Host "=== DESCARGA BALANZAWMS ===" -ForegroundColor Cyan
 # Carpeta destino en el disco donde está Windows
 $extractPath = Join-Path $env:SystemDrive "BalanzaWMS"
 
-# Verificar si la carpeta ya existe
+# ----------------------- Verificar si la carpeta existe -----------------------
 if (Test-Path $extractPath) {
     Write-Host "==========================================================" -ForegroundColor Red
     Write-Host "  ADVERTENCIA: La carpeta BalanzaWMS ya existe en el disco $($env:SystemDrive)" -ForegroundColor Red
     Write-Host "==========================================================" -ForegroundColor Red
-    Read-Host "Presione Enter para volver al menú..."
-    return
+    Read-Host "Presione Enter para continuar con la verificación de la IP y puertos COM..."
+    # <-- NO hacemos return aquí, así el script sigue
+} else {
+    # Si no existe, se crea la carpeta normalmente
+    New-Item -ItemType Directory -Path $extractPath | Out-Null
+
+    # Descargar y descomprimir ZIP normalmente
+    Write-Host "Descargando BalanzaWMS..." -ForegroundColor Cyan
+    try {
+        Invoke-WebRequest -Uri $zipUrl -OutFile $tempZip -UseBasicParsing
+        Write-Host "Descarga completada." -ForegroundColor Green
+    } catch {
+        Write-Host "Error al descargar BalanzaWMS: $_" -ForegroundColor Red
+        Read-Host "Presione Enter para volver al menú..."
+        return
+    }
+
+    # Descomprimir ZIP
+    Write-Host "Descomprimiendo en $extractPath..." -ForegroundColor Cyan
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+
+    $zip = [System.IO.Compression.ZipFile]::OpenRead($tempZip)
+    foreach ($entry in $zip.Entries) {
+        if ([string]::IsNullOrEmpty($entry.Name)) { continue }
+        $destFile = Join-Path $extractPath $entry.Name
+        $destDir = Split-Path $destFile
+        if (-Not (Test-Path $destDir)) { New-Item -ItemType Directory -Path $destDir | Out-Null }
+        $sourceStream = $entry.Open()
+        $targetStream = [System.IO.File]::Open($destFile, [System.IO.FileMode]::Create)
+        try { $sourceStream.CopyTo($targetStream) } finally { $sourceStream.Close(); $targetStream.Close() }
+    }
+    $zip.Dispose()
+    Remove-Item $tempZip -Force
+
+    Write-Host "BalanzaWMS listo en $extractPath" -ForegroundColor Green
+    Read-Host "Presione Enter para continuar con la verificación de la IP y puertos COM..."
 }
 
 # URL raw de GitHub
