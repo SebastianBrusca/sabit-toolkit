@@ -105,7 +105,7 @@ function Menu-Principal {
             '8' = "software_instalado.ps1"
             '9' = "InfoVersiones.ps1"
             '10'= "EstadoSeguridad.ps1"
-            '11'= "BalanzaWMS.ps1
+            '11'= "BalanzaWMS.ps1"
             '12'= "Anydesk.ps1"
         }
 
