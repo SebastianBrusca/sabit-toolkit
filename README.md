@@ -1,11 +1,10 @@
-🌐 SABIT - Herramienta de Soporte Técnico
+# 🌐 SABIT - Herramienta de Soporte Técnico
 
-SABIT es una herramienta para soporte técnico que agiliza tareas frecuentes en Windows, con 12 funciones principales para optimizar tiempo y eficiencia ⚡💻
+SABIT es una **herramienta para soporte técnico** que agiliza tareas frecuentes en Windows, con **12 funciones principales** ⚡💻  
 
-💡 Cómo ejecutar en PowerShell:
-
+> 💡 **Cómo ejecutar en PowerShell:**
+```powershell
 irm https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/sabit.ps1 | iex
-
 🚀 Funciones del proyecto
 🖥️ Info Sistema
 Obtiene información completa del equipo donde se ejecuta:
