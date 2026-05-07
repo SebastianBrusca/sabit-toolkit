@@ -1,7 +1,7 @@
 # =============================================
 # Gestión de permisos de administrador (Compatible con IEX / Web)
 # ================= DEFINIR RAMA =================
-$branch = "main"  # Cambiás a "main" cuando quieras publicar
+$branch = "SABIT-0.2"  # Cambiás a "main" cuando quieras publicar
 # =============================================
 $esAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
 
@@ -60,8 +60,9 @@ function Mostrar-Banner {
     Write-Host ""
     Write-Host "              SABIT - SOPORTE TECNICO "   -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
-    Write-Host "                    Version 0.15 " -ForegroundColor Green
+    Write-Host "                    Version 0.19 " -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
+    Write-Host ""
 }
 
 # ================= MENU PRINCIPAL =================
@@ -81,7 +82,7 @@ function Menu-Principal {
         Write-Host ""
         Write-Host "[9] Win y Java        [10] Seguridad" -ForegroundColor White
         Write-Host ""
-        Write-Host "[11] BalanzaWMS" -ForegroundColor White
+        Write-Host "[11] BalanzaWMS       [12] Anydesk" -ForegroundColor White
         Write-Host ""
         Write-Host "[0] Salir" -ForegroundColor Red
         Write-Host ""
@@ -105,6 +106,7 @@ function Menu-Principal {
             '9' = "InfoVersiones.ps1"
             '10'= "EstadoSeguridad.ps1"
             '11'= "BalanzaWMS.ps1"
+            '12'= "Anydesk.ps1"
         }
 
         if ($urls.ContainsKey($key)) {
