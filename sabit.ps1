@@ -89,9 +89,11 @@ function Menu-Principal {
         $key = Read-Host "Selecciona una opción"
 
         if ($key -eq '0') { 
-            $salir = $true
-            break 
-        }
+        Clear-Host
+        Write-Host "Saliendo..." -ForegroundColor Yellow
+        Start-Sleep -Seconds 1
+        exit   # <- Esto cierra la ventana de PowerShell
+    }
 
         # Diccionario de URLs para mantener el switch limpio
         $urls = @{
