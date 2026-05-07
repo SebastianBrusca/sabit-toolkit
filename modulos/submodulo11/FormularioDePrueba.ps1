@@ -44,4 +44,9 @@ $shortcut.IconLocation = $chromePath
 $shortcut.Save()
 
 Write-Host "✅ Acceso directo creado: $shortcutPath" -ForegroundColor Green
+
+# ------------------- Abrir automáticamente el formulario -------------------
+Write-Host "Abriendo el formulario en Google Chrome..." -ForegroundColor Cyan
+Start-Process -FilePath $chromePath -ArgumentList $formURL
+
 Read-Host "Presione Enter para volver al menú..."
