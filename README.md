@@ -8,7 +8,7 @@ SABIT es un toolkit de automatización desarrollado en **PowerShell** diseñado 
 
 No necesitas descargar nada manualmente. Ejecuta el siguiente comando en tu terminal de **PowerShell (como Administrador)**:
 
-```powershell
+powershell
 irm [https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/sabit.ps1](https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/sabit.ps1) | iex
 🛠️ Funciones Principales
 🖥️ Diagnóstico de Sistema
