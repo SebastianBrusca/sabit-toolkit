@@ -1,93 +1,88 @@
 # ================= INTERNET EXPLORER VIEJO REMOTO =================
 Clear-Host
-Write-Host "=== INTERNET EXPLORER VIEJO ===" -ForegroundColor Cyan
+Write-Host "=== CONFIGURANDO INTERNET EXPLORER VIEJO ===" -ForegroundColor Cyan
 
-# ------------------- Crear archivo VBS -------------------
-$docs = [Environment]::GetFolderPath("MyDocuments")
-$vbsPath = Join-Path $docs "Internet Explorer.vbs"
+# 1. DESTILDAR "Requerir comprobación del servidor (https)" (ZONA 2)
+# -----------------------------------------------------------------
+$zoneKey = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\2"
 
-if (-not (Test-Path $vbsPath)) {
-    $vbsContent = 'Set ie = CreateObject("InternetExplorer.Application")' + "`r`n" +
-                  'ie.Visible = True' + "`r`n" +
-                  'ie.Navigate "https://www.arca.gob.ar"'
-    Set-Content -Path $vbsPath -Value $vbsContent -Encoding ASCII
-    Write-Host "Archivo VBS creado en: $vbsPath" -ForegroundColor Green
+if (Test-Path $zoneKey) {
+    # El valor decimal 67 (0x43) desactiva el check obligatorio de HTTPS
+    Set-ItemProperty -Path $zoneKey -Name "Flags" -Value 67 -Type DWord
+    Write-Host "✔ Casilla 'Requerir comprobación (https)' DESACTIVADA." -ForegroundColor Green
 } else {
-    Write-Host "Archivo VBS ya existe, se omite la creación." -ForegroundColor Yellow
+    Write-Host "⚠️ No se encontró la configuración de la Zona 2." -ForegroundColor Red
 }
 
-# ------------------- Crear acceso directo -------------------
-$desktop = [Environment]::GetFolderPath("Desktop")
-$shortcutPath = Join-Path $desktop "Internet Explorer.lnk"
-
-$iconUrl = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/recursos/ie_icon.ico"
-$iconLocal = Join-Path $env:TEMP "ie_icon.ico"
-
-if (-not (Test-Path $iconLocal)) {
-    try {
-        Invoke-RestMethod -Uri $iconUrl -OutFile $iconLocal
-        Write-Host "Icono descargado a: $iconLocal" -ForegroundColor Green
-    } catch {
-        Write-Host "No se pudo descargar el icono remoto. El acceso directo se creará sin icono." -ForegroundColor Yellow
-        $iconLocal = ""
-    }
-}
-
-$WshShell = New-Object -ComObject WScript.Shell
-$shortcut = $WshShell.CreateShortcut($shortcutPath)
-$shortcut.TargetPath = $vbsPath
-if ($iconLocal -ne "") { $shortcut.IconLocation = $iconLocal }
-$shortcut.Save()
-Write-Host "Acceso directo creado/actualizado en el escritorio: $shortcutPath" -ForegroundColor Green
-
-# ------------------- Configurar Sitios de confianza -------------------
+# 2. AGREGAR SITIOS DE CONFIANZA
+# -----------------------------------------------------------------
 $trustedSites = @(
     "webformsext.afip.gob.ar",
     "www.arca.gob.ar",
-    "intranet.afip.gov.ar",
-    "intranet.afip.gob.ar",
-    "webformsint.afip.gob.ar",
-    "authinthomo.afip.gob.ar",
-    "webformsint.afip.ar"
+    "https://intranet.afip.gov.ar",
+    "https://intranet.afip.gob.ar",
+    "https://webformsint.afip.gob.ar",
+    "http://authinthomo.afip.gob.ar",
+    "http://webformsint.afip.ar"
 )
 
-foreach ($site in $trustedSites) {
-    $domainKey = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\$site"
+$basePath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains"
 
+foreach ($site in $trustedSites) {
+    $domainKey = Join-Path $basePath $site
     if (-not (Test-Path $domainKey)) {
         New-Item -Path $domainKey -Force | Out-Null
     }
 
-    # Valor * = 2 (Sitio de confianza)
+    # Valor * = 2 (Sitio de confianza para cualquier protocolo)
     Set-ItemProperty -Path $domainKey -Name "*" -Value 2 -Type DWord
+    # Forzar protocolo específico para evitar bloqueos
+    Set-ItemProperty -Path $domainKey -Name "http" -Value 2 -Type DWord
+    Set-ItemProperty -Path $domainKey -Name "https" -Value 2 -Type DWord
 
-    # Permitir HTTP y desactivar "Requerir comprobación del servidor (https)" a nivel de dominio
-    Set-ItemProperty -Path $domainKey -Name "https" -Value 0 -Type DWord
-
-    Write-Host "Se agregó $site a Sitios de confianza permitiendo HTTP." -ForegroundColor Green
+    Write-Host "✔ Agregado a confianza: $site" -ForegroundColor Green
 }
 
-# ------------------- Desmarcar globalmente "Requerir comprobación del servidor (https)" -------------------
-$zoneKey = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\2"
-if (Test-Path $zoneKey) {
-    # Clave 1A00 controla la opción “Requerir comprobación del servidor (https)”
-    Set-ItemProperty -Path $zoneKey -Name "1A00" -Value 0 -Type DWord
-    Write-Host "✔ 'Requerir comprobación del servidor (https)' desactivado correctamente." -ForegroundColor Green
-} else {
-    Write-Host "⚠️ No se encontró la clave de Sitios de confianza (Zona 2)." -ForegroundColor Red
-}
-
-# ------------------- Configurar TLS 1.0 únicamente -------------------
+# 3. CONFIGURAR TLS 1.0 Y OTROS
+# -----------------------------------------------------------------
 $tlsRegPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings"
-Set-ItemProperty -Path $tlsRegPath -Name "SecureProtocols" -Value 0x80
-Write-Host "TLS configurado para usar únicamente TLS 1.0." -ForegroundColor Green
+Set-ItemProperty -Path $tlsRegPath -Name "SecureProtocols" -Value 0x80 # TLS 1.0
+Write-Host "✔ TLS 1.0 configurado como único protocolo activo." -ForegroundColor Green
 
-# ------------------- Ejecutar el acceso directo -------------------
+# 4. CREAR ARCHIVO VBS Y ACCESO DIRECTO
+# -----------------------------------------------------------------
+$docs = [Environment]::GetFolderPath("MyDocuments")
+$vbsPath = Join-Path $docs "Internet Explorer.vbs"
+$vbsContent = 'Set ie = CreateObject("InternetExplorer.Application")' + "`r`n" +
+              'ie.Visible = True' + "`r`n" +
+              'ie.Navigate "https://www.arca.gob.ar"'
+Set-Content -Path $vbsPath -Value $vbsContent -Encoding ASCII
+
+$desktop = [Environment]::GetFolderPath("Desktop")
+$shortcutPath = Join-Path $desktop "Internet Explorer.lnk"
+$iconLocal = Join-Path $env:TEMP "ie_icon.ico"
+
+# Intentar descargar icono
+try {
+    $iconUrl = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/recursos/ie_icon.ico"
+    Invoke-RestMethod -Uri $iconUrl -OutFile $iconLocal -ErrorAction SilentlyContinue
+} catch {}
+
+$WshShell = New-Object -ComObject WScript.Shell
+$shortcut = $WshShell.CreateShortcut($shortcutPath)
+$shortcut.TargetPath = $vbsPath
+if (Test-Path $iconLocal) { $shortcut.IconLocation = $iconLocal }
+$shortcut.Save()
+
+Write-Host "✔ Acceso directo creado en el escritorio." -ForegroundColor Green
+
+# 5. EJECUTAR Y VOLVER
+# -----------------------------------------------------------------
 Start-Process $shortcutPath
-Write-Host "Internet Explorer Viejo se ha ejecutado y abrió www.arca.gob.ar." -ForegroundColor Green
-
-# ------------------- Esperar y volver al menú remoto -------------------
+Write-Host ""
+Write-Host "Internet Explorer se ha iniciado con la configuración aplicada." -ForegroundColor Cyan
 Write-Host ""
 Read-Host "Presione Enter para volver al menú..."
+
 $menuUrl = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/main/sabit.ps1"
 Invoke-Expression (Invoke-RestMethod $menuUrl)
