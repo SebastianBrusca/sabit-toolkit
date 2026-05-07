@@ -17,6 +17,8 @@ function Menu-Submodulos11 {
         Write-Host ""
         Write-Host "[5] Abrir Putty" -ForegroundColor White
         Write-Host ""
+        Write-Host "[6] Formulario de prueba" -ForegroundColor White
+        Write-Host ""
         Write-Host "[0] Volver al menú principal" -ForegroundColor Red
         Write-Host ""
 
@@ -29,6 +31,7 @@ function Menu-Submodulos11 {
             '3' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/submodulo11/VerificarCOM.ps1"
             '4' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/submodulo11/EjecutarPuenteComWeb.ps1"
             '5' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/submodulo11/AbrirPutty.ps1"
+            '6' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/submodulo11/FormularioDePrueba.ps1"
         }
 
         if ($urls.ContainsKey($opcion)) {
