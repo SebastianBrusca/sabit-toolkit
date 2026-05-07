@@ -55,7 +55,7 @@ $docs = [Environment]::GetFolderPath("MyDocuments")
 $vbsPath = Join-Path $docs "Internet Explorer.vbs"
 $vbsContent = 'Set ie = CreateObject("InternetExplorer.Application")' + "`r`n" +
               'ie.Visible = True' + "`r`n" +
-              'ie.Navigate "https://www.arca.gob.ar"'
+              'ie.Navigate "https://intranet.afip.gob.ar/portal/default.aspx"'
 Set-Content -Path $vbsPath -Value $vbsContent -Encoding ASCII
 
 $desktop = [Environment]::GetFolderPath("Desktop")
