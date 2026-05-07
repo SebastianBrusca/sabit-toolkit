@@ -61,18 +61,21 @@ foreach ($site in $trustedSites) {
     # Valor * = 2 (Sitio de confianza)
     Set-ItemProperty -Path $domainKey -Name "*" -Value 2 -Type DWord
 
-    # Permitir HTTP y desactivar "Requerir comprobación del servidor (https)"
+    # Permitir HTTP y desactivar "Requerir comprobación del servidor (https)" a nivel de dominio
     Set-ItemProperty -Path $domainKey -Name "https" -Value 0 -Type DWord
 
     Write-Host "Se agregó $site a Sitios de confianza permitiendo HTTP." -ForegroundColor Green
 }
 
-# ------------------- Desactivar globalmente "Requerir comprobación del servidor HTTPS" -------------------
+# ------------------- Desmarcar globalmente "Requerir comprobación del servidor (https)" -------------------
 $zoneKey = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\2"
-$flags = (Get-ItemProperty -Path $zoneKey -Name "Flags").Flags
-$flags = $flags -band (-bnot 0x4000)
-Set-ItemProperty -Path $zoneKey -Name "Flags" -Value $flags
-Write-Host "✔ 'Requerir comprobación del servidor (https)' desactivado en Sitios de confianza." -ForegroundColor Green
+if (Test-Path $zoneKey) {
+    # Clave 1A00 controla la opción “Requerir comprobación del servidor (https)”
+    Set-ItemProperty -Path $zoneKey -Name "1A00" -Value 0 -Type DWord
+    Write-Host "✔ 'Requerir comprobación del servidor (https)' desactivado correctamente." -ForegroundColor Green
+} else {
+    Write-Host "⚠️ No se encontró la clave de Sitios de confianza (Zona 2)." -ForegroundColor Red
+}
 
 # ------------------- Configurar TLS 1.0 únicamente -------------------
 $tlsRegPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings"
