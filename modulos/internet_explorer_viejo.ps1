@@ -13,7 +13,7 @@ if (-not (Test-Path $vbsPath)) {
     Set-Content -Path $vbsPath -Value $vbsContent -Encoding ASCII
     Write-Host "Archivo VBS creado en: $vbsPath" -ForegroundColor Green
 } else {
-    Write-Host "Archivo VBS ya existe, se omite la creacion." -ForegroundColor Yellow
+    Write-Host "Archivo VBS ya existe, se omite la creación." -ForegroundColor Yellow
 }
 
 # ------------------- Crear acceso directo -------------------
@@ -48,29 +48,35 @@ $trustedSites = @(
     "intranet.afip.gob.ar",
     "webformsint.afip.gob.ar",
     "authinthomo.afip.gob.ar",
-    "webformsint.afip.gob.ar"
+    "webformsint.afip.ar"
 )
 
 foreach ($site in $trustedSites) {
     $domainKey = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\ZoneMap\Domains\$site"
 
-    # Crear clave si no existe
     if (-not (Test-Path $domainKey)) {
         New-Item -Path $domainKey -Force | Out-Null
     }
 
-    # Valor * = 2 (Sitios de confianza)
+    # Valor * = 2 (Sitio de confianza)
     Set-ItemProperty -Path $domainKey -Name "*" -Value 2 -Type DWord
 
-    # ------------------- Desactivar "Requerir comprobación del servidor (https)" -------------------
+    # Permitir HTTP y desactivar "Requerir comprobación del servidor (https)"
     Set-ItemProperty -Path $domainKey -Name "https" -Value 0 -Type DWord
 
     Write-Host "Se agregó $site a Sitios de confianza permitiendo HTTP." -ForegroundColor Green
 }
 
+# ------------------- Desactivar globalmente "Requerir comprobación del servidor HTTPS" -------------------
+$zoneKey = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\2"
+$flags = (Get-ItemProperty -Path $zoneKey -Name "Flags").Flags
+$flags = $flags -band (-bnot 0x4000)
+Set-ItemProperty -Path $zoneKey -Name "Flags" -Value $flags
+Write-Host "✔ 'Requerir comprobación del servidor (https)' desactivado en Sitios de confianza." -ForegroundColor Green
+
 # ------------------- Configurar TLS 1.0 únicamente -------------------
 $tlsRegPath = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings"
-Set-ItemProperty -Path $tlsRegPath -Name "SecureProtocols" -Value 0x80  # TLS 1.0
+Set-ItemProperty -Path $tlsRegPath -Name "SecureProtocols" -Value 0x80
 Write-Host "TLS configurado para usar únicamente TLS 1.0." -ForegroundColor Green
 
 # ------------------- Ejecutar el acceso directo -------------------
