@@ -60,7 +60,7 @@ function Mostrar-Banner {
     Write-Host ""
     Write-Host "              SABIT - SOPORTE TECNICO "   -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
-    Write-Host "                    Version 0.26 " -ForegroundColor Green
+    Write-Host "                    Version 0.27 " -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
 }
@@ -72,7 +72,7 @@ function Menu-Principal {
         Clear-Host
         Mostrar-Banner
         
-        Write-Host "[1] Info Sistema      [2] Nav. Predeterminado" -ForegroundColor White
+        Write-Host "[1] Info Sistema      [2] Activador Win/Office" -ForegroundColor White
         Write-Host ""
         Write-Host "[3] IE Viejo          [4] Red Avanzada" -ForegroundColor White
         Write-Host ""
@@ -98,7 +98,7 @@ function Menu-Principal {
         # Diccionario de URLs para mantener el switch limpio
         $urls = @{
             '1' = "informacion_sistema.ps1"
-            '2' = "naveg_predeterminado.ps1"
+            '2' = "Activador-Win-Office.ps1"
             '3' = "internet_explorer_viejo.ps1"
             '4' = "informacion_red.ps1"
             '5' = "limpieza_temporales.ps1"
