@@ -84,6 +84,8 @@ function Menu-Principal {
         Write-Host ""
         Write-Host "[11] BalanzaWMS       [12] Anydesk" -ForegroundColor White
         Write-Host ""
+        Write-Host "[13] Calipso A/D" -ForegroundColor White
+        Write-Host ""
         Write-Host "[0] Salir" -ForegroundColor Red
         Write-Host ""
         $key = Read-Host "Selecciona una opción"
@@ -109,6 +111,7 @@ function Menu-Principal {
             '10'= "EstadoSeguridad.ps1"
             '11'= "BalanzaWMS.ps1"
             '12'= "Anydesk.ps1"
+            '13'= "CalipsoAccesoDirecto.ps1"
         }
 
         if ($urls.ContainsKey($key)) {
