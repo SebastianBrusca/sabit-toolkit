@@ -4,7 +4,7 @@ Write-Host "=== CREANDO ACCESO DIRECTO RDP ===" -ForegroundColor Cyan
 
 # Carpeta escritorio del usuario actual
 $desktop = [Environment]::GetFolderPath("Desktop")
-$shortcutPath = Join-Path $desktop "Conexión RDP.lnk"
+$shortcutPath = Join-Path $desktop "Calipso 110.lnk"
 
 # Ejecutable de RDP
 $mstscPath = "$env:WINDIR\System32\mstsc.exe"
