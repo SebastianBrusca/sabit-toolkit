@@ -2,8 +2,8 @@
 Clear-Host
 Write-Host "=== DESCARGA DE OFFICE 365 ===" -ForegroundColor Cyan
 
-# Carpeta Descargas del usuario
-$downloadsPath = [Environment]::GetFolderPath("UserProfile") + "\Downloads"
+# Carpeta Descargas del usuario (portable para cualquier PC)
+$downloadsPath = [Environment]::GetFolderPath("Downloads")
 $officeInstaller = Join-Path $downloadsPath "OfficeSetup.exe"
 
 # URL de descarga directa de Office
