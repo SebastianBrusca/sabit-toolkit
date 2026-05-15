@@ -2,8 +2,8 @@
 Clear-Host
 Write-Host "=== DESCARGA DE OFFICE 365 ===" -ForegroundColor Cyan
 
-# Carpeta Descargas del usuario (portable para cualquier PC)
-$downloadsPath = [Environment]::GetFolderPath("Downloads")
+# Carpeta Descargas del usuario (compatible en cualquier PC)
+$downloadsPath = Join-Path $env:USERPROFILE "Downloads"
 $officeInstaller = Join-Path $downloadsPath "OfficeSetup.exe"
 
 # URL de descarga directa de Office
@@ -25,7 +25,6 @@ if (Test-Path $officeInstaller) {
     }
 }
 
-# Mensaje final
 Write-Host "`nLa descarga de Office 365 ha finalizado." -ForegroundColor Green
 Write-Host "Puedes iniciar la instalación ejecutando: $officeInstaller"
 Read-Host "Presione Enter para volver al menú..."
