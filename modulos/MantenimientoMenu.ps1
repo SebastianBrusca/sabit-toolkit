@@ -15,10 +15,6 @@ function Menu-Submodulos11 {
         Write-Host ""
         Write-Host "[4] Ejecutar PuenteComWeb.exe como administrador" -ForegroundColor White 
         Write-Host ""
-        Write-Host "[5] Abrir Putty" -ForegroundColor White
-        Write-Host ""
-        Write-Host "[6] Formulario de prueba" -ForegroundColor White
-        Write-Host ""
         Write-Host "[0] Volver al menú principal" -ForegroundColor Red
         Write-Host ""
 
@@ -28,10 +24,8 @@ function Menu-Submodulos11 {
         $urls = @{
             '1' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/Mantenimiento/EstadoSeguridad.ps1"
             '2' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/Mantenimiento/InfoVersiones.ps1"
-            '3' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/Mantenimiento/infor.ps1"
-            '4' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/Mantenimiento/EjecutarPuenteComWeb.ps1"
-            '5' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/Mantenimiento/AbrirPutty.ps1"
-            '6' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/Mantenimiento/FormularioDePrueba.ps1"
+            '3' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/Mantenimiento/informacion_sistema.ps1"
+            '4' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/Mantenimiento/limpieza_temporales.ps1"
         }
 
         if ($urls.ContainsKey($opcion)) {
