@@ -7,13 +7,13 @@ function Menu-Submodulos11 {
         Clear-Host
         Write-Host "================ BalanzaWMS =================" -ForegroundColor Cyan
         Write-Host ""
-        Write-Host "[1] Verificar carpeta e instalar BalanzaWMS" -ForegroundColor White
+        Write-Host "[1] Estado de Seguridad" -ForegroundColor White
         Write-Host ""
-        Write-Host "[2] Verificar IP" -ForegroundColor White
+        Write-Host "[2] Informacion de Versiones" -ForegroundColor White
         Write-Host ""
-        Write-Host "[3] Verificar COM y BaudRate" -ForegroundColor White
+        Write-Host "[3] Informacion de Sistema" -ForegroundColor White
         Write-Host ""
-        Write-Host "[4] Ejecutar PuenteComWeb.exe como administrador" -ForegroundColor White 
+        Write-Host "[4] Lipieza de archivos temporales." -ForegroundColor White 
         Write-Host ""
         Write-Host "[0] Volver al menú principal" -ForegroundColor Red
         Write-Host ""
