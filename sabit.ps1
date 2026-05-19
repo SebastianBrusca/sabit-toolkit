@@ -100,7 +100,7 @@ function Menu-Principal {
             '5' = "software_instalado.ps1"
             '6' = "BalanzaWMS.ps1"
             '7' = "Anydesk.ps1"
-            '8' = "CalipsoAccesoDirecto.ps1""
+            '8' = "CalipsoAccesoDirecto.ps1"
         }
 
         if ($urls.ContainsKey($key)) {
