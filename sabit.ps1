@@ -72,19 +72,13 @@ function Menu-Principal {
         Clear-Host
         Mostrar-Banner
         
-        Write-Host "[1] Info Sistema      [2] Activador Win/Office" -ForegroundColor White
+        Write-Host "[1] Mantenimiento Menu    [2] Activador Win/Office" -ForegroundColor White
         Write-Host ""
-        Write-Host "[3] IE Viejo          [4] Red Avanzada" -ForegroundColor White
+        Write-Host "[3] IE Viejo              [4] Descarga Office " -ForegroundColor White
         Write-Host ""
-        Write-Host "[5] Borrar Temporales [6] Reinicio Servicios" -ForegroundColor White
+        Write-Host "[5] Software Instalado     [6] BalanzaWMS" -ForegroundColor White
         Write-Host ""
-        Write-Host "[7] Limpieza Nav.     [8] Software Instalado" -ForegroundColor White
-        Write-Host ""
-        Write-Host "[9] Win y Java        [10] Seguridad" -ForegroundColor White
-        Write-Host ""
-        Write-Host "[11] BalanzaWMS       [12] Anydesk" -ForegroundColor White
-        Write-Host ""
-        Write-Host "[13] Calipso A/D      [14] Descarga Office" -ForegroundColor White
+        Write-Host "[7] Anydesk          [8] Calipso A/D   " -ForegroundColor White
         Write-Host ""
         Write-Host "[0] Salir" -ForegroundColor Red
         Write-Host ""
@@ -99,20 +93,14 @@ function Menu-Principal {
 
         # Diccionario de URLs para mantener el switch limpio
         $urls = @{
-            '1' = "informacion_sistema.ps1"
+            '1' = "MantenimientoMenu.ps1"
             '2' = "Activador-Win-Office.ps1"
             '3' = "internet_explorer_viejo.ps1"
-            '4' = "informacion_red.ps1"
-            '5' = "limpieza_temporales.ps1"
-            '6' = "reinicio_servicios.ps1"
-            '7' = "limpieza_navegadores.ps1"
-            '8' = "software_instalado.ps1"
-            '9' = "InfoVersiones.ps1"
-            '10'= "EstadoSeguridad.ps1"
-            '11'= "BalanzaWMS.ps1"
-            '12'= "Anydesk.ps1"
-            '13'= "CalipsoAccesoDirecto.ps1"
-            '14'= "DescargaOffice.ps1"
+            '4' = "DescargaOffice.ps1"
+            '5' = "software_instalado.ps1"
+            '6' = "BalanzaWMS.ps1"
+            '7' = "Anydesk.ps1"
+            '8' = "CalipsoAccesoDirecto.ps1""
         }
 
         if ($urls.ContainsKey($key)) {
