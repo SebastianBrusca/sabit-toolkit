@@ -7,7 +7,7 @@ $downloadsPath = Join-Path $env:USERPROFILE "Downloads"
 $officeInstaller = Join-Path $downloadsPath "OfficeSetup.exe"
 
 # URL de descarga directa de Office
-$officeUrl = "https://c2rsetup.officeapps.live.com/c2r/download.aspx?ProductreleaseID=O365ProPlusRetail&platform=x64&language=es-es&version=O16GA"
+$officeUrl = "https://c2rsetup.officeapps.live.com/c2r/download.aspx?ProductreleaseID=ProPlus2024Retail&platform=x64&language=es-es&version=O16GA"
 
 # ------------------- Verificar si ya existe el instalador -------------------
 if (Test-Path $officeInstaller) {
