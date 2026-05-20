@@ -7,17 +7,13 @@ function Menu-Submodulos11 {
         Clear-Host
         Write-Host "================ BalanzaWMS =================" -ForegroundColor Cyan
         Write-Host ""
-        Write-Host "[1] Verificar carpeta e instalar BalanzaWMS" -ForegroundColor White
+        Write-Host "[1] Estado de Seguridad" -ForegroundColor White
         Write-Host ""
-        Write-Host "[2] Verificar IP" -ForegroundColor White
+        Write-Host "[2] Informacion de Versiones" -ForegroundColor White
         Write-Host ""
-        Write-Host "[3] Verificar COM y BaudRate" -ForegroundColor White
+        Write-Host "[3] Informacion de Sistema" -ForegroundColor White
         Write-Host ""
-        Write-Host "[4] Ejecutar PuenteComWeb.exe como administrador" -ForegroundColor White 
-        Write-Host ""
-        Write-Host "[5] Abrir Putty" -ForegroundColor White
-        Write-Host ""
-        Write-Host "[6] Formulario de prueba" -ForegroundColor White
+        Write-Host "[4] Lipieza de archivos temporales." -ForegroundColor White 
         Write-Host ""
         Write-Host "[0] Volver al menú principal" -ForegroundColor Red
         Write-Host ""
@@ -26,12 +22,10 @@ function Menu-Submodulos11 {
 
         # URLs directos de los submódulos en GitHub
         $urls = @{
-            '1' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/submodulo11/DescargarBalanzaWMS.ps1"
-            '2' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/submodulo11/VerificarIP.ps1"
-            '3' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/submodulo11/VerificarCOM.ps1"
-            '4' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/submodulo11/EjecutarPuenteComWeb.ps1"
-            '5' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/submodulo11/AbrirPutty.ps1"
-            '6' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/submodulo11/FormularioDePrueba.ps1"
+            '1' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/Mantenimiento/EstadoSeguridad.ps1"
+            '2' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/Mantenimiento/InfoVersiones.ps1"
+            '3' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/Mantenimiento/informacion_sistema.ps1"
+            '4' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/Mantenimiento/limpieza_temporales.ps1"
         }
 
         if ($urls.ContainsKey($opcion)) {

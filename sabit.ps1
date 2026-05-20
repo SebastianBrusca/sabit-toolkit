@@ -1,8 +1,9 @@
 # =============================================
 # Gestión de permisos de administrador (Compatible con IEX / Web)
 # ================= DEFINIR RAMA =================
-$branch = "main"  # Cambiás a "main" cuando quieras publicar
+$branch = "SABIT-0.2"  # Cambiás a "main" cuando quieras publicar
 # =============================================
+
 $esAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
 
 if (-NOT $esAdmin) {
@@ -48,63 +49,80 @@ if (-NOT $esAdmin) {
     }
 }
 
+# ================= EFECTOS =================
+# --- Efecto escritura para banner ---
+function Type-Text {
+    param (
+        [string]$text,
+        [string]$color = "Cyan",
+        [int]$speed = 2  # ms entre caracteres
+    )
+
+    foreach ($char in $text.ToCharArray()) {
+        Write-Host $char -NoNewline -ForegroundColor $color
+        Start-Sleep -Milliseconds $speed
+    }
+    Write-Host ""
+}
+
+
 # ================= BANNER =================
 function Mostrar-Banner {
     Clear-Host
     Write-Host "====================================================" -ForegroundColor Cyan
-    Write-Host "         ____      _      ____     _   _____ " -ForegroundColor Cyan
-    Write-Host "        / ___|    / \    | __ \   | | |_   _|" -ForegroundColor Cyan
-    Write-Host "        \___ \   / _ \   |___ /   | |   | |  " -ForegroundColor Cyan
-    Write-Host "         ___) | / ___ \  | __ \   | |   | |  " -ForegroundColor Cyan
-    Write-Host "        \____/ /_/   \_\ |____/   |_|   |_|  " -ForegroundColor Cyan
+    Type-Text "         ____      _      ____     _   _____ " "Cyan" 1
+    Type-Text "        / ___|    / \    | __ \   | | |_   _|" "Cyan" 1
+    Type-Text "        \___ \   / _ \   |___ /   | |   | |  " "Cyan" 1
+    Type-Text "         ___) | / ___ \  | __ \   | |   | |  " "Cyan" 1
+    Type-Text "        \____/ /_/   \_\ |____/   |_|   |_|  " "Cyan" 1
     Write-Host ""
-    Write-Host "              SABIT - SOPORTE TECNICO "   -ForegroundColor Green
+    Type-Text "              SABIT - SOPORTE TECNICO " "Green" 2
     Write-Host "====================================================" -ForegroundColor Cyan
-    Write-Host "                    Version 0.15 " -ForegroundColor Green
+    Type-Text "                    Version 0.44 " "Green" 1
     Write-Host "====================================================" -ForegroundColor Cyan
+    Write-Host ""
 }
 
 # ================= MENU PRINCIPAL =================
 function Menu-Principal {
     $salir = $false
+
+    # Efecto Matrix al iniciar
+    Matrix-Effect -iterations 25
+
     while (-not $salir) {
         Clear-Host
         Mostrar-Banner
         
-        Write-Host "[1] Info Sistema      [2] Nav. Predeterminado" -ForegroundColor White
+        Write-Host "[1] Mantenimiento Menu      [2] Activador Win/Office" -ForegroundColor White
         Write-Host ""
-        Write-Host "[3] IE Viejo          [4] Red Avanzada" -ForegroundColor White
+        Write-Host "[3] IE Viejo                [4] Descarga Office " -ForegroundColor White
+        Write-Host "" 
+        Write-Host "[5] Software Instalado      [6] BalanzaWMS" -ForegroundColor White
         Write-Host ""
-        Write-Host "[5] Borrar Temporales [6] Reinicio Servicios" -ForegroundColor White
-        Write-Host ""
-        Write-Host "[7] Limpieza Nav.     [8] Software Instalado" -ForegroundColor White
-        Write-Host ""
-        Write-Host "[9] Win y Java        [10] Seguridad" -ForegroundColor White
-        Write-Host ""
-        Write-Host "[11] BalanzaWMS" -ForegroundColor White
+        Write-Host "[7] Anydesk                 [8] Calipso A/D   " -ForegroundColor White
         Write-Host ""
         Write-Host "[0] Salir" -ForegroundColor Red
         Write-Host ""
         $key = Read-Host "Selecciona una opción"
 
         if ($key -eq '0') { 
-            $salir = $true
-            break 
+            Clear-Host
+            Write-Host "Saliendo..." -ForegroundColor Yellow
+            Start-Sleep -Seconds 1
+            exit
         }
 
         # Diccionario de URLs para mantener el switch limpio
         $urls = @{
-            '1' = "informacion_sistema.ps1"
-            '2' = "naveg_predeterminado.ps1"
+            '1' = "MantenimientoMenu.ps1"
+            '2' = "Activador-Win-Office.ps1"
             '3' = "internet_explorer_viejo.ps1"
-            '4' = "informacion_red.ps1"
-            '5' = "limpieza_temporales.ps1"
-            '6' = "reinicio_servicios.ps1"
-            '7' = "limpieza_navegadores.ps1"
-            '8' = "software_instalado.ps1"
-            '9' = "InfoVersiones.ps1"
-            '10'= "EstadoSeguridad.ps1"
-            '11'= "BalanzaWMS.ps1"
+            '4' = "DescargaOffice.ps1"
+            '5' = "software_instalado.ps1"
+            '6' = "BalanzaWMS.ps1"
+            '7' = "Anydesk.ps1"
+            '8' = "CalipsoAccesoDirecto.ps1"
         }
 
         if ($urls.ContainsKey($key)) {
@@ -125,4 +143,6 @@ function Menu-Principal {
         }
     }
 }
+
+# ================= EJECUTAR MENU =================
 Menu-Principal
