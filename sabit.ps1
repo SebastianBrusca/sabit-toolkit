@@ -3,6 +3,7 @@
 # ================= DEFINIR RAMA =================
 $branch = "SABIT-0.2"  # Cambiás a "main" cuando quieras publicar
 # =============================================
+
 $esAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
 
 if (-NOT $esAdmin) {
@@ -48,19 +49,49 @@ if (-NOT $esAdmin) {
     }
 }
 
+# ================= EFECTOS =================
+# --- Efecto escritura para banner ---
+function Type-Text {
+    param (
+        [string]$text,
+        [string]$color = "Cyan",
+        [int]$speed = 5  # ms entre caracteres
+    )
+
+    foreach ($char in $text.ToCharArray()) {
+        Write-Host $char -NoNewline -ForegroundColor $color
+        Start-Sleep -Milliseconds $speed
+    }
+    Write-Host ""
+}
+
+# --- Efecto Matrix previo al banner ---
+function Matrix-Effect {
+    param (
+        [int]$iterations = 100
+    )
+
+    for ($i = 0; $i -lt $iterations; $i++) {
+        $randomChar = -join ((48..57 + 65..90 + 97..122) | Get-Random -Count 1 | % {[char]$_})
+        Write-Host $randomChar -ForegroundColor Green -NoNewline
+        Start-Sleep -Milliseconds 15
+    }
+    Write-Host ""
+}
+
 # ================= BANNER =================
 function Mostrar-Banner {
     Clear-Host
     Write-Host "====================================================" -ForegroundColor Cyan
-    Write-Host "         ____      _      ____     _   _____ " -ForegroundColor Cyan
-    Write-Host "        / ___|    / \    | __ \   | | |_   _|" -ForegroundColor Cyan
-    Write-Host "        \___ \   / _ \   |___ /   | |   | |  " -ForegroundColor Cyan
-    Write-Host "         ___) | / ___ \  | __ \   | |   | |  " -ForegroundColor Cyan
-    Write-Host "        \____/ /_/   \_\ |____/   |_|   |_|  " -ForegroundColor Cyan
+    Type-Text "         ____      _      ____     _   _____ " "Cyan" 10
+    Type-Text "        / ___|    / \    | __ \   | | |_   _|" "Cyan" 10
+    Type-Text "        \___ \   / _ \   |___ /   | |   | |  " "Cyan" 10
+    Type-Text "         ___) | / ___ \  | __ \   | |   | |  " "Cyan" 10
+    Type-Text "        \____/ /_/   \_\ |____/   |_|   |_|  " "Cyan" 10
     Write-Host ""
-    Write-Host "              SABIT - SOPORTE TECNICO "   -ForegroundColor Green
+    Type-Text "              SABIT - SOPORTE TECNICO " "Green" 15
     Write-Host "====================================================" -ForegroundColor Cyan
-    Write-Host "                    Version 0.36 " -ForegroundColor Green
+    Type-Text "                    Version 0.37 " "Green" 10
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
 }
@@ -68,6 +99,10 @@ function Mostrar-Banner {
 # ================= MENU PRINCIPAL =================
 function Menu-Principal {
     $salir = $false
+
+    # Efecto Matrix al iniciar
+    Matrix-Effect -iterations 100
+
     while (-not $salir) {
         Clear-Host
         Mostrar-Banner
@@ -85,11 +120,11 @@ function Menu-Principal {
         $key = Read-Host "Selecciona una opción"
 
         if ($key -eq '0') { 
-        Clear-Host
-        Write-Host "Saliendo..." -ForegroundColor Yellow
-        Start-Sleep -Seconds 1
-        exit   # <- Esto cierra la ventana de PowerShell
-    }
+            Clear-Host
+            Write-Host "Saliendo..." -ForegroundColor Yellow
+            Start-Sleep -Seconds 1
+            exit
+        }
 
         # Diccionario de URLs para mantener el switch limpio
         $urls = @{
@@ -121,4 +156,6 @@ function Menu-Principal {
         }
     }
 }
+
+# ================= EJECUTAR MENU =================
 Menu-Principal
