@@ -77,7 +77,7 @@ function Menu-Principal {
 
         Write-Host "[1] Mantenimiento Menu      [2] Activador Win/Office" -ForegroundColor White
         Write-Host ""
-        Write-Host "[3] IE Viejo                [4] Descarga Office " -ForegroundColor White
+        Write-Host "[3] IE Viejo                [4] Descarga Office 2024 " -ForegroundColor White
         Write-Host "" 
         Write-Host "[5] Software Instalado      [6] BalanzaWMS" -ForegroundColor White
         Write-Host ""
