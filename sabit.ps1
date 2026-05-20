@@ -72,13 +72,13 @@ function Menu-Principal {
         Clear-Host
         Mostrar-Banner
         
-        Write-Host "[1] Mantenimiento Menu    [2] Activador Win/Office" -ForegroundColor White
+        Write-Host "[1] Mantenimiento Menu      [2] Activador Win/Office" -ForegroundColor White
         Write-Host ""
-        Write-Host "[3] IE Viejo              [4] Descarga Office " -ForegroundColor White
+        Write-Host "[3] IE Viejo                [4] Descarga Office " -ForegroundColor White
+        Write-Host "" 
+        Write-Host "[5] Software Instalado      [6] BalanzaWMS" -ForegroundColor White
         Write-Host ""
-        Write-Host "[5] Software Instalado     [6] BalanzaWMS" -ForegroundColor White
-        Write-Host ""
-        Write-Host "[7] Anydesk          [8] Calipso A/D   " -ForegroundColor White
+        Write-Host "[7] Anydesk                 [8] Calipso A/D   " -ForegroundColor White
         Write-Host ""
         Write-Host "[0] Salir" -ForegroundColor Red
         Write-Host ""
