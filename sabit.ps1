@@ -55,7 +55,7 @@ function Type-Text {
     param (
         [string]$text,
         [string]$color = "Cyan",
-        [int]$speed = 4  # ms entre caracteres
+        [int]$speed = 2  # ms entre caracteres
     )
 
     foreach ($char in $text.ToCharArray()) {
@@ -78,7 +78,7 @@ function Mostrar-Banner {
     Write-Host ""
     Type-Text "              SABIT - SOPORTE TECNICO " "Green" 2
     Write-Host "====================================================" -ForegroundColor Cyan
-    Type-Text "                    Version 0.43 " "Green" 1
+    Type-Text "                    Version 0.44 " "Green" 1
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
 }
