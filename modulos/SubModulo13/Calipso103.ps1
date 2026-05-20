@@ -2,17 +2,26 @@
 Clear-Host
 Write-Host "=== CREANDO ACCESO DIRECTO RDP ===" -ForegroundColor Cyan
 
-# Carpeta escritorio del usuario actual
-$desktop = [Environment]::GetFolderPath("Desktop")
-$shortcutPath = Join-Path $desktop "Clipso 103.lnk"
+# Detectar el usuario que actualmente inició sesión
+try {
+    $loggedUser = (Get-CimInstance Win32_ComputerSystem).UserName
+    if (-not $loggedUser) {
+        throw "No se pudo detectar el usuario logueado"
+    }
+    $loggedUserName = $loggedUser.Split('\')[-1]
+} catch {
+    Write-Host "⚠️ Error al detectar usuario logueado. Se usará el usuario actual del proceso" -ForegroundColor Yellow
+    $loggedUserName = $env:USERNAME
+}
 
-# Ejecutable de RDP
-$mstscPath = "$env:WINDIR\System32\mstsc.exe"
-
-# Argumentos: dirección remota
-$rdpArgs = "/v:10.0.64.103"
+# Ruta del escritorio del usuario logueado
+$desktop = "C:\Users\$loggedUserName\Desktop"
 
 # Crear el acceso directo
+$shortcutPath = Join-Path $desktop "Clipso 103.lnk"
+$mstscPath = "$env:WINDIR\System32\mstsc.exe"
+$rdpArgs = "/v:10.0.64.103"
+
 $WshShell = New-Object -ComObject WScript.Shell
 $shortcut = $WshShell.CreateShortcut($shortcutPath)
 $shortcut.TargetPath = $mstscPath
