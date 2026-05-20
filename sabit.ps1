@@ -49,35 +49,6 @@ if (-NOT $esAdmin) {
     }
 }
 
-# ================= EFECTOS =================
-# --- Efecto escritura para banner ---
-function Type-Text {
-    param (
-        [string]$text,
-        [string]$color = "Cyan",
-        [int]$speed = 5  # ms entre caracteres
-    )
-
-    foreach ($char in $text.ToCharArray()) {
-        Write-Host $char -NoNewline -ForegroundColor $color
-        Start-Sleep -Milliseconds $speed
-    }
-    Write-Host ""
-}
-
-# --- Efecto Matrix previo al banner ---
-function Matrix-Effect {
-    param (
-        [int]$iterations = 100
-    )
-
-    for ($i = 0; $i -lt $iterations; $i++) {
-        $randomChar = -join ((48..57 + 65..90 + 97..122) | Get-Random -Count 1 | % {[char]$_})
-        Write-Host $randomChar -ForegroundColor Green -NoNewline
-        Start-Sleep -Milliseconds 15
-    }
-    Write-Host ""
-}
 
 # ================= BANNER =================
 function Mostrar-Banner {
