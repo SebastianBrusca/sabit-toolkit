@@ -74,7 +74,7 @@ function Matrix-Effect {
     for ($i = 0; $i -lt $iterations; $i++) {
         $randomChar = -join ((48..57 + 65..90 + 97..122) | Get-Random -Count 1 | % {[char]$_})
         Write-Host $randomChar -ForegroundColor Green -NoNewline
-        Start-Sleep -Milliseconds 15
+        Start-Sleep -Milliseconds 5
     }
     Write-Host ""
 }
@@ -101,7 +101,7 @@ function Menu-Principal {
     $salir = $false
 
     # Efecto Matrix al iniciar
-    Matrix-Effect -iterations 100
+    Matrix-Effect -iterations 50
 
     while (-not $salir) {
         Clear-Host
