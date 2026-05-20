@@ -78,7 +78,7 @@ function Mostrar-Banner {
     Write-Host ""
     Type-Text "              SABIT - SOPORTE TECNICO " "Green" 2
     Write-Host "====================================================" -ForegroundColor Cyan
-    Type-Text "                    Version 0.42 " "Green" 1
+    Type-Text "                    Version 0.43 " "Green" 1
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
 }
