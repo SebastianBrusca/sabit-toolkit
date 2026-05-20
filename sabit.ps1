@@ -1,7 +1,7 @@
 # =============================================
 # Gestión de permisos de administrador (Compatible con IEX / Web)
 # ================= DEFINIR RAMA =================
-$branch = "main"  # Cambiás a "main" cuando quieras publicar
+$branch = "SABIT-0.2"  # Cambiás a "main" cuando quieras publicar
 # =============================================
 
 $esAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
@@ -17,14 +17,14 @@ if (-NOT $esAdmin) {
     Write-Host "[0] Salir" -ForegroundColor Red
     Write-Host ""
     Write-Host "Selecciona una opción: " -NoNewline
-    
+
     $opcion = Read-Host
 
     switch ($opcion) {
         '1' {
             $urlRepo = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/$branch/sabit.ps1"
             $comando = "iex (irm $urlRepo)"
-            
+
             try {
                 Start-Process powershell.exe -ArgumentList "-NoExit", "-Command", $comando -Verb RunAs
                 exit
@@ -55,7 +55,7 @@ function Type-Text {
     param (
         [string]$text,
         [string]$color = "Cyan",
-        [int]$speed = 2  # ms entre caracteres
+        [int]$speed = 5  # ms entre caracteres
     )
 
     foreach ($char in $text.ToCharArray()) {
@@ -65,20 +65,33 @@ function Type-Text {
     Write-Host ""
 }
 
+# --- Efecto Matrix previo al banner ---
+function Matrix-Effect {
+    param (
+        [int]$iterations = 100
+    )
+
+    for ($i = 0; $i -lt $iterations; $i++) {
+        $randomChar = -join ((48..57 + 65..90 + 97..122) | Get-Random -Count 1 | % {[char]$_})
+        Write-Host $randomChar -ForegroundColor Green -NoNewline
+        Start-Sleep -Milliseconds 15
+    }
+    Write-Host ""
+}
 
 # ================= BANNER =================
 function Mostrar-Banner {
     Clear-Host
     Write-Host "====================================================" -ForegroundColor Cyan
-    Type-Text "         ____      _      ____     _   _____ " "Cyan" 1
-    Type-Text "        / ___|    / \    | __ \   | | |_   _|" "Cyan" 1
-    Type-Text "        \___ \   / _ \   |___ /   | |   | |  " "Cyan" 1
-    Type-Text "         ___) | / ___ \  | __ \   | |   | |  " "Cyan" 1
-    Type-Text "        \____/ /_/   \_\ |____/   |_|   |_|  " "Cyan" 1
+    Write-Host "         ____      _      ____     _   _____ " -ForegroundColor Cyan
+    Write-Host "        / ___|    / \    | __ \   | | |_   _|" -ForegroundColor Cyan
+    Write-Host "        \___ \   / _ \   |___ /   | |   | |  " -ForegroundColor Cyan
+    Write-Host "         ___) | / ___ \  | __ \   | |   | |  " -ForegroundColor Cyan
+    Write-Host "        \____/ /_/   \_\ |____/   |_|   |_|  " -ForegroundColor Cyan
     Write-Host ""
-    Type-Text "              SABIT - SOPORTE TECNICO " "Green" 2
+    Write-Host "              SABIT - SOPORTE TECNICO "   -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
-    Type-Text "                    Version 0.44 " "Green" 1
+    Write-Host "                    Version 0.36 " -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
 }
@@ -87,13 +100,10 @@ function Mostrar-Banner {
 function Menu-Principal {
     $salir = $false
 
-    # Efecto Matrix al iniciar
-    Matrix-Effect -iterations 25
-
     while (-not $salir) {
         Clear-Host
         Mostrar-Banner
-        
+
         Write-Host "[1] Mantenimiento Menu      [2] Activador Win/Office" -ForegroundColor White
         Write-Host ""
         Write-Host "[3] IE Viejo                [4] Descarga Office " -ForegroundColor White
