@@ -83,15 +83,15 @@ function Matrix-Effect {
 function Mostrar-Banner {
     Clear-Host
     Write-Host "====================================================" -ForegroundColor Cyan
-    Type-Text "         ____      _      ____     _   _____ " "Cyan" 10
-    Type-Text "        / ___|    / \    | __ \   | | |_   _|" "Cyan" 10
-    Type-Text "        \___ \   / _ \   |___ /   | |   | |  " "Cyan" 10
-    Type-Text "         ___) | / ___ \  | __ \   | |   | |  " "Cyan" 10
-    Type-Text "        \____/ /_/   \_\ |____/   |_|   |_|  " "Cyan" 10
+    Type-Text "         ____      _      ____     _   _____ " "Cyan" 3
+    Type-Text "        / ___|    / \    | __ \   | | |_   _|" "Cyan" 3
+    Type-Text "        \___ \   / _ \   |___ /   | |   | |  " "Cyan" 3
+    Type-Text "         ___) | / ___ \  | __ \   | |   | |  " "Cyan" 3
+    Type-Text "        \____/ /_/   \_\ |____/   |_|   |_|  " "Cyan" 3
     Write-Host ""
-    Type-Text "              SABIT - SOPORTE TECNICO " "Green" 15
+    Type-Text "              SABIT - SOPORTE TECNICO " "Green" 10
     Write-Host "====================================================" -ForegroundColor Cyan
-    Type-Text "                    Version 0.38 " "Green" 10
+    Type-Text "                    Version 0.39 " "Green" 5
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
 }
