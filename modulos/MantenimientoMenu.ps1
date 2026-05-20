@@ -5,7 +5,7 @@ function Menu-Submodulos11 {
     $salir = $false
     while (-not $salir) {
         Clear-Host
-        Write-Host "================ BalanzaWMS =================" -ForegroundColor Cyan
+        Write-Host "================ Herramientas de mantenimiento de PC =================" -ForegroundColor Cyan
         Write-Host ""
         Write-Host "[1] Estado de Seguridad" -ForegroundColor White
         Write-Host ""
