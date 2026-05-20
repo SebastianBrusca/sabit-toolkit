@@ -65,33 +65,20 @@ function Type-Text {
     Write-Host ""
 }
 
-# --- Efecto Matrix previo al banner ---
-function Matrix-Effect {
-    param (
-        [int]$iterations = 25
-    )
-
-    for ($i = 0; $i -lt $iterations; $i++) {
-        $randomChar = -join ((48..57 + 65..90 + 97..122) | Get-Random -Count 1 | % {[char]$_})
-        Write-Host $randomChar -ForegroundColor Green -NoNewline
-        Start-Sleep -Milliseconds 5
-    }
-    Write-Host ""
-}
 
 # ================= BANNER =================
 function Mostrar-Banner {
     Clear-Host
     Write-Host "====================================================" -ForegroundColor Cyan
-    Type-Text "         ____      _      ____     _   _____ " "Cyan" 2
-    Type-Text "        / ___|    / \    | __ \   | | |_   _|" "Cyan" 2
-    Type-Text "        \___ \   / _ \   |___ /   | |   | |  " "Cyan" 2
-    Type-Text "         ___) | / ___ \  | __ \   | |   | |  " "Cyan" 2
-    Type-Text "        \____/ /_/   \_\ |____/   |_|   |_|  " "Cyan" 2
+    Type-Text "         ____      _      ____     _   _____ " "Cyan" 1
+    Type-Text "        / ___|    / \    | __ \   | | |_   _|" "Cyan" 1
+    Type-Text "        \___ \   / _ \   |___ /   | |   | |  " "Cyan" 1
+    Type-Text "         ___) | / ___ \  | __ \   | |   | |  " "Cyan" 1
+    Type-Text "        \____/ /_/   \_\ |____/   |_|   |_|  " "Cyan" 1
     Write-Host ""
-    Type-Text "              SABIT - SOPORTE TECNICO " "Green" 3
+    Type-Text "              SABIT - SOPORTE TECNICO " "Green" 2
     Write-Host "====================================================" -ForegroundColor Cyan
-    Type-Text "                    Version 0.42 " "Green" 2
+    Type-Text "                    Version 0.42 " "Green" 1
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
 }
