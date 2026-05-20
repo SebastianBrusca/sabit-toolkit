@@ -1,7 +1,7 @@
 # ================= DEFINIR RAMA =================
 $branch = "main"  # Cambiás a "main" cuando quieras publicar
 
-function Menu-Submodulos11 {
+function Menu-MenuBalanza {
     $salir = $false
     while (-not $salir) {
         Clear-Host
@@ -26,12 +26,12 @@ function Menu-Submodulos11 {
 
         # URLs directos de los submódulos en GitHub
         $urls = @{
-            '1' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/submodulo11/DescargarBalanzaWMS.ps1"
-            '2' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/submodulo11/VerificarIP.ps1"
-            '3' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/submodulo11/VerificarCOM.ps1"
-            '4' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/submodulo11/EjecutarPuenteComWeb.ps1"
-            '5' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/submodulo11/AbrirPutty.ps1"
-            '6' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/submodulo11/FormularioDePrueba.ps1"
+            '1' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/MenuBalanza/DescargarBalanzaWMS.ps1"
+            '2' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/MenuBalanza/VerificarIP.ps1"
+            '3' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/MenuBalanza/VerificarCOM.ps1"
+            '4' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/MenuBalanza/EjecutarPuenteComWeb.ps1"
+            '5' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/MenuBalanza/AbrirPutty.ps1"
+            '6' = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/refs/heads/$branch/modulos/MenuBalanza/FormularioDePrueba.ps1"
         }
 
         if ($urls.ContainsKey($opcion)) {
