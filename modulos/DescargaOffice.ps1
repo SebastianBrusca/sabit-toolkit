@@ -1,8 +1,8 @@
-# ================= MODULO DESCARGA OFFICE =================
+# ================= MODULO DESCARGA Y EJECUCION OFFICE =================
 Clear-Host
 Write-Host "=== DESCARGA DE OFFICE 365 ===" -ForegroundColor Cyan
 
-# Carpeta Descargas del usuario (compatible en cualquier PC)
+# Carpeta Descargas del usuario
 $downloadsPath = Join-Path $env:USERPROFILE "Downloads"
 $officeInstaller = Join-Path $downloadsPath "OfficeSetup.exe"
 
@@ -12,7 +12,7 @@ $officeUrl = "https://c2rsetup.officeapps.live.com/c2r/download.aspx?Productrele
 # ------------------- Verificar si ya existe el instalador -------------------
 if (Test-Path $officeInstaller) {
     Write-Host "⚠️ El instalador de Office ya existe en $officeInstaller" -ForegroundColor Yellow
-    Read-Host "Presione Enter para continuar o eliminar el archivo manualmente antes de volver a descargar..."
+    $continue = Read-Host "Presione Enter para continuar y ejecutar el instalador, o cancelar con Ctrl+C..."
 } else {
     Write-Host "Descargando Office 365 en $downloadsPath..." -ForegroundColor Cyan
     try {
@@ -25,6 +25,13 @@ if (Test-Path $officeInstaller) {
     }
 }
 
-Write-Host "`nLa descarga de Office 365 ha finalizado." -ForegroundColor Green
-Write-Host "Puedes iniciar la instalación ejecutando: $officeInstaller"
+# ------------------- Ejecutar instalador -------------------
+Write-Host "`nIniciando instalación de Office 365..." -ForegroundColor Cyan
+try {
+    Start-Process -FilePath $officeInstaller -Wait
+    Write-Host "✅ Instalación finalizada o iniciada correctamente." -ForegroundColor Green
+} catch {
+    Write-Host "⚠️ Error al ejecutar el instalador: $_" -ForegroundColor Red
+}
+
 Read-Host "Presione Enter para volver al menú..."
