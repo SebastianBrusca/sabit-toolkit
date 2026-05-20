@@ -55,7 +55,7 @@ function Type-Text {
     param (
         [string]$text,
         [string]$color = "Cyan",
-        [int]$speed = 5  # ms entre caracteres
+        [int]$speed = 2  # ms entre caracteres
     )
 
     foreach ($char in $text.ToCharArray()) {
@@ -68,7 +68,7 @@ function Type-Text {
 # --- Efecto Matrix previo al banner ---
 function Matrix-Effect {
     param (
-        [int]$iterations = 50
+        [int]$iterations = 25
     )
 
     for ($i = 0; $i -lt $iterations; $i++) {
@@ -91,7 +91,7 @@ function Mostrar-Banner {
     Write-Host ""
     Type-Text "              SABIT - SOPORTE TECNICO " "Green" 10
     Write-Host "====================================================" -ForegroundColor Cyan
-    Type-Text "                    Version 0.40 " "Green" 5
+    Type-Text "                    Version 0.41 " "Green" 5
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
 }
@@ -101,7 +101,7 @@ function Menu-Principal {
     $salir = $false
 
     # Efecto Matrix al iniciar
-    Matrix-Effect -iterations 50
+    Matrix-Effect -iterations 25
 
     while (-not $salir) {
         Clear-Host
