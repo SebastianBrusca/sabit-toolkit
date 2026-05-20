@@ -55,7 +55,7 @@ function Type-Text {
     param (
         [string]$text,
         [string]$color = "Cyan",
-        [int]$speed = 2  # ms entre caracteres
+        [int]$speed = 4  # ms entre caracteres
     )
 
     foreach ($char in $text.ToCharArray()) {
@@ -83,15 +83,15 @@ function Matrix-Effect {
 function Mostrar-Banner {
     Clear-Host
     Write-Host "====================================================" -ForegroundColor Cyan
-    Type-Text "         ____      _      ____     _   _____ " "Cyan" 3
-    Type-Text "        / ___|    / \    | __ \   | | |_   _|" "Cyan" 3
-    Type-Text "        \___ \   / _ \   |___ /   | |   | |  " "Cyan" 3
-    Type-Text "         ___) | / ___ \  | __ \   | |   | |  " "Cyan" 3
-    Type-Text "        \____/ /_/   \_\ |____/   |_|   |_|  " "Cyan" 3
+    Type-Text "         ____      _      ____     _   _____ " "Cyan" 2
+    Type-Text "        / ___|    / \    | __ \   | | |_   _|" "Cyan" 2
+    Type-Text "        \___ \   / _ \   |___ /   | |   | |  " "Cyan" 2
+    Type-Text "         ___) | / ___ \  | __ \   | |   | |  " "Cyan" 2
+    Type-Text "        \____/ /_/   \_\ |____/   |_|   |_|  " "Cyan" 2
     Write-Host ""
-    Type-Text "              SABIT - SOPORTE TECNICO " "Green" 10
+    Type-Text "              SABIT - SOPORTE TECNICO " "Green" 3
     Write-Host "====================================================" -ForegroundColor Cyan
-    Type-Text "                    Version 0.41 " "Green" 5
+    Type-Text "                    Version 0.42 " "Green" 2
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
 }
