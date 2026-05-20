@@ -68,7 +68,7 @@ function Type-Text {
 # --- Efecto Matrix previo al banner ---
 function Matrix-Effect {
     param (
-        [int]$iterations = 100
+        [int]$iterations = 50
     )
 
     for ($i = 0; $i -lt $iterations; $i++) {
@@ -91,7 +91,7 @@ function Mostrar-Banner {
     Write-Host ""
     Type-Text "              SABIT - SOPORTE TECNICO " "Green" 10
     Write-Host "====================================================" -ForegroundColor Cyan
-    Type-Text "                    Version 0.39 " "Green" 5
+    Type-Text "                    Version 0.40 " "Green" 5
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
 }
