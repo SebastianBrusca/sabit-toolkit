@@ -1,4 +1,4 @@
-# ================= MODULO ANYDESK SIMPLIFICADO =================
+# ================= MODULO ANYDESK DESCARGA Y EJECUTA =================
 Clear-Host
 Write-Host "=== DESCARGA E INSTALACIÓN DE ANYDESK ===" -ForegroundColor Cyan
 
@@ -30,8 +30,8 @@ try {
     return
 }
 
-# ------------------- Instalar AnyDesk -------------------
-Write-Host "Instalando AnyDesk con contraseña '*Gemez$$' y permisos totales..." -ForegroundColor Cyan
+# ------------------- Ejecutar instalador -------------------
+Write-Host "Ejecutando instalador de AnyDesk con contraseña '*Gemez$$' y permisos totales..." -ForegroundColor Cyan
 try {
     Start-Process -FilePath $anydeskPath -ArgumentList "/install /silent --set-password *Gemez$$ --grant-elevated-permissions" -Wait
     Write-Host "✅ AnyDesk instalado correctamente." -ForegroundColor Green
@@ -44,5 +44,5 @@ try {
 # ------------------- Limpiar -------------------
 Remove-Item $anydeskPath -Force
 
-Write-Host "`n✅ Proceso completado." -ForegroundColor Green
+Write-Host "`n✅ Proceso completado. AnyDesk está listo para usar." -ForegroundColor Green
 Read-Host "Presione Enter para volver al menú..."
