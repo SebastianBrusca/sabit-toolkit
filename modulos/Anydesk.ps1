@@ -1,4 +1,4 @@
-# ================= MODULO ANYDESK DESCARGA Y EJECUTA =================
+# ================= MODULO ANYDESK DESCARGA Y EJECUTA SIN CONTRASEÑA =================
 Clear-Host
 Write-Host "=== DESCARGA E INSTALACIÓN DE ANYDESK ===" -ForegroundColor Cyan
 
@@ -31,9 +31,9 @@ try {
 }
 
 # ------------------- Ejecutar instalador -------------------
-Write-Host "Ejecutando instalador de AnyDesk con contraseña '*Gemez$$' y permisos totales..." -ForegroundColor Cyan
+Write-Host "Ejecutando instalador de AnyDesk..." -ForegroundColor Cyan
 try {
-    Start-Process -FilePath $anydeskPath -ArgumentList "/install /silent --set-password *Gemez$$ --grant-elevated-permissions" -Wait
+    Start-Process -FilePath $anydeskPath -ArgumentList "/install /silent" -Wait
     Write-Host "✅ AnyDesk instalado correctamente." -ForegroundColor Green
 } catch {
     Write-Host "❌ Error durante la instalación." -ForegroundColor Red
