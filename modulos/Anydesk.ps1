@@ -1,4 +1,4 @@
-# ================= MODULO ANYDESK ACTUALIZADO =================
+# ================= MODULO ANYDESK ACTUALIZADO CON VERIFICACIÓN =================
 Clear-Host
 Write-Host "=== DESCARGA E INSTALACIÓN DE ANYDESK (INSTALACIÓN DEFINITIVA) ===" -ForegroundColor Cyan
 
@@ -9,13 +9,18 @@ $anydeskPath = Join-Path $downloadsPath "AnyDeskSetup.exe"
 # URL del instalador oficial
 $anydeskUrl = "https://download.anydesk.com/AnyDesk.exe"
 
-# Ruta típica de instalación definitiva de AnyDesk
-$installPath = "C:\Program Files\AnyDesk\AnyDesk.exe"
-
 # ------------------- Verificar si AnyDesk ya está instalado -------------------
-if (Test-Path $installPath) {
+$anydeskReg = Get-ItemProperty -Path "HKLM:\SOFTWARE\AnyDesk" -ErrorAction SilentlyContinue
+$anydeskRegWow64 = Get-ItemProperty -Path "HKLM:\SOFTWARE\WOW6432Node\AnyDesk" -ErrorAction SilentlyContinue
+
+$installed = $false
+if ($anydeskReg -or $anydeskRegWow64 -or (Get-Process AnyDesk -ErrorAction SilentlyContinue)) {
+    $installed = $true
+}
+
+if ($installed) {
     Write-Host "==========================================================" -ForegroundColor Red
-    Write-Host "⚠️  AnyDesk ya está instalado en $installPath" -ForegroundColor Red
+    Write-Host "⚠️  AnyDesk ya está instalado y/o corriendo en este equipo." -ForegroundColor Red
     Write-Host "==========================================================" -ForegroundColor Red
     Write-Host "`n❗ Para actualizar la contraseña o permisos, abra AnyDesk manualmente." -ForegroundColor Yellow
     Read-Host "Presione Enter para continuar..."
