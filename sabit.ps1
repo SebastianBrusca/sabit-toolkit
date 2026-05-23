@@ -63,7 +63,7 @@ function Mostrar-Banner {
     Write-Host ""
     Write-Host "              SABIT - SOPORTE TECNICO " -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
-    Write-Host "             Version 0.69             Hora: " -NoNewline -ForegroundColor Green
+    Write-Host "             Version 0.70             Hora: " -NoNewline -ForegroundColor Green
     Write-Host $hora -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
@@ -76,7 +76,7 @@ function Leer-Opcion-Con-Hora {
     $inputX = [Console]::CursorLeft
     $inputY = [Console]::CursorTop
 
-    $horaX = 48
+    $horaX = 45
     $horaY = 6
 
     $texto = ""
