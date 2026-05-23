@@ -76,8 +76,8 @@ function Leer-Opcion-Con-Hora {
     $inputX = [Console]::CursorLeft
     $inputY = [Console]::CursorTop
 
-    $horaX = $script:HoraX
-    $horaY = $script:HoraY
+    $horaX = 48
+    $horaY = 6
 
     $texto = ""
 
