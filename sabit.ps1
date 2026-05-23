@@ -62,10 +62,32 @@ function Mostrar-Banner {
     Write-Host ""
     Write-Host "              SABIT - SOPORTE TECNICO "   -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
-    Write-Host "                    Version 0.60 " -ForegroundColor Green
+    Write-Host "                    Version 0.61 " -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
 }
+
+
+# ================= SPINNER ANIMADO =================
+function Mostrar-Spinner {
+    param (
+        [string]$Mensaje = "Cargando",
+        [int]$Duracion = 3
+    )
+
+    $frames = @('|', '/', '-', '\')
+    $endTime = (Get-Date).AddSeconds($Duracion)
+
+    while ((Get-Date) -lt $endTime) {
+        foreach ($frame in $frames) {
+            Write-Host "`r$Mensaje... $frame" -NoNewline -ForegroundColor Cyan
+            Start-Sleep -Milliseconds 120
+        }
+    }
+
+    Write-Host "`r$Mensaje... OK " -ForegroundColor Green
+}
+
 
 # ================= MENU PRINCIPAL =================
 function Menu-Principal {
@@ -109,6 +131,7 @@ function Menu-Principal {
         if ($urls.ContainsKey($key)) {
             $fullUrl = "https://raw.githubusercontent.com/SebastianBrusca/sabit-toolkit/$branch/modulos/$($urls[$key])"
             try {
+                Mostrar-Spinner "Cargando módulo"
                 $scriptContent = Invoke-RestMethod -Uri $fullUrl -UseBasicParsing
                 Clear-Host
                 # Forzamos la ejecución en un ámbito limpio
