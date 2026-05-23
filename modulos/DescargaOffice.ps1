@@ -11,19 +11,47 @@ $officeUrl = "https://c2rsetup.officeapps.live.com/c2r/download.aspx?Productrele
 
 # ------------------- Verificar si ya existe el instalador -------------------
 if (Test-Path $officeInstaller) {
-    Write-Host "⚠️ El instalador de Office ya existe en $officeInstaller" -ForegroundColor Yellow
-    $continue = Read-Host "Presione Enter para continuar y ejecutar el instalador, o cancelar con Ctrl+C..."
-} else {
-    Write-Host "Descargando Office 365 en $downloadsPath..." -ForegroundColor Cyan
-    try {
-        Invoke-WebRequest -Uri $officeUrl -OutFile $officeInstaller -UseBasicParsing
-        Write-Host "✅ Descarga completada: $officeInstaller" -ForegroundColor Green
-    } catch {
-        Write-Host "⚠️ Error al descargar Office: $_" -ForegroundColor Red
-        Read-Host "Presione Enter para cerrar el script..."
-        return
+
+    Write-Host "⚠️ El instalador de Office ya existe en:" -ForegroundColor Yellow
+    Write-Host "$officeInstaller" -ForegroundColor Gray
+    Write-Host ""
+
+    Write-Host "[1] Ejecutar instalador existente" -ForegroundColor Green
+    Write-Host "[0] Volver al menu anterior" -ForegroundColor Red
+    Write-Host ""
+
+    $opcion = Read-Host "Selecciona una opcion"
+
+    switch ($opcion) {
+
+        '1' {
+            Write-Host "`nIniciando instalador..." -ForegroundColor Cyan
+
+            try {
+                Start-Process -FilePath $officeInstaller -Wait
+                Write-Host "✅ Instalacion finalizada o iniciada correctamente." -ForegroundColor Green
+            } catch {
+                Write-Host "⚠️ Error al ejecutar el instalador: $_" -ForegroundColor Red
+            }
+
+            Read-Host "`nPresione Enter para volver al menu..."
+            return
+        }
+
+        '0' {
+            Write-Host "Volviendo al menu..." -ForegroundColor Yellow
+            Start-Sleep -Seconds 1
+            return
+        }
+
+        default {
+            Write-Host "⚠️ Opcion no valida." -ForegroundColor Red
+            Start-Sleep -Seconds 1
+            return
+        }
     }
-}
+
+} else {
 
 # ------------------- Ejecutar instalador -------------------
 Write-Host "`nIniciando instalación de Office 365..." -ForegroundColor Cyan
