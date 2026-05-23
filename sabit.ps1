@@ -77,8 +77,8 @@ function Leer-Opcion-Con-Hora {
     $inputY = [Console]::CursorTop
 
     # Ajustado para tu banner actual
-    $horaX = 50
-    $horaY = 7
+    $horaX = 48
+    $horaY = 6
 
     while ($true) {
 
