@@ -63,38 +63,40 @@ function Mostrar-Banner {
     Write-Host ""
     Write-Host "              SABIT - SOPORTE TECNICO " -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
-    $hora = Get-Date -Format 'HH:mm:ss'
-    Write-Host "             Version 0.63             Hora: $hora" -ForegroundColor Green
+    Write-Host "             Version 0.64             Hora: " -NoNewline -ForegroundColor Green
+    Write-Host $hora -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
 }
 
 # ================= ACTUALIZAR HORA Y LEER OPCION =================
 function Leer-Opcion-Con-Hora {
-    param (
-        [int]$HoraPosX = 45,
-        [int]$HoraPosY = 8,
-        [int]$InputPosX = 23,
-        [int]$InputPosY = 21
-    )
-
     Write-Host "Selecciona una opcion: " -NoNewline -ForegroundColor White
 
-    $key = ""
+    $inputX = [Console]::CursorLeft
+    $inputY = [Console]::CursorTop
+
+    # Ajustado para tu banner actual
+    $horaX = 49
+    $horaY = 8
 
     while ($true) {
 
-        # Actualiza solamente la hora del banner
-        [Console]::SetCursorPosition($HoraPosX, $HoraPosY)
-        Write-Host "Hora: $(Get-Date -Format 'HH:mm:ss')" -NoNewline -ForegroundColor Green
+        # Actualiza solo los numeros de la hora
+        [Console]::SetCursorPosition($horaX, $horaY)
+        Write-Host "$(Get-Date -Format 'HH:mm:ss')" -NoNewline -ForegroundColor Green
 
-        # Vuelve el cursor al lugar donde el usuario escribe
-        [Console]::SetCursorPosition($InputPosX, $InputPosY)
+        # Vuelve al input
+        [Console]::SetCursorPosition($inputX, $inputY)
 
         if ([Console]::KeyAvailable) {
             $tecla = [Console]::ReadKey($true)
-            $key = $tecla.KeyChar
 
+            if ($tecla.Key -eq 'Enter') {
+                continue
+            }
+
+            $key = $tecla.KeyChar
             Write-Host $key -ForegroundColor Cyan
             return $key
         }
