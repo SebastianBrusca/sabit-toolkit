@@ -63,7 +63,7 @@ function Mostrar-Banner {
     Write-Host ""
     Write-Host "              SABIT - SOPORTE TECNICO " -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
-    Write-Host "             Version 0.67             Hora: " -NoNewline -ForegroundColor Green
+    Write-Host "             Version 0.68             Hora: " -NoNewline -ForegroundColor Green
     Write-Host $hora -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
@@ -76,32 +76,41 @@ function Leer-Opcion-Con-Hora {
     $inputX = [Console]::CursorLeft
     $inputY = [Console]::CursorTop
 
-    # Ajustado para tu banner actual
-    $horaX = 48
-    $horaY = 6
+    $horaX = $script:HoraX
+    $horaY = $script:HoraY
+
+    $texto = ""
 
     while ($true) {
-
-        # Actualiza solo los numeros de la hora
         [Console]::SetCursorPosition($horaX, $horaY)
         Write-Host "$(Get-Date -Format 'HH:mm:ss')" -NoNewline -ForegroundColor Green
 
-        # Vuelve al input
         [Console]::SetCursorPosition($inputX, $inputY)
+        Write-Host (" " * 20) -NoNewline
+        [Console]::SetCursorPosition($inputX, $inputY)
+        Write-Host $texto -NoNewline -ForegroundColor Cyan
 
         if ([Console]::KeyAvailable) {
             $tecla = [Console]::ReadKey($true)
 
             if ($tecla.Key -eq 'Enter') {
+                Write-Host ""
+                return $texto
+            }
+
+            if ($tecla.Key -eq 'Backspace') {
+                if ($texto.Length -gt 0) {
+                    $texto = $texto.Substring(0, $texto.Length - 1)
+                }
                 continue
             }
 
-            $key = $tecla.KeyChar
-            Write-Host $key -ForegroundColor Cyan
-            return $key
+            if ($tecla.KeyChar -match '[0-9A-Za-z]') {
+                $texto += $tecla.KeyChar
+            }
         }
 
-        Start-Sleep -Milliseconds 200
+        Start-Sleep -Milliseconds 150
     }
 }
 
