@@ -62,10 +62,8 @@ function Mostrar-Banner {
     Write-Host ""
     Write-Host "              SABIT - SOPORTE TECNICO "   -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
-    Write-Host "                    Version 0.61 " -ForegroundColor Green
+    Write-Host "             Version 0.62             Hora: $(Get-Date -Format 'HH:mm:ss')" -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
-    Write-Host ""
-    Write-Host "Hora: $(Get-Date -Format 'HH:mm:ss')" -ForegroundColor Blue
     Write-Host ""
 }
 
