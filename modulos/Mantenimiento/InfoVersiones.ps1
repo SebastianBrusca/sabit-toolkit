@@ -8,8 +8,10 @@ function InfoVersiones {
 
     # Versión de Windows
     try {
-        $win = Get-ComputerInfo -Property WindowsProductName, WindowsVersion
-        Write-Host "Windows:" $win.WindowsProductName "Version:" $win.WindowsVersion
+        $win = Get-ComputerInfo
+        Write-Host "Windows:" $win.WindowsProductName -ForegroundColor Green
+        Write-Host "Version:" $win.OsDisplayVersion -ForegroundColor Green
+        Write-Host "Build:" $win.OsBuildNumber -ForegroundColor Green
     } catch {
         Write-Host "No se pudo obtener la versión de Windows" -ForegroundColor Yellow
     }
