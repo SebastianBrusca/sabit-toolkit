@@ -127,7 +127,7 @@ function Mostrar-Spinner {
     while ((Get-Date) -lt $endTime) {
         foreach ($frame in $frames) {
             Write-Host "`r$Mensaje... $frame" -NoNewline -ForegroundColor Cyan
-            Start-Sleep -Milliseconds 120
+            Start-Sleep -Milliseconds 75
         }
     }
 
