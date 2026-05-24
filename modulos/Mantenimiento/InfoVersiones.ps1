@@ -6,14 +6,14 @@ Clear-Host
 function InfoVersiones {
     Write-Host "===== Versiones del Sistema =====" -ForegroundColor Cyan
 
-    # 1. Versión de Windows
+    # 1. Versión de Windows (Usando CIM)
     try {
         $os = Get-CimInstance Win32_OperatingSystem
         $winReg = Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion"
 
-        $producto = $os.Caption          # Muestra "Microsoft Windows 11 Pro" correctamente
-        $version = $winReg.DisplayVersion # Muestra la versión de actualización (ej. 25H2)
-        $build = $os.BuildNumber          # Muestra la compilación del SO
+        $producto = $os.Caption          
+        $version = $winReg.DisplayVersion 
+        $build = $os.BuildNumber          
 
         Write-Host "Windows: $producto" -ForegroundColor Green
         Write-Host "Version: $version" -ForegroundColor Green
@@ -22,35 +22,33 @@ function InfoVersiones {
         Write-Host "No se pudo obtener la versión de Windows" -ForegroundColor Yellow
     }
 
+    # 2. Versión de Java (Corregido y simplificado)
     try {
+        # Buscar java.exe en el PATH
         $javaPath = Get-Command java -ErrorAction SilentlyContinue
         if ($javaPath) {
+            # Capturar la salida de versión de Java
             $javaVersionFull = & java -version 2>&1 | Out-String
             
             Write-Host "`nJava instalada:" -ForegroundColor Green
 
-            if ($javaVersionFull -match '"(\d+)\.(\d+)\.(\d+)(_.*)?"' -or $javaVersionFull -match '"(\d+)(\.\d+)?(\.\d+)?.*"') {
-                $numPrincipal = $Matches[1]
-                $numSecundario = $Matches[2]
-
-                if ($numPrincipal -eq "1" -and $numSecundario -ne $null) {
-                    $versionComercial = $numSecundario.Replace(".", "")
-                } else {
-                    $versionComercial = $numPrincipal
-                }
-                
-                Write-Host "-> Tipo de Java detectado: Java $versionComercial" -ForegroundColor Magentare
+            # Buscamos el formato clásico "1.8.0..." o los formatos nuevos "9...", "11...", "17..."
+            if ($javaVersionFull -match '"(1\.)?(\d+)\.') {
+                $versionDetectada = $Matches[2]
+                Write-Host "-> Tipo de Java detectado: Java $versionDetectada" -ForegroundColor Magenta
             } else {
-                Write-Host "-> Tipo de Java detectado: Desconocido" -ForegroundColor Yellow
+                Write-Host "-> Tipo de Java detectado: Versión comercial no identificada" -ForegroundColor Yellow
             }
 
+            # Mostrar la salida detallada original
             Write-Host "Detalle técnico:" -ForegroundColor Gray
             Write-Host $javaVersionFull
         } else {
             Write-Host "`nJava no está instalada o no está en el PATH" -ForegroundColor Red
         }
     } catch {
-        Write-Host "`nError al verificar Java" -ForegroundColor Red
+        # Esto te mostrará el error real en pantalla si algo vuelve a fallar
+        Write-Host "`nError al verificar Java: $_" -ForegroundColor Red
     }
 
     Write-Host "================================" -ForegroundColor Cyan
