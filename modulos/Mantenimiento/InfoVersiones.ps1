@@ -1,6 +1,8 @@
 # =============================================
 # Función InfoVersiones - Muestra versión de Windows y Java
 # =============================================
+Clear-Host
+
 function InfoVersiones {
     Write-Host "===== Versiones del Sistema =====" -ForegroundColor Cyan
 
