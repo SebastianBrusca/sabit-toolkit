@@ -63,7 +63,7 @@ function Mostrar-Banner {
     Write-Host ""
     Write-Host "              SABIT - SOPORTE TECNICO " -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
-    Write-Host "           Version 1.1.79             Hora: " -NoNewline -ForegroundColor Green
+    Write-Host "           Version 1.1.80             Hora: " -NoNewline -ForegroundColor Green
     Write-Host $hora -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
@@ -127,7 +127,7 @@ function Mostrar-Spinner {
     while ((Get-Date) -lt $endTime) {
         foreach ($frame in $frames) {
             Write-Host "`r$Mensaje... $frame" -NoNewline -ForegroundColor Cyan
-            Start-Sleep -Milliseconds 75
+            Start-Sleep -Milliseconds 50
         }
     }
 
