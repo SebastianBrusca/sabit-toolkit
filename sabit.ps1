@@ -1,7 +1,7 @@
 # =============================================
 # Gestion de permisos de administrador Compatible con IEX / Web
 # ================= DEFINIR RAMA =================
-$branch = "main2"
+$branch = "main"
 # =============================================
 
 $esAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
