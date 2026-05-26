@@ -1,6 +1,8 @@
 # =============================================
 # Función EstadoSeguridad - Muestra Firewall y Antivirus
 # =============================================
+Clear-Host
+
 function EstadoSeguridad {
     Write-Host "===== Estado de Seguridad =====" -ForegroundColor Cyan
 
@@ -35,3 +37,9 @@ function EstadoSeguridad {
 }
 # ================= EJECUTAR AUTOMÁTICAMENTE =================
 EstadoSeguridad
+
+# -----------------------
+# Esperar Enter y volver al menu
+# -----------------------
+Write-Host ""
+Read-Host "Presione Enter para volver al menú..."
