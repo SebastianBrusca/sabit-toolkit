@@ -1,5 +1,5 @@
 # ================= DEFINIR RAMA =================
-$branch = "main2"  # Cambiás a "main" cuando quieras publicar
+$branch = "main"  # Cambiás a "main" cuando quieras publicar
 
 function Menu-submodulo11 {
     $salir = $false
