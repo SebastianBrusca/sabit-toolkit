@@ -1,45 +1,28 @@
-# ============================================
-# SABIT - Inventario
-# ============================================
-
 try {
 
     $url = "https://script.google.com/macros/s/AKfycbyCPOuuOjxshxqytr7oDZ5rLOASPQxV1c_T06cVMvG8uJqne5pRUsG3bmBOW6cvRbXr/exec"
 
-    # ----------------------------------------
     # Nombre PC
-    # ----------------------------------------
     $nombre = $env:COMPUTERNAME
 
-    # ----------------------------------------
     # Usuario
-    # ----------------------------------------
     $usuario = (Get-CimInstance Win32_ComputerSystem).UserName
 
     if ($usuario -match "\\") {
         $usuario = $usuario.Split("\")[-1]
     }
 
-    # ----------------------------------------
-    # Serial
-    # ----------------------------------------
-    $serial = (Get-CimInstance Win32_BIOS).SerialNumber.Trim()
-
-    # ----------------------------------------
     # CPU
-    # ----------------------------------------
-    $procesador = (Get-CimInstance Win32_Processor).Name.Trim()
+    $procesador = (
+        Get-CimInstance Win32_Processor
+    ).Name.Trim()
 
-    # ----------------------------------------
-    # RAM (GB enteros)
-    # ----------------------------------------
+    # RAM
     $ram = [math]::Round(
         (Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory / 1GB
     )
 
-    # ----------------------------------------
-    # Disco principal
-    # ----------------------------------------
+    # Disco C:
     $disco = Get-CimInstance Win32_LogicalDisk |
         Where-Object { $_.DeviceID -eq "C:" }
 
@@ -47,14 +30,12 @@ try {
         $disco.Size / 1GB
     )
 
-    # ----------------------------------------
     # Windows
-    # ----------------------------------------
-    $windows = (Get-CimInstance Win32_OperatingSystem).Caption
+    $windows = (
+        Get-CimInstance Win32_OperatingSystem
+    ).Caption
 
-    # ----------------------------------------
     # Ethernet
-    # ----------------------------------------
     $eth = Get-NetAdapter |
         Where-Object {
             $_.Status -eq "Up" -and
@@ -63,32 +44,36 @@ try {
         } |
         Select-Object -First 1
 
-    $macEth = if ($eth) {
-        $eth.MacAddress
-    }
-    else {
-        ""
+    $macEth = ""
+
+    if ($eth) {
+        $macEth = $eth.MacAddress
     }
 
-    # ----------------------------------------
-    # WIFI
-    # ----------------------------------------
+    # WiFi
     $wifi = Get-NetAdapter |
         Where-Object {
             $_.InterfaceDescription -match "Wireless|Wi-Fi|WiFi"
         } |
         Select-Object -First 1
 
-    $macWifi = if ($wifi) {
-        $wifi.MacAddress
-    }
-    else {
-        ""
+    $macWifi = ""
+
+    if ($wifi) {
+        $macWifi = $wifi.MacAddress
     }
 
-    # ----------------------------------------
+    # Identificador único
+    $idEquipo = ""
+
+    if ($macEth) {
+        $idEquipo = $macEth
+    }
+    elseif ($macWifi) {
+        $idEquipo = $macWifi
+    }
+
     # IP Ethernet
-    # ----------------------------------------
     $ipEth = ""
 
     if ($eth) {
@@ -105,9 +90,7 @@ try {
         )
     }
 
-    # ----------------------------------------
-    # AnyDesk ID
-    # ----------------------------------------
+    # AnyDesk
     $anydesk = ""
 
     $confFile = "C:\ProgramData\AnyDesk\system.conf"
@@ -125,27 +108,21 @@ try {
         }
     }
 
-    # ----------------------------------------
-    # Payload
-    # ----------------------------------------
     $body = @{
-        Token           = "SABIT-INV-2026"
-        Nombre          = $nombre
-        Usuario         = $usuario
-        Serial          = $serial
-        MacEth          = $macEth
-        MacWifi         = $macWifi
-        Procesador      = $procesador
-        Ram             = $ram
-        Almacenamiento  = $almacenamiento
-        AnyDesk         = $anydesk
-        IpEth           = $ipEth
-        Windows         = $windows
+        Token          = "SABIT-INV-2026"
+        IdEquipo       = $idEquipo
+        Nombre         = $nombre
+        Usuario        = $usuario
+        MacEth         = $macEth
+        MacWifi        = $macWifi
+        Procesador     = $procesador
+        Ram            = $ram
+        Almacenamiento = $almacenamiento
+        AnyDesk        = $anydesk
+        IpEth          = $ipEth
+        Windows        = $windows
     } | ConvertTo-Json
 
-    # ----------------------------------------
-    # Envío
-    # ----------------------------------------
     $resultado = Invoke-RestMethod `
         -Uri $url `
         -Method POST `
@@ -158,8 +135,7 @@ try {
         Write-Host "Inventario actualizado correctamente." -ForegroundColor Green
         Write-Host ""
 
-    }
-    else {
+    } else {
 
         Write-Host ""
         Write-Host "Error al actualizar inventario." -ForegroundColor Red
