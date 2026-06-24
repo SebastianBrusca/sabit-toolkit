@@ -7,7 +7,7 @@ try {
     # ----------------------------------------
 
     $ubicacion = Read-Host "Ubicacion del equipo"
-    $tecnico   = Read-Host "Tecnico"
+    $tecnico = Read-Host "Tecnico"
 
     # ----------------------------------------
     # Nombre PC
@@ -26,12 +26,10 @@ try {
     }
 
     # ----------------------------------------
-    # CPU
+    # Procesador
     # ----------------------------------------
 
-    $procesador = (
-        Get-CimInstance Win32_Processor
-    ).Name.Trim()
+    $procesador = (Get-CimInstance Win32_Processor).Name.Trim()
 
     # ----------------------------------------
     # RAM
@@ -42,17 +40,13 @@ try {
     )
 
     # ----------------------------------------
-    # Disco C:
+    # Disco principal
     # ----------------------------------------
 
     $disco = Get-CimInstance Win32_LogicalDisk |
-        Where-Object {
-            $_.DeviceID -eq "C:"
-        }
+        Where-Object { $_.DeviceID -eq "C:" }
 
-    $tamanoReal = [math]::Round(
-        $disco.Size / 1GB
-    )
+    $tamanoReal = [math]::Round($disco.Size / 1GB)
 
     switch ($tamanoReal) {
 
@@ -90,9 +84,7 @@ try {
     # Windows
     # ----------------------------------------
 
-    $windows = (
-        Get-CimInstance Win32_OperatingSystem
-    ).Caption
+    $windows = (Get-CimInstance Win32_OperatingSystem).Caption
 
     # ----------------------------------------
     # Ethernet
@@ -189,10 +181,6 @@ try {
         Tecnico        = $tecnico
     } | ConvertTo-Json
 
-    # ----------------------------------------
-    # Envio
-    # ----------------------------------------
-
     $resultado = Invoke-RestMethod `
         -Uri $url `
         -Method POST `
@@ -205,10 +193,12 @@ try {
         Write-Host "Inventario cargado correctamente." -ForegroundColor Green
         Write-Host ""
 
-    } else {
+    }
+    else {
 
         Write-Host ""
         Write-Host "Error al cargar inventario." -ForegroundColor Red
+        Write-Host ($resultado | ConvertTo-Json)
         Write-Host ""
 
     }
