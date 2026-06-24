@@ -1,7 +1,7 @@
 # =============================================
 # Gestion de permisos de administrador Compatible con IEX / Web
 # ================= DEFINIR RAMA =================
-$branch = "main"
+$branch = "main2"
 # =============================================
 
 $esAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
@@ -142,13 +142,24 @@ function Menu-Principal {
         Clear-Host
         Mostrar-Banner
 
-        Write-Host "[1] Mantenimiento Menu      [2] Activador Win/Office" -ForegroundColor White
+        Write-Host "[1] Mantenimiento Menu" -ForegroundColor White
         Write-Host ""
-        Write-Host "[3] IE Viejo                [4] Descarga Office 2024 " -ForegroundColor White
+        Write-Host "[2] Activador Win/Office" -ForegroundColor White
         Write-Host ""
-        Write-Host "[5] Software Instalado      [6] BalanzaWMS" -ForegroundColor White
+        Write-Host "[3] IE Viejo" -ForegroundColor White
         Write-Host ""
-        Write-Host "[7] Anydesk                 [8] Calipso A/D" -ForegroundColor White
+        Write-Host "[4] Descarga Office 2024" -ForegroundColor White
+        Write-Host ""
+        Write-Host "[5] Software Instalado" -ForegroundColor White
+        Write-Host ""
+        Write-Host "[6] BalanzaWMS" -ForegroundColor White
+        Write-Host ""
+        Write-Host "[7] Anydesk" -ForegroundColor White
+        Write-Host ""
+        Write-Host "[8] Calipso A/D" -ForegroundColor White
+        Write-Host ""
+        Write-Host "[9] Inventario" -ForegroundColor White
+        
         Write-Host ""
         Write-Host "[0] Salir" -ForegroundColor Red
         Write-Host ""
@@ -171,6 +182,7 @@ function Menu-Principal {
             '6' = "BalanzaWMS.ps1"
             '7' = "Anydesk.ps1"
             '8' = "CalipsoAccesoDirecto.ps1"
+            '9' = "inventario.ps1"
         }
 
         if ($urls.ContainsKey($key)) {
