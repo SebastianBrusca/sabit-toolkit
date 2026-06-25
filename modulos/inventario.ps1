@@ -42,55 +42,60 @@ try {
 
     $url = "https://script.google.com/macros/s/AKfycbyCPOuuOjxshxqytr7oDZ5rLOASPQxV1c_T06cVMvG8uJqne5pRUsG3bmBOW6cvRbXr/exec"
 
-    $sectores = @(
-        "Operaciones ZP",
-        "Sistemas",
-        "Logistica",
-        "Operaciones FDC",
-        "Adm. SIM",
-        "Adm. Expo",
-        "Adm. Impo",
-        "Coord. Impo",
-        "Comercial",
+    $gerencias = @(
         "Servicios",
-        "Operaciones",
-        "Servicio al Cliente",
+        "Administracion",
         "Aduana",
-        "RR.HH.",
-        "Finanzas",
-        "Seguridad",
-        "Planeamiento",
-        "Calidad",
-        "Gerencia",
-        "Directorio",
-        "Administracion"
+        "Comercial",
+        "Externo"
     )
 
-    $sectorIT = @(
-        "Balanza Porton 1",
-        "Balanza Porton 2",
-        "Balanza Porton 3",
-        "Balanza Porton 4",
-        "Balanza Porton 5",
-        "Balanza Porton 6",
-        "Balanza Porton 7",
-        "Balanza Porton 8",
-        "Aduana",
-        "Taller",
-        "Gate In",
-        "Gate Out",
-        "RR.HH.",
-        "IT",
-        "Oficina",
-        "Contenedor Expo",
-        "Contenedor Impo",
-        "Enfermeria",
-        "Pañol",
-        "Ventanilla",
+    $sectores = @(
         "Seguridad",
-        "Comedor",
-        "Stock"
+        "Sistemas",
+        "Mantenimiento",
+        "Pañol",
+        "Compras",
+        "Sala de reunion",
+        "Taller",
+        "Aduana",
+        "Comercial",
+        "Finanzas",
+        "Recursos Humanos",
+        "Planeamiento",
+        "Operaciones FDC",
+        "Operaciones ZP",
+        "Directorio",
+        "Adm. Expo / Impo",
+        "Logistica",
+        "Finanzas",
+        "Comercial",
+        "Servicio al Cliente",
+        "Gerencia",
+        "Coord. Impo"
     )
+
+    $ubicaciones = @(
+        "GateIN",
+        "GateOUT",
+        "Adm. Expo.",
+        "Adm. Impo",
+        "Seguridad",
+        "Pañol",
+        "Balanza Porton 2",
+        "Balanza Porton 4",
+        "Balanza Porton 6",
+        "Balanza Porton 8",
+        "Recursos Humanos",
+        "Contenedor Expo.",
+        "Contenedor Impo",
+        "Ventanilla",
+        "RR.HH.",
+        "Enfermeria",
+        "Senasa",
+        "Aduana"
+    )
+    
 
 
     $tipos = @(
@@ -110,8 +115,9 @@ try {
         "Facundo Muñiz"
     )
 
+    $gerencia = Seleccionar-Opcion "GERENCIA" $gerencias
     $sector = Seleccionar-Opcion "SECTOR" $sectores
-    $sectorIT = Seleccionar-Opcion "SECTOR IT" $sectorIT
+    $ubicacion = Seleccionar-Opcion "UBICACION" $ubicaciones
     $tipoEquipo = Seleccionar-Opcion "TIPO DE EQUIPO" $tipos
     $estadoEquipo = Seleccionar-Opcion "ESTADO DEL EQUIPO" $estados
     $tecnico = Seleccionar-Opcion "TECNICO" $tecnicos
@@ -248,8 +254,9 @@ try {
         AnyDesk          = $anydesk
         IpEth            = $ipEth
         Windows          = $windows
+        Gerencia         = $gerencia
         Sector           = $sector
-        SectorIT         = $sectorIT
+        Ubicacion        = $ubicacion
         TipoEquipo       = $tipoEquipo
         EstadoEquipo     = $estadoEquipo
         Tecnico          = $tecnico
