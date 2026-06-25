@@ -84,7 +84,7 @@ try {
 }
 
 $ubicaciones = @(
-        "Sistemas",
+        "IT",
         "GateIN",
         "GateOUT",
         "Adm. Expo.",
