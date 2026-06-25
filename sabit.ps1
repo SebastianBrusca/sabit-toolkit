@@ -64,7 +64,6 @@ function Mostrar-Banner {
     Write-Host "              SABIT - SOPORTE TECNICO " -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host "                   Version 1.1.85           " -ForegroundColor Green
-    Write-Host $hora -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
 }
@@ -121,7 +120,7 @@ function Menu-Principal {
         Write-Host "[0] Salir" -ForegroundColor Red
         Write-Host ""
 
-        $key = Leer-Opcion-Con-Hora
+        $key = Read-Host "Seleccione una opcion"
 
         if ($key -eq '0') {
             Clear-Host
