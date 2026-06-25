@@ -63,56 +63,13 @@ function Mostrar-Banner {
     Write-Host ""
     Write-Host "              SABIT - SOPORTE TECNICO " -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
-    Write-Host "           Version 1.1.85            Hora: " -NoNewline -ForegroundColor Green
+    Write-Host "                   Version 1.1.85           " -ForegroundColor Green
     Write-Host $hora -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
 }
 
-# ================= ACTUALIZAR HORA Y LEER OPCION =================
-function Leer-Opcion-Con-Hora {
-    Write-Host "Selecciona una opcion: " -NoNewline -ForegroundColor White
 
-    $inputX = [Console]::CursorLeft
-    $inputY = [Console]::CursorTop
-
-    $horaX = 43
-    $horaY = 9
-
-    $texto = ""
-
-    while ($true) {
-        [Console]::SetCursorPosition($horaX, $horaY)
-        Write-Host "$(Get-Date -Format 'HH:mm:ss')" -NoNewline -ForegroundColor Green
-
-        [Console]::SetCursorPosition($inputX, $inputY)
-        Write-Host (" " * 20) -NoNewline
-        [Console]::SetCursorPosition($inputX, $inputY)
-        Write-Host $texto -NoNewline -ForegroundColor Cyan
-
-        if ([Console]::KeyAvailable) {
-            $tecla = [Console]::ReadKey($true)
-
-            if ($tecla.Key -eq 'Enter') {
-                Write-Host ""
-                return $texto
-            }
-
-            if ($tecla.Key -eq 'Backspace') {
-                if ($texto.Length -gt 0) {
-                    $texto = $texto.Substring(0, $texto.Length - 1)
-                }
-                continue
-            }
-
-            if ($tecla.KeyChar -match '[0-9A-Za-z]') {
-                $texto += $tecla.KeyChar
-            }
-        }
-
-        Start-Sleep -Milliseconds 150
-    }
-}
 
 # ================= SPINNER ANIMADO =================
 function Mostrar-Spinner {
