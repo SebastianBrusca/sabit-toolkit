@@ -98,10 +98,8 @@ try {
 
     $procesador = (Get-CimInstance Win32_Processor).Name.Trim()
 
-    $ram = "{0} GB" -f (
-        [math]::Round(
-            (Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory / 1GB
-        )
+    $ram = [math]::Round(
+    (Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory / 1GB
     )
 
     $disco = Get-CimInstance Win32_LogicalDisk |
@@ -114,32 +112,32 @@ try {
     switch ($tamanoReal) {
 
         {$_ -ge 100 -and $_ -lt 130} {
-            $almacenamiento = "120 GB"
+            $almacenamiento = "120"
             break
         }
 
         {$_ -ge 210 -and $_ -lt 245} {
-            $almacenamiento = "240 GB"
+            $almacenamiento = "240"
             break
         }
 
         {$_ -ge 245 -and $_ -lt 280} {
-            $almacenamiento = "256 GB"
+            $almacenamiento = "256"
             break
         }
 
         {$_ -ge 430 -and $_ -lt 520} {
-            $almacenamiento = "500 GB"
+            $almacenamiento = "500"
             break
         }
 
         {$_ -ge 850 -and $_ -lt 980} {
-            $almacenamiento = "1000 GB"
+            $almacenamiento = "1000"
             break
         }
 
         default {
-            $almacenamiento = "$tamanoReal GB"
+            $almacenamiento = $tamanoReal
         }
     }
 
