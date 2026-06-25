@@ -56,7 +56,7 @@ try {
         "Seguridad",
         "Sistemas",
         "Mantenimiento",
-        "Pañol",
+        "Panol",
         "Compras",
         "Sala de reunion",
         "Taller",
@@ -84,12 +84,13 @@ try {
 }
 
 $ubicaciones = @(
+        "Sistemas",
         "GateIN",
         "GateOUT",
         "Adm. Expo.",
         "Adm. Impo",
         "Seguridad",
-        "Pañol",
+        "Panol",
         "Balanza Porton 2",
         "Balanza Porton 4",
         "Balanza Porton 6",
@@ -120,7 +121,9 @@ $ubicaciones = @(
 
     $tecnicos = @(
         "Sebastian Brusca",
-        "Facundo Muñiz"
+        "Facundo Muniz",
+        "Mariano Pestillo",
+        "Marcelo Melle"
     )
 
     $gerencia = Seleccionar-Opcion "GERENCIA" $gerencias
