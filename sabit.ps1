@@ -63,7 +63,7 @@ function Mostrar-Banner {
     Write-Host ""
     Write-Host "              SABIT - SOPORTE TECNICO " -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
-    Write-Host "                   Version 1.1.87           " -ForegroundColor Green
+    Write-Host "                   Version 1.1.88           " -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
 }
