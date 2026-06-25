@@ -66,6 +66,33 @@ try {
         "Administracion"
     )
 
+    $sectorIT = @(
+        "Balanza Porton 1",
+        "Balanza Porton 2",
+        "Balanza Porton 3",
+        "Balanza Porton 4",
+        "Balanza Porton 5",
+        "Balanza Porton 6",
+        "Balanza Porton 7",
+        "Balanza Porton 8",
+        "Aduana",
+        "Taller",
+        "Gate In",
+        "Gate Out",
+        "RR.HH.",
+        "IT",
+        "Oficina",
+        "Contenedor Expo",
+        "Contenedor Impo",
+        "Enfermeria",
+        "Pañol",
+        "Ventanilla",
+        "Seguridad",
+        "Comedor",
+        "Stock"
+    )
+
+
     $tipos = @(
         "Notebook",
         "Brix"
@@ -84,6 +111,7 @@ try {
     )
 
     $sector = Seleccionar-Opcion "SECTOR" $sectores
+    $sectorIT = Seleccionar-Opcion "SECTOR IT" $sectorIT
     $tipoEquipo = Seleccionar-Opcion "TIPO DE EQUIPO" $tipos
     $estadoEquipo = Seleccionar-Opcion "ESTADO DEL EQUIPO" $estados
     $tecnico = Seleccionar-Opcion "TECNICO" $tecnicos
@@ -221,6 +249,7 @@ try {
         IpEth            = $ipEth
         Windows          = $windows
         Sector           = $sector
+        SectorIT         = $sectorIT
         TipoEquipo       = $tipoEquipo
         EstadoEquipo     = $estadoEquipo
         Tecnico          = $tecnico
