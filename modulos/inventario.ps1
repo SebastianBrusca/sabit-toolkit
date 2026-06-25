@@ -50,7 +50,9 @@ try {
         "Externo"
     )
 
-    $sectores = @(
+    $sectoresPorGerencia = @{
+
+    "Servicios" = @(
         "Seguridad",
         "Sistemas",
         "Mantenimiento",
@@ -58,14 +60,15 @@ try {
         "Compras",
         "Sala de reunion",
         "Taller",
-        "Aduana",
-        "Comercial",
-        "Finanzas",
+        "Servicios"
+    )
+
+    "Administracion" = @(
         "Recursos Humanos",
         "Planeamiento",
         "Operaciones FDC",
-        "Operaciones ZP",
         "Directorio",
+        "Operaciones ZP",
         "Adm. Expo / Impo",
         "Logistica",
         "Finanzas",
@@ -75,7 +78,12 @@ try {
         "Coord. Impo"
     )
 
-    $ubicaciones = @(
+    "Aduana" = @("Aduana")
+    "Comercial" = @("Comercial")
+    "Externo" = @("Finanzas")
+}
+
+$ubicaciones = @(
         "GateIN",
         "GateOUT",
         "Adm. Expo.",
@@ -116,7 +124,9 @@ try {
     )
 
     $gerencia = Seleccionar-Opcion "GERENCIA" $gerencias
-    $sector = Seleccionar-Opcion "SECTOR" $sectores
+    $sector = Seleccionar-Opcion `
+    "SECTOR" `
+    $sectoresPorGerencia[$gerencia]
     $ubicacion = Seleccionar-Opcion "UBICACION" $ubicaciones
     $tipoEquipo = Seleccionar-Opcion "TIPO DE EQUIPO" $tipos
     $estadoEquipo = Seleccionar-Opcion "ESTADO DEL EQUIPO" $estados
