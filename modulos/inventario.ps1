@@ -7,7 +7,7 @@ function Seleccionar-Opcion {
     while ($true) {
 
         Clear-Host
-
+    
         Write-Host ""
         Write-Host "==============================================" -ForegroundColor Cyan
         Write-Host " $Titulo" -ForegroundColor Yellow
@@ -22,13 +22,16 @@ function Seleccionar-Opcion {
 
         $seleccion = Read-Host "Seleccione una opcion"
 
-        if (($seleccion -as [int]) -and
-            $seleccion -ge 1 -and
-            $seleccion -le $Opciones.Count) {
+        $numero = 0
 
-            return $Opciones[$seleccion - 1]
+        if ([int]::TryParse($seleccion, [ref]$numero)) {
+    
+            if ($numero -ge 1 -and $numero -le $Opciones.Count) {
+                return $Opciones[$numero - 1]
+            }
+    
         }
-
+    
         Write-Host ""
         Write-Host "Opcion invalida." -ForegroundColor Red
         Start-Sleep 2
