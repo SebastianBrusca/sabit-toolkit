@@ -144,9 +144,9 @@ $ubicaciones = @(
     )
 
     $paso = 0
+    $continuar = $true
 
-
-while ($true) {
+while ($continuar) {
 
     switch ($paso) {
 
@@ -265,7 +265,7 @@ while ($true) {
                 $paso = 5
             }
             else {
-                break 2
+                $continuar = $false 
             }
         }
 
