@@ -19,14 +19,8 @@ function Seleccionar-Opcion {
         }
 
         Write-Host ""
-        Write-Host " 0) Volver" -ForegroundColor Yellow
-        Write-Host ""
 
         $seleccion = Read-Host "Seleccione una opcion"
-
-        if ($seleccion -eq "0") {
-            return "__VOLVER__"
-        }
 
         $numero = 0
 
@@ -140,14 +134,42 @@ $ubicaciones = @(
         "Marcelo Melle"
     )
 
-    $gerencia = Seleccionar-Opcion "GERENCIA" $gerencias
-    $sector = Seleccionar-Opcion `
-    "SECTOR" `
-    $sectoresPorGerencia[$gerencia]
-    $ubicacion = Seleccionar-Opcion "UBICACION" $ubicaciones
-    $tipoEquipo = Seleccionar-Opcion "TIPO DE EQUIPO" $tipos
-    $estadoEquipo = Seleccionar-Opcion "ESTADO DEL EQUIPO" $estados
-    $tecnico = Seleccionar-Opcion "TECNICO" $tecnicos
+    while ($true) {
+
+        $gerencia = Seleccionar-Opcion "GERENCIA" $gerencias
+
+        while ($true) {
+
+            $sector = Seleccionar-Opcion "SECTOR" $sectoresPorGerencia[$gerencia] -PermitirVolver
+            if ($sector -eq "__VOLVER__") { break }
+
+            while ($true) {
+
+                $ubicacion = Seleccionar-Opcion "UBICACION" $ubicaciones -PermitirVolver
+                if ($ubicacion -eq "__VOLVER__") { break }
+
+                while ($true) {
+
+                    $tipoEquipo = Seleccionar-Opcion "TIPO DE EQUIPO" $tipos -PermitirVolver
+                    if ($tipoEquipo -eq "__VOLVER__") { break }
+
+                    while ($true) {
+
+                        $estadoEquipo = Seleccionar-Opcion "ESTADO DEL EQUIPO" $estados -PermitirVolver
+                        if ($estadoEquipo -eq "__VOLVER__") { break }
+
+                        while ($true) {
+
+                            $tecnico = Seleccionar-Opcion "TECNICO" $tecnicos -PermitirVolver
+                            if ($tecnico -eq "__VOLVER__") { break }
+
+                            break 5
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     Write-Host ""
     Write-Host "Relevando informacion..." -ForegroundColor Cyan
@@ -336,6 +358,10 @@ catch {
     Write-Host $_.Exception.Message -ForegroundColor Yellow
     Write-Host ""
 
+}
+
+Write-Host ""
+Read-Host "Presione ENTER para continuar"
 }
 
 Write-Host ""
