@@ -159,7 +159,7 @@ while ($true) {
             $sede = Seleccionar-Opcion "SEDE" $sedes -PermitirVolver
 
             if ($sede -eq "__VOLVER__") {
-                exit
+                 return
             }
 
             $paso = 1
