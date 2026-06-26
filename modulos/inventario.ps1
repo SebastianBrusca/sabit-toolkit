@@ -42,6 +42,14 @@ try {
 
     $url = "https://script.google.com/macros/s/AKfycbyCPOuuOjxshxqytr7oDZ5rLOASPQxV1c_T06cVMvG8uJqne5pRUsG3bmBOW6cvRbXr/exec"
 
+    $sedes = @(
+        "Puerto",
+        "Barracas"
+    )
+
+    $sede = Seleccionar-Opcion "SEDE" $sedes
+
+
     $gerencias = @(
         "Servicios",
         "Administracion",
@@ -257,6 +265,9 @@ $ubicaciones = @(
 
     $body = @{
         Token            = "SABIT-INV-2026"
+        
+        Sede             = $sede
+        
         Nombre           = $nombre
         Usuario          = $usuario
         MacEth           = $macEth
