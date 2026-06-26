@@ -265,7 +265,7 @@ while ($true) {
                 $paso = 5
             }
             else {
-                break
+                break 2
             }
         }
 
