@@ -146,45 +146,134 @@ $ubicaciones = @(
 
     $paso = 0
 
-    while ($true) {
+    $paso = 0
 
-        switch ($paso) {
+while ($true) {
 
-            0 {
-                $gerencia = Seleccionar-Opcion "GERENCIA" $gerencias
-                $paso = 1
+    switch ($paso) {
+
+        #==========================
+        # SEDE
+        #==========================
+        0 {
+
+            $sede = Seleccionar-Opcion "SEDE" $sedes -PermitirVolver
+
+            if ($sede -eq "__VOLVER__") {
+                return
             }
 
-            1 {
-                $sector = Seleccionar-Opcion "SECTOR" $sectoresPorGerencia[$gerencia] -PermitirVolver
-                if ($sector -eq "__VOLVER__") { $paso = 0 } else { $paso = 2 }
-            }
+            $paso = 1
+        }
 
-            2 {
-                $ubicacion = Seleccionar-Opcion "UBICACION" $ubicaciones -PermitirVolver
-                if ($ubicacion -eq "__VOLVER__") { $paso = 1 } else { $paso = 3 }
-            }
+        #==========================
+        # GERENCIA
+        #==========================
+        1 {
 
-            3 {
-                $tipoEquipo = Seleccionar-Opcion "TIPO DE EQUIPO" $tipos -PermitirVolver
-                if ($tipoEquipo -eq "__VOLVER__") { $paso = 2 } else { $paso = 4 }
-            }
+            $gerencia = Seleccionar-Opcion "GERENCIA" $gerencias -PermitirVolver
 
-            4 {
-                $estadoEquipo = Seleccionar-Opcion "ESTADO DEL EQUIPO" $estados -PermitirVolver
-                if ($estadoEquipo -eq "__VOLVER__") { $paso = 3 } else { $paso = 5 }
+            if ($gerencia -eq "__VOLVER__") {
+                $paso = 0
             }
-
-            5 {
-                $tecnico = Seleccionar-Opcion "TECNICO" $tecnicos -PermitirVolver
-                if ($tecnico -eq "__VOLVER__") {
-                    $paso = 4
-                } else {
-                    break
-                }
+            else {
+                $paso = 2
             }
         }
+
+        #==========================
+        # SECTOR
+        #==========================
+        2 {
+
+            $sector = Seleccionar-Opcion `
+                "SECTOR" `
+                $sectoresPorGerencia[$gerencia] `
+                -PermitirVolver
+
+            if ($sector -eq "__VOLVER__") {
+                $paso = 1
+            }
+            else {
+                $paso = 3
+            }
+        }
+
+        #==========================
+        # UBICACION
+        #==========================
+        3 {
+
+            $ubicacion = Seleccionar-Opcion `
+                "UBICACION" `
+                $ubicaciones `
+                -PermitirVolver
+
+            if ($ubicacion -eq "__VOLVER__") {
+                $paso = 2
+            }
+            else {
+                $paso = 4
+            }
+        }
+
+        #==========================
+        # TIPO
+        #==========================
+        4 {
+
+            $tipoEquipo = Seleccionar-Opcion `
+                "TIPO DE EQUIPO" `
+                $tipos `
+                -PermitirVolver
+
+            if ($tipoEquipo -eq "__VOLVER__") {
+                $paso = 3
+            }
+            else {
+                $paso = 5
+            }
+        }
+
+        #==========================
+        # ESTADO
+        #==========================
+        5 {
+
+            $estadoEquipo = Seleccionar-Opcion `
+                "ESTADO DEL EQUIPO" `
+                $estados `
+                -PermitirVolver
+
+            if ($estadoEquipo -eq "__VOLVER__") {
+                $paso = 4
+            }
+            else {
+                $paso = 6
+            }
+        }
+
+        #==========================
+        # TECNICO
+        #==========================
+        6 {
+
+            $tecnico = Seleccionar-Opcion `
+                "TECNICO" `
+                $tecnicos `
+                -PermitirVolver
+
+            if ($tecnico -eq "__VOLVER__") {
+                $paso = 5
+            }
+            else {
+                break
+            }
+        }
+
     }
+
+}
 
     Write-Host ""
     Write-Host "Relevando informacion..." -ForegroundColor Cyan
