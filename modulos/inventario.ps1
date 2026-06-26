@@ -1,37 +1,38 @@
 function Seleccionar-Opcion {
     param(
         [string]$Titulo,
-        [string[]]$Opciones
+        [string[]]$Opciones,
+        [switch]$PermitirVolver
     )
 
     while ($true) {
-
         Clear-Host
-    
         Write-Host ""
         Write-Host "==============================================" -ForegroundColor Cyan
         Write-Host " $Titulo" -ForegroundColor Yellow
         Write-Host "==============================================" -ForegroundColor Cyan
         Write-Host ""
 
-        for ($i = 0; $i -lt $Opciones.Count; $i++) {
-            Write-Host ("{0,2}) {1}" -f ($i + 1), $Opciones[$i])
+        if ($PermitirVolver) {
+            Write-Host " 0) << Volver" -ForegroundColor DarkYellow
+        }
+
+        for ($i=0; $i -lt $Opciones.Count; $i++) {
+            Write-Host ("{0,2}) {1}" -f ($i+1),$Opciones[$i])
         }
 
         Write-Host ""
+        $seleccion=Read-Host "Seleccione una opcion"
 
-        $seleccion = Read-Host "Seleccione una opcion"
+        if($PermitirVolver -and $seleccion -eq "0"){ return "__VOLVER__" }
 
-        $numero = 0
-
-        if ([int]::TryParse($seleccion, [ref]$numero)) {
-    
-            if ($numero -ge 1 -and $numero -le $Opciones.Count) {
-                return $Opciones[$numero - 1]
+        $n=0
+        if([int]::TryParse($seleccion,[ref]$n)){
+            if($n -ge 1 -and $n -le $Opciones.Count){
+                return $Opciones[$n-1]
             }
-    
         }
-    
+
         Write-Host ""
         Write-Host "Opcion invalida." -ForegroundColor Red
         Start-Sleep 2
@@ -134,38 +135,43 @@ $ubicaciones = @(
         "Marcelo Melle"
     )
 
+    $paso = 0
+
     while ($true) {
 
-        $gerencia = Seleccionar-Opcion "GERENCIA" $gerencias
+        switch ($paso) {
 
-        while ($true) {
+            0 {
+                $gerencia = Seleccionar-Opcion "GERENCIA" $gerencias
+                $paso = 1
+            }
 
-            $sector = Seleccionar-Opcion "SECTOR" $sectoresPorGerencia[$gerencia] -PermitirVolver
-            if ($sector -eq "__VOLVER__") { break }
+            1 {
+                $sector = Seleccionar-Opcion "SECTOR" $sectoresPorGerencia[$gerencia] -PermitirVolver
+                if ($sector -eq "__VOLVER__") { $paso = 0 } else { $paso = 2 }
+            }
 
-            while ($true) {
-
+            2 {
                 $ubicacion = Seleccionar-Opcion "UBICACION" $ubicaciones -PermitirVolver
-                if ($ubicacion -eq "__VOLVER__") { break }
+                if ($ubicacion -eq "__VOLVER__") { $paso = 1 } else { $paso = 3 }
+            }
 
-                while ($true) {
+            3 {
+                $tipoEquipo = Seleccionar-Opcion "TIPO DE EQUIPO" $tipos -PermitirVolver
+                if ($tipoEquipo -eq "__VOLVER__") { $paso = 2 } else { $paso = 4 }
+            }
 
-                    $tipoEquipo = Seleccionar-Opcion "TIPO DE EQUIPO" $tipos -PermitirVolver
-                    if ($tipoEquipo -eq "__VOLVER__") { break }
+            4 {
+                $estadoEquipo = Seleccionar-Opcion "ESTADO DEL EQUIPO" $estados -PermitirVolver
+                if ($estadoEquipo -eq "__VOLVER__") { $paso = 3 } else { $paso = 5 }
+            }
 
-                    while ($true) {
-
-                        $estadoEquipo = Seleccionar-Opcion "ESTADO DEL EQUIPO" $estados -PermitirVolver
-                        if ($estadoEquipo -eq "__VOLVER__") { break }
-
-                        while ($true) {
-
-                            $tecnico = Seleccionar-Opcion "TECNICO" $tecnicos -PermitirVolver
-                            if ($tecnico -eq "__VOLVER__") { break }
-
-                            break 5
-                        }
-                    }
+            5 {
+                $tecnico = Seleccionar-Opcion "TECNICO" $tecnicos -PermitirVolver
+                if ($tecnico -eq "__VOLVER__") {
+                    $paso = 4
+                } else {
+                    break
                 }
             }
         }
@@ -358,10 +364,6 @@ catch {
     Write-Host $_.Exception.Message -ForegroundColor Yellow
     Write-Host ""
 
-}
-
-Write-Host ""
-Read-Host "Presione ENTER para continuar"
 }
 
 Write-Host ""
