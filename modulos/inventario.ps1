@@ -6,30 +6,39 @@ function Seleccionar-Opcion {
     )
 
     while ($true) {
+
         Clear-Host
+
         Write-Host ""
         Write-Host "==============================================" -ForegroundColor Cyan
         Write-Host " $Titulo" -ForegroundColor Yellow
         Write-Host "==============================================" -ForegroundColor Cyan
         Write-Host ""
 
-        if ($PermitirVolver) {
-            Write-Host " 0) << Volver" -ForegroundColor DarkYellow
+        for ($i = 0; $i -lt $Opciones.Count; $i++) {
+            Write-Host (" {0}) {1}" -f ($i + 1), $Opciones[$i])
         }
 
-        for ($i=0; $i -lt $Opciones.Count; $i++) {
-            Write-Host ("{0,2}) {1}" -f ($i+1),$Opciones[$i])
+        if ($PermitirVolver) {
+            Write-Host ""
+            Write-Host "----------------------------------------------" -ForegroundColor DarkGray
+            Write-Host " 0) Volver" -ForegroundColor Yellow
         }
 
         Write-Host ""
-        $seleccion=Read-Host "Seleccione una opcion"
 
-        if($PermitirVolver -and $seleccion -eq "0"){ return "__VOLVER__" }
+        $seleccion = Read-Host "Seleccione una opcion"
 
-        $n=0
-        if([int]::TryParse($seleccion,[ref]$n)){
-            if($n -ge 1 -and $n -le $Opciones.Count){
-                return $Opciones[$n-1]
+        if ($PermitirVolver -and $seleccion -eq "0") {
+            return "__VOLVER__"
+        }
+
+        $numero = 0
+
+        if ([int]::TryParse($seleccion, [ref]$numero)) {
+
+            if ($numero -ge 1 -and $numero -le $Opciones.Count) {
+                return $Opciones[$numero - 1]
             }
         }
 
