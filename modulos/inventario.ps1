@@ -57,7 +57,6 @@ try {
         "Barracas"
     )
 
-    $sede = Seleccionar-Opcion "SEDE" $sedes
 
 
     $gerencias = @(
