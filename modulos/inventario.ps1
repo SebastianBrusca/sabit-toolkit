@@ -146,7 +146,6 @@ $ubicaciones = @(
 
     $paso = 0
 
-    $paso = 0
 
 while ($true) {
 
@@ -160,7 +159,7 @@ while ($true) {
             $sede = Seleccionar-Opcion "SEDE" $sedes -PermitirVolver
 
             if ($sede -eq "__VOLVER__") {
-                return
+                exit
             }
 
             $paso = 1
