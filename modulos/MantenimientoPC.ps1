@@ -60,49 +60,99 @@ try {
         "No"
     )
 
+    $tecnicos = @(
+    "Sebastian Brusca",
+    "Facundo Muniz",
+    "Mariano Pestillo",
+    "Marcelo Melle"
+    )
+
     $paso = 0
     $continuar = $true
 
     while($continuar){
 
-        switch($paso){
+    switch($paso){
 
-            0{
-                $sede = Seleccionar-Opcion "SEDE" $sedes -PermitirVolver
-                if($sede -eq "__VOLVER__"){ return }
+        #==========================
+        # SEDE
+        #==========================
+        0{
+            $sede = Seleccionar-Opcion "SEDE" $sedes -PermitirVolver
+
+            if($sede -eq "__VOLVER__"){
+                return
+            }
+
+            $paso = 1
+        }
+
+        #==========================
+        # PASTA TERMICA
+        #==========================
+        1{
+            $pasta = Seleccionar-Opcion "¿SE CAMBIO LA PASTA TERMICA?" $siNo -PermitirVolver
+
+            if($pasta -eq "__VOLVER__"){
+                $paso = 0
+            }
+            else{
+                $paso = 2
+            }
+        }
+
+        #==========================
+        # COOLER
+        #==========================
+        2{
+            $cooler = Seleccionar-Opcion "¿SE LIMPIO EL COOLER?" $siNo -PermitirVolver
+
+            if($cooler -eq "__VOLVER__"){
                 $paso = 1
             }
+            else{
+                $paso = 3
+            }
+        }
 
-            1{
-                $pasta = Seleccionar-Opcion "¿SE CAMBIO LA PASTA TERMICA?" $siNo -PermitirVolver
-                if($pasta -eq "__VOLVER__"){
-                    $paso = 0
-                }else{
-                    $paso = 2
-                }
+        #==========================
+        # TECNICO
+        #==========================
+        3{
+
+            $tecnico = Seleccionar-Opcion `
+                "TECNICO" `
+                $tecnicos `
+                -PermitirVolver
+
+            if($tecnico -eq "__VOLVER__"){
+                $paso = 2
+            }
+            else{
+                $paso = 4
             }
 
-            2{
-                $cooler = Seleccionar-Opcion "¿SE LIMPIO EL COOLER?" $siNo -PermitirVolver
-                if($cooler -eq "__VOLVER__"){
-                    $paso = 1
-                }else{
-                    $paso = 3
-                }
-            }
+        }
 
-            3{
-                Clear-Host
-                Write-Host ""
-                Write-Host "==============================================" -ForegroundColor Cyan
-                Write-Host " NOTA (Opcional)" -ForegroundColor Yellow
-                Write-Host "==============================================" -ForegroundColor Cyan
-                Write-Host ""
-                Write-Host "Deje vacio si no desea registrar ninguna nota."
-                Write-Host ""
-                $nota = Read-Host "Nota"
+        #==========================
+        # NOTA
+        #==========================
+        4{
 
-                $continuar = $false
+            Clear-Host
+
+            Write-Host ""
+            Write-Host "==============================================" -ForegroundColor Cyan
+            Write-Host " NOTA (Opcional)" -ForegroundColor Yellow
+            Write-Host "==============================================" -ForegroundColor Cyan
+            Write-Host ""
+            Write-Host "Deje vacio si no desea registrar ninguna nota."
+            Write-Host ""
+
+            $nota = Read-Host "Nota"
+
+            $continuar = $false
+
             }
 
         }
