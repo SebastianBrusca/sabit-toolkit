@@ -63,7 +63,7 @@ function Mostrar-Banner {
     Write-Host ""
     Write-Host "              SABIT - SOPORTE TECNICO " -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
-    Write-Host "                   Version 1.1.4           " -ForegroundColor Green
+    Write-Host "                   Version 1.1.5           " -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
 }
@@ -115,6 +115,8 @@ function Menu-Principal {
         Write-Host "[8] Calipso A/D" -ForegroundColor White
         Write-Host ""
         Write-Host "[9] Inventario" -ForegroundColor White
+        Write-Host ""
+        Write-Host "[10] MantenimientoPC" -ForegroundColor White
         
         Write-Host ""
         Write-Host "[0] Salir" -ForegroundColor Red
@@ -139,6 +141,7 @@ function Menu-Principal {
             '7' = "Anydesk.ps1"
             '8' = "CalipsoAccesoDirecto.ps1"
             '9' = "inventario.ps1"
+            '10' = "MantenimientoPC.ps1"
         }
 
         if ($urls.ContainsKey($key)) {
