@@ -395,6 +395,7 @@ while ($continuar) {
 
     $body = @{
         Token            = "SABIT-INV-2026"
+        Accion           = "Inventario"
         
         Sede             = $sede
         
