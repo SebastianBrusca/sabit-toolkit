@@ -197,6 +197,7 @@ try {
         ProximoMantenimiento = $proximoMant.ToString("dd/MM/yyyy")
         Pasta              = $pasta
         Cooler             = $cooler
+        Tecnico            = $tecnico
         Nota               = $nota
         Estado             = "Finalizado"
     } | ConvertTo-Json
