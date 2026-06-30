@@ -150,7 +150,8 @@ $ubicaciones = @(
 
     $paso = 0
     $continuar = $true
-
+    $ups = ""
+    
 while ($continuar) {
 
     switch ($paso) {
@@ -330,7 +331,7 @@ while ($continuar) {
             }
 
             Write-Host ""
-            Write-Host "Debe ingresar un numero valido." -ForegroundColor Red
+            Write-Host "Debe ingresar un numero entero mayor a 0." -ForegroundColor Red
             Start-Sleep 2
 
         }
