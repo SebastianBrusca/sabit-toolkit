@@ -96,6 +96,7 @@ try {
     )
 
     "Aduana" = @("Aduana")
+    
     "Comercial" = @("Comercial")
     "Externo" = @("Finanzas")
 }
@@ -106,6 +107,8 @@ $ubicaciones = @(
         "GateOUT",
         "Adm. Expo.",
         "Adm. Impo",
+        "Adm. Oficina Lado Expo",
+        "Adm. Oficina Lado Impo",
         "Seguridad",
         "Panol",
         "Balanza Porton 2",
@@ -119,6 +122,8 @@ $ubicaciones = @(
         "RR.HH.",
         "Enfermeria",
         "Senasa",
+        "Rack",
+        "Jefatura",
         "Aduana"
     )
     
@@ -132,7 +137,7 @@ $ubicaciones = @(
     $estados = @(
         "En uso",
         "En reparacion",
-        "En deposito",
+        "En Stock",
         "Baja"
     )
 
