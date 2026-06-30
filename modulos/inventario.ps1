@@ -1,4 +1,4 @@
-function Seleccionar-Opcion {
+    function Seleccionar-Opcion {
     param(
         [string]$Titulo,
         [string[]]$Opciones,
@@ -143,6 +143,11 @@ $ubicaciones = @(
         "Marcelo Melle"
     )
 
+    $tieneUps = @(
+    "Si",
+    "No"
+    )
+
     $paso = 0
     $continuar = $true
 
@@ -252,25 +257,114 @@ while ($continuar) {
         }
 
         #==========================
-        # TECNICO
+        # UPS
         #==========================
         6 {
+
+            if ($tipoEquipo -ne "Brix") {
+
+                $ups = ""
+                $paso = 8
+                break
+
+            }
+
+            $respuestaUps = Seleccionar-Opcion `
+                "¿LA PC TIENE UPS?" `
+                $tieneUps `
+                -PermitirVolver
+
+            if ($respuestaUps -eq "__VOLVER__") {
+
+                $paso = 5
+
+            }
+            elseif ($respuestaUps -eq "Si") {
+
+                $paso = 7
+
+            }
+            else {
+
+                $ups = ""
+                $paso = 8
+
+            }
+
+        }
+
+        #==========================
+        # NUMERO UPS
+        #==========================
+        7 {
+
+            Clear-Host
+
+            Write-Host ""
+            Write-Host "==============================================" -ForegroundColor Cyan
+            Write-Host " NUMERO DE UPS" -ForegroundColor Yellow
+            Write-Host "==============================================" -ForegroundColor Cyan
+            Write-Host ""
+
+            $valor = Read-Host "Ingrese el numero de UPS"
+
+            if ($valor -eq "0") {
+
+                $paso = 6
+                break
+
+            }
+
+            $numero = 0
+
+            if ([int]::TryParse($valor,[ref]$numero)) {
+
+                if ($numero -gt 0) {
+
+                    $ups = "UPS $numero"
+                    $paso = 8
+                    break
+
+                }
+
+            }
+
+            Write-Host ""
+            Write-Host "Debe ingresar un numero valido." -ForegroundColor Red
+            Start-Sleep 2
+
+        }
+
+        #==========================
+        # TECNICO
+        #==========================
+        8 {
 
             $tecnico = Seleccionar-Opcion `
                 "TECNICO" `
                 $tecnicos `
                 -PermitirVolver
-
+    
             if ($tecnico -eq "__VOLVER__") {
-                $paso = 5
+
+                if ($tipoEquipo -eq "Brix") {
+
+                    $paso = 7
+
+                }
+                else {
+
+                    $paso = 5
+
+                }
+
             }
             else {
-                $continuar = $false 
+
+                $continuar = $false
             }
         }
-
     }
-
 }
 
     Write-Host ""
@@ -414,6 +508,7 @@ while ($continuar) {
         Ubicacion        = $ubicacion
         TipoEquipo       = $tipoEquipo
         EstadoEquipo     = $estadoEquipo
+        UPS              = $ups
         Tecnico          = $tecnico
     } | ConvertTo-Json
 
