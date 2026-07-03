@@ -1,7 +1,7 @@
 # =============================================
 # Gestion de permisos de administrador Compatible con IEX / Web
 # ================= DEFINIR RAMA =================
-$branch = "main"
+$branch = "main2"
 # =============================================
 
 $esAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")
@@ -63,56 +63,12 @@ function Mostrar-Banner {
     Write-Host ""
     Write-Host "              SABIT - SOPORTE TECNICO " -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
-    Write-Host "           Version 1.1.82            Hora: " -NoNewline -ForegroundColor Green
-    Write-Host $hora -ForegroundColor Green
+    Write-Host "                   Version 1.1.7           " -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
 }
 
-# ================= ACTUALIZAR HORA Y LEER OPCION =================
-function Leer-Opcion-Con-Hora {
-    Write-Host "Selecciona una opcion: " -NoNewline -ForegroundColor White
 
-    $inputX = [Console]::CursorLeft
-    $inputY = [Console]::CursorTop
-
-    $horaX = 43
-    $horaY = 9
-
-    $texto = ""
-
-    while ($true) {
-        [Console]::SetCursorPosition($horaX, $horaY)
-        Write-Host "$(Get-Date -Format 'HH:mm:ss')" -NoNewline -ForegroundColor Green
-
-        [Console]::SetCursorPosition($inputX, $inputY)
-        Write-Host (" " * 20) -NoNewline
-        [Console]::SetCursorPosition($inputX, $inputY)
-        Write-Host $texto -NoNewline -ForegroundColor Cyan
-
-        if ([Console]::KeyAvailable) {
-            $tecla = [Console]::ReadKey($true)
-
-            if ($tecla.Key -eq 'Enter') {
-                Write-Host ""
-                return $texto
-            }
-
-            if ($tecla.Key -eq 'Backspace') {
-                if ($texto.Length -gt 0) {
-                    $texto = $texto.Substring(0, $texto.Length - 1)
-                }
-                continue
-            }
-
-            if ($tecla.KeyChar -match '[0-9A-Za-z]') {
-                $texto += $tecla.KeyChar
-            }
-        }
-
-        Start-Sleep -Milliseconds 150
-    }
-}
 
 # ================= SPINNER ANIMADO =================
 function Mostrar-Spinner {
@@ -142,18 +98,27 @@ function Menu-Principal {
         Clear-Host
         Mostrar-Banner
 
-        Write-Host "[1] Mantenimiento Menu      [2] Activador Win/Office" -ForegroundColor White
+        Write-Host "[1] Mantenimiento Menu" -ForegroundColor White
         Write-Host ""
-        Write-Host "[3] IE Viejo                [4] Descarga Office 2024 " -ForegroundColor White
+        Write-Host "[2] Activador Win/Office" -ForegroundColor White
         Write-Host ""
-        Write-Host "[5] Software Instalado      [6] BalanzaWMS" -ForegroundColor White
+        Write-Host "[3] IE Viejo" -ForegroundColor White
         Write-Host ""
-        Write-Host "[7] Anydesk                 [8] Calipso A/D" -ForegroundColor White
+        Write-Host "[4] Descarga Office 2024" -ForegroundColor White
+        Write-Host ""
+        Write-Host "[5] Software Instalado" -ForegroundColor White
+        Write-Host ""
+        Write-Host "[6] BalanzaWMS" -ForegroundColor White
+        Write-Host ""
+        Write-Host "[7] Anydesk" -ForegroundColor White
+        Write-Host ""
+        Write-Host "[8] Calipso A/D" -ForegroundColor White
+        
         Write-Host ""
         Write-Host "[0] Salir" -ForegroundColor Red
         Write-Host ""
 
-        $key = Leer-Opcion-Con-Hora
+        $key = Read-Host "Seleccione una opcion"
 
         if ($key -eq '0') {
             Clear-Host
