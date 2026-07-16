@@ -118,14 +118,14 @@ function Menu-Principal {
         Write-Host "[0] Salir" -ForegroundColor Red
         Write-Host ""
 
+        $key = Read-Host "Seleccione una opcion"
+
         Write-Host "====================================================" -ForegroundColor Cyan
         Write-Host "  Por Malvinas, por el Diego " -ForegroundColor Green
         Write-Host "  Por la ultima de Leo " -ForegroundColor Green
         Write-Host "  Argentina quiero verte bicampeón  " -ForegroundColor Green
         Write-Host "====================================================" -ForegroundColor Cyan
         Write-Host ""
-
-        $key = Read-Host "Seleccione una opcion"
 
         if ($key -eq '0') {
             Clear-Host
