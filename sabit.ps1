@@ -65,24 +65,23 @@ function Mostrar-Banner {
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host "                   Version 1.1.9           " -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
+    Write-Host "   Soy hincha de la Selección " -ForegroundColor Cyan
+    Write-Host "   La aliento con el corazón "-ForegroundColor  White
+    Write-Host "   Ganamos la tercera con Lionel "-ForegroundColor  White
+    Write-Host "   Queremos ser campeones otra vez " -ForegroundColor Cyan
     Write-Host ""
-    Write-Host " Soy hincha de la Selección " -ForegroundColor Cyan
-    Write-Host " La aliento con el corazón "-ForegroundColor  White
-    Write-Host " Ganamos la tercera con Lionel "-ForegroundColor  White
-    Write-Host " Queremos ser campeones otra vez " -ForegroundColor Cyan
+    Write-Host "   Y 32 años después " -ForegroundColor Cyan
+    Write-Host "   La Scaloneta va a vengar "-ForegroundColor  White
+    Write-Host "   La Copa que le robaron al diez "-ForegroundColor  White
+    Write-Host "   La que no nos dejaron levantar " -ForegroundColor Cyan
     Write-Host ""
-    Write-Host " Y 32 años después " -ForegroundColor Cyan
-    Write-Host " La Scaloneta va a vengar "-ForegroundColor  White
-    Write-Host " La Copa que le robaron al diez "-ForegroundColor  White
-    Write-Host " La que no nos dejaron levantar " -ForegroundColor Cyan
+    Write-Host "   Quiero ver la cuarta estrella " -ForegroundColor Cyan
+    Write-Host "   Brillar en la camiseta " -ForegroundColor  White
+    Write-Host "   Soy argento de la cuna hasta el cajón " -ForegroundColor Cyan
     Write-Host ""
-    Write-Host " Quiero ver la cuarta estrella " -ForegroundColor Cyan
-    Write-Host " Brillar en la camiseta " -ForegroundColor  White
-    Write-Host " Soy argento de la cuna hasta el cajón " -ForegroundColor Cyan
-    Write-Host ""
-    Write-Host "  Por Malvinas, por el Diego " -ForegroundColor Cyan
-    Write-Host "  Por la ultima de Leo " -ForegroundColor  White
-    Write-Host "  Argentina quiero verte bicampeón  " -ForegroundColor Cyan
+    Write-Host "   Por Malvinas, por el Diego " -ForegroundColor Cyan
+    Write-Host "   Por la ultima de Leo " -ForegroundColor  White
+    Write-Host "   Argentina quiero verte bicampeón  " -ForegroundColor Cyan
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
 }
