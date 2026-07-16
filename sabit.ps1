@@ -66,6 +66,14 @@ function Mostrar-Banner {
     Write-Host "                   Version 1.1.8           " -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
+    Write-Host ""
+    Write-Host ""
+    Write-Host "====================================================" -ForegroundColor Cyan
+    Write-Host "  Por Malvinas, por el Diego " -ForegroundColor Green
+    Write-Host "  Por la ultima de Leo " -ForegroundColor Green
+    Write-Host "  Argentina quiero verte bicampeón  " -ForegroundColor Green
+    Write-Host "====================================================" -ForegroundColor Cyan
+    Write-Host ""
 }
 
 
@@ -119,13 +127,6 @@ function Menu-Principal {
         Write-Host ""
 
         $key = Read-Host "Seleccione una opcion"
-
-        Write-Host "====================================================" -ForegroundColor Cyan
-        Write-Host "  Por Malvinas, por el Diego " -ForegroundColor Green
-        Write-Host "  Por la ultima de Leo " -ForegroundColor Green
-        Write-Host "  Argentina quiero verte bicampeón  " -ForegroundColor Green
-        Write-Host "====================================================" -ForegroundColor Cyan
-        Write-Host ""
 
         if ($key -eq '0') {
             Clear-Host
