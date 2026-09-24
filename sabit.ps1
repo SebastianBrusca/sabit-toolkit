@@ -63,7 +63,7 @@ function Mostrar-Banner {
     Write-Host ""
     Write-Host "              SABIT - SOPORTE TECNICO " -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
-    Write-Host "                   Version 1.1.9           " -ForegroundColor Green
+    Write-Host "                   Version 1.1.10           " -ForegroundColor Green
     Write-Host "====================================================" -ForegroundColor Cyan
     Write-Host ""
 }
@@ -113,6 +113,8 @@ function Menu-Principal {
         Write-Host "[7] Anydesk" -ForegroundColor White
         Write-Host ""
         Write-Host "[8] Calipso A/D" -ForegroundColor White
+        Write-Host ""
+        Write-Host "[9] Acitivador Windows Server standar 2025 " -ForegroundColor White
         
         Write-Host ""
         Write-Host "[0] Salir" -ForegroundColor Red
@@ -136,6 +138,7 @@ function Menu-Principal {
             '6' = "BalanzaWMS.ps1"
             '7' = "Anydesk.ps1"
             '8' = "CalipsoAccesoDirecto.ps1"
+            '9' = "ActivadorServer.ps1"
         }
 
         if ($urls.ContainsKey($key)) {
