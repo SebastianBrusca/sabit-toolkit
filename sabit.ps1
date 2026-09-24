@@ -114,7 +114,7 @@ function Menu-Principal {
         Write-Host ""
         Write-Host "[8] Calipso A/D" -ForegroundColor White
         Write-Host ""
-        Write-Host "[8] Acitivador Windows Server standar 2025 " -ForegroundColor White
+        Write-Host "[9] Acitivador Windows Server standar 2025 " -ForegroundColor White
         
         Write-Host ""
         Write-Host "[0] Salir" -ForegroundColor Red
