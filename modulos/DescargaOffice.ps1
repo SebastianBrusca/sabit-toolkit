@@ -53,7 +53,7 @@ if (Test-Path $officeInstaller) {
     Write-Host "Descargando Office 2024 en $downloadsPath..." -ForegroundColor Cyan
 
     try {
-        Invoke-WebRequest -Uri $officeUrl -OutFile $officeInstaller -UseBasicParsing
+        Invoke-WebRequest -Uri $officeUrl -OutFile $officeInstaller
         Write-Host "Descarga completada: $officeInstaller" -ForegroundColor Green
     } catch {
         Write-Host "Error al descargar Office: $($_.Exception.Message)" -ForegroundColor Red
